@@ -27,6 +27,7 @@
           <Property Name="GrowthPattern" Type="nvarchar" MaxLength="50" />
           <Property Name="NewGrowthPattern" Type="nvarchar" MaxLength="50" />
           <Property Name="MushroomID" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="Edibility" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="FungeyeDBModelStoreContainer">
           <EntitySet Name="Mushrooms" EntityType="Self.Mushrooms" Schema="dbo" store:Type="Tables" />
@@ -58,6 +59,7 @@
           <Property Name="GrowthPattern" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NewGrowthPattern" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MushroomID" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Edibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="FungeyeDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Mushrooms" EntityType="Self.Mushroom" />
@@ -89,6 +91,7 @@
                 <ScalarProperty Name="GrowthPattern" ColumnName="GrowthPattern" />
                 <ScalarProperty Name="NewGrowthPattern" ColumnName="NewGrowthPattern" />
                 <ScalarProperty Name="MushroomID" ColumnName="MushroomID" />
+                <ScalarProperty Name="Edibility" ColumnName="Edibility" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

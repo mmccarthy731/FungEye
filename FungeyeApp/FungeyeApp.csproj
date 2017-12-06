@@ -473,13 +473,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <EntityDeploy Include="Models\Mushroom.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Mushroom.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Mushroom.edmx.diagram">
-      <DependentUpon>Mushroom.edmx</DependentUpon>
-    </Content>
     <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\FungeyeApp.dll.config" />
     <Content Include="bin\roslyn\csc.exe.config" />
@@ -495,10 +488,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UserMushroom.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\UserMushroom.edmx.diagram">
-      <DependentUpon>UserMushroom.edmx</DependentUpon>
-    </Content>
-    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\Mushroom.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Mushroom.edmx</DependentUpon>
@@ -509,6 +498,17 @@
       <DependentUpon>Mushroom.edmx</DependentUpon>
       <LastGenOutput>Mushroom1.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\UserMushroom.edmx.diagram">
+      <DependentUpon>UserMushroom.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Mushroom.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Mushroom.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Mushroom.edmx.diagram">
+      <DependentUpon>Mushroom.edmx</DependentUpon>
+    </Content>
+    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\UserMushroom.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>UserMushroom.edmx</DependentUpon>
@@ -578,7 +578,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\IndexPics\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

@@ -7,7 +7,7 @@
 <form action="/Mushroom/ListShroomsByCapChar" method="get">
     <h3>CapChar</h3>
     <select name="CapChar">
-        @foreach (var CapChar in ViewBag.CapChars)
+        @foreach (var CapChar in ViewBag.CapChar)
         {
             <option value="@CapChar">@CapChar</option>
         }
@@ -23,6 +23,7 @@
         <th>Mushroom Common Name</th>
         <th>Mushroom Cap Characteristic</th>
         <th>Mushroom Stem</th>
+        <th>Edibility</th>
     </tr>
     @foreach (var Shrooms in ViewBag.MushroomList)
     {
@@ -41,6 +42,9 @@
             </td>
             <td>
                 @Shrooms.Stem
+            </td>
+            <td>
+                @Shrooms.Edibility
             </td>
         </tr>
     }
