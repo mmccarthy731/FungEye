@@ -4,61 +4,72 @@
     ViewBag.Title = "IdentifyMushrooms";
 }
 
-<form action="/Mushroom/ListShroomsByCapChar" method="get">
-    <h3>CapChar</h3>
+<form action="/Mushroom/FilterResults" method="post">
     <select name="CapChar">
+        <option value="null" selected></option>
         @foreach (var CapChar in ViewBag.CapChars)
         {
             <option value="@CapChar">@CapChar</option>
         }
     </select>
-    @*<select>
+    <select name="CapColor">
+        <option value="null" selected></option>
+        @foreach (var CapColor in ViewBag.CapColors)
+        {
+            <option value="@CapColor">@CapColor</option>
+        }
+    </select>
+    <select name="Stem">
+        <option value="null" selected></option>
         @foreach (var Stem in ViewBag.Stems)
         {
             <option value="@Stem">@Stem</option>
         }
-    </select>*@
-    <input type="submit" value="Search by CapChar" />
+    </select>
+    <input type="submit" value="Filter" />
 </form>
 
 <h2>IdentifyMushrooms</h2>
-<table class="table">
-    <tr>
-        <th>Mushroom Picture</th>
-        <th>Mushroom ID</th>
-        <th>Mushroom Species</th>
-        <th>Mushroom Common Name</th>
-        <th>Mushroom Cap Characteristic</th>
-        <th>Mushroom Stem</th>
-        <th>Edibility</th>
-    </tr>
-    @foreach (var Shrooms in ViewBag.MushroomList)
-    {
+<form action="../Home/UploadImage" method="post">
+    <table class="table">
         <tr>
-            <td>
-                <img src="~/Content/IndexPics/@Shrooms.MushroomID .jpg" style="height:130px; width: 130px" />
-            </td>
-            <td>
-                #@Shrooms.MushroomID
-            </td>
-            <td>
-                @Shrooms.Species
-            </td>
-            <td>
-                @Shrooms.CommonName
-            </td>
-            <td>
-                @Shrooms.CapChar
-            </td>
-            <td>
-                @Shrooms.Stem
-            </td>
-            <td>
-
-                @Shrooms.Edibility
-                Is this the mushroom you picked? <input type="radio" name="shroom" value="@Shrooms.MushroomID" />
-
-            </td>
+            <th>ID</th>
+            <th>Species</th>
+            <th>Common Name</th>
+            <th>Cap Characteristic</th>
+            <th>Cap Color</th>
+            <th>Stem</th>
         </tr>
-    }
-</table>
+
+        @foreach (var Shrooms in ViewBag.MushroomList)
+        {
+            <tr>
+                <td>
+                    <img src="~/Content/IndexPics/@Shrooms.MushroomID .jpg" style="height:130px; width: 130px" />
+                </td>
+                <td>
+                    #@Shrooms.MushroomID
+                </td>
+                <td>
+                    @Shrooms.Species
+                </td>
+                <td>
+                    @Shrooms.CommonName
+                </td>
+                <td>
+                    @Shrooms.CapChar
+                </td>
+                <td>
+                    @Shrooms.CapColor
+                </td>
+                <td>
+                    @Shrooms.Stem
+                </td>
+                <td>
+                    Is this the mushroom you picked? <input type="radio" name="MushroomID" value="@Shrooms.MushroomID" />
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="submit" value="Upload Image" />
+</form>

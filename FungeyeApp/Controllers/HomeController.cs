@@ -23,8 +23,9 @@ namespace FungeyeApp.Controllers
         }
 
         [Authorize]
-        public ActionResult UploadImage()
+        public ActionResult UploadImage(string MushroomID)
         {
+            ViewBag.MushroomID = MushroomID;
             return View();
         }
 
@@ -33,8 +34,8 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
-        
-        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string location, string mushroomID)
+
+        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string location, string MushroomID)
         {
             FungeyeDBEntities1 ORM = new FungeyeDBEntities1();
             UserMushroom newItem = new UserMushroom();
@@ -53,7 +54,7 @@ namespace FungeyeApp.Controllers
                 JObject jsonData = (JObject)uploadResult.JsonObj;
 
                 newItem.UserID = User.Identity.GetUserId();
-                newItem.MushroomID = mushroomID;
+                newItem.MushroomID = MushroomID;
                 newItem.PictureURL = jsonData["secure_url"].ToString();
                 newItem.Address = location;
                 newItem.Name = name;
@@ -62,15 +63,14 @@ namespace FungeyeApp.Controllers
                 ORM.SaveChanges();
 
                 ViewBag.Upload = jsonData["secure_url"];
-                ViewBag.Mike = "Hell yeah!!!";
-            } else
+
+            }
+            else
             {
                 ViewBag.Upload = "FAIL";
             }
 
             return View();
         }
-
-        
     }
 }
