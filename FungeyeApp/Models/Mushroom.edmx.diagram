@@ -4,8 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< HEAD
       <Diagram DiagramId="cbf47a42a9ed44c8913de93ef5f203b5" Name="Diagram1">
         <EntityTypeShape EntityType="FungeyeDBModel.Mushroom" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+=======
+      <Diagram DiagramId="dcc515ee189e4ee9b1d3685cf9131557" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="FungeyeDBModel.Mushroom" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+>>>>>>> 9c54911a2d2af09376f239ca59058e18645a98b4
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

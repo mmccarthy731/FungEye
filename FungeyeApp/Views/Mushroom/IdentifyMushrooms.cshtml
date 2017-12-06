@@ -12,6 +12,12 @@
             <option value="@CapChar">@CapChar</option>
         }
     </select>
+    @*<select>
+        @foreach (var Stem in ViewBag.Stems)
+        {
+            <option value="@Stem">@Stem</option>
+        }
+    </select>*@
     <input type="submit" value="Search by CapChar" />
 </form>
 
@@ -44,7 +50,11 @@
                 @Shrooms.Stem
             </td>
             <td>
+<<<<<<< HEAD
                 @Shrooms.Edibility
+=======
+                Is this the mushroom you picked? <input type="radio" name="shroom" value="@Shrooms.MushroomID" />
+>>>>>>> 9c54911a2d2af09376f239ca59058e18645a98b4
             </td>
         </tr>
     }
