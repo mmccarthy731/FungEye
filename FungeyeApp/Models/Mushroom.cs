@@ -32,5 +32,6 @@ namespace FungeyeApp.Models
         public string GrowthPattern { get; set; }
         public string NewGrowthPattern { get; set; }
         public string MushroomID { get; set; }
+        public string Edibility { get; set; }
     }
 }

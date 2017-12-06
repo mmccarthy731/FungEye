@@ -7,11 +7,17 @@
 <form action="/Mushroom/ListShroomsByCapChar" method="get">
     <h3>CapChar</h3>
     <select name="CapChar">
-        @foreach (var CapChar in ViewBag.CapChars)
+        @foreach (var CapChar in ViewBag.CapChar)
         {
             <option value="@CapChar">@CapChar</option>
         }
     </select>
+    @*<select>
+        @foreach (var Stem in ViewBag.Stems)
+        {
+            <option value="@Stem">@Stem</option>
+        }
+    </select>*@
     <input type="submit" value="Search by CapChar" />
 </form>
 
@@ -23,6 +29,7 @@
         <th>Mushroom Common Name</th>
         <th>Mushroom Cap Characteristic</th>
         <th>Mushroom Stem</th>
+        <th>Edibility</th>
     </tr>
     @foreach (var Shrooms in ViewBag.MushroomList)
     {
@@ -41,6 +48,13 @@
             </td>
             <td>
                 @Shrooms.Stem
+            </td>
+            <td>
+<<<<<<< HEAD
+                @Shrooms.Edibility
+=======
+                Is this the mushroom you picked? <input type="radio" name="shroom" value="@Shrooms.MushroomID" />
+>>>>>>> 9c54911a2d2af09376f239ca59058e18645a98b4
             </td>
         </tr>
     }
