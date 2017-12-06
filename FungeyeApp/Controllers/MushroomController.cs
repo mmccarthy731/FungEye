@@ -29,9 +29,10 @@ namespace FungeyeApp.Controllers
             List<Mushroom> MushroomList = ORM.Mushrooms.ToList();
 
             List<string> CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
+            List<string> Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
 
             ViewBag.CapChars = CapChars;
-
+            ViewBag.Stems = Stems;
             ViewBag.MushroomList = MushroomList;
 
             return View();
@@ -42,7 +43,7 @@ namespace FungeyeApp.Controllers
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
             List<Mushroom> OutputList = new List<Mushroom>();
-            ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar == CapChar).ToList();
+            ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
 
             OutputList = ORM.Mushrooms.SqlQuery($"select * from Mushrooms where CapChar=@param1",
                 new SqlParameter("@param1", CapChar)).ToList();
