@@ -11,6 +11,10 @@
         {
             <option value="@CapChar">@CapChar</option>
         }
+        @foreach (var Stem in ViewBag.Stems)
+        {
+            <option value="@Stem">@Stem</option>
+        }
     </select>
     <input type="submit" value="Search by CapChar" />
 </form>

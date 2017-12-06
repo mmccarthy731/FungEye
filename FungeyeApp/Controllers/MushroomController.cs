@@ -29,10 +29,9 @@ namespace FungeyeApp.Controllers
             List<Mushroom> MushroomList = ORM.Mushrooms.ToList();
 
             List<string> CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
-            List<string> Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
 
             ViewBag.CapChars = CapChars;
-            ViewBag.Stems = Stems;
+
             ViewBag.MushroomList = MushroomList;
 
             return View();
