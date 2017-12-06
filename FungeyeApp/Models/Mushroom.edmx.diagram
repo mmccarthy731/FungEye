@@ -5,7 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="dcc515ee189e4ee9b1d3685cf9131557" Name="Diagram1" ZoomLevel="66">
+<<<<<<< HEAD
         <EntityTypeShape EntityType="FungeyeDBModel.Mushroom" Width="3.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
+=======
+        
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 9c54911a2d2af09376f239ca59058e18645a98b4
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
