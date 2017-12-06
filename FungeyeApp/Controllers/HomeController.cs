@@ -27,29 +27,34 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
-        public ActionResult Contact(string fileName, string imageName)
+        public ActionResult Contact()
+        {
+
+            return View();
+        }
+
+        public ActionResult UploadImage(HttpPostedFileBase fileUpload, string imageName)
         {
 
             Account account = new Account(ServerName, APIKey, APISecret);
             Cloudinary cloudinary = new Cloudinary(account);
 
-            var uploadParams = new ImageUploadParams()
+            if (fileUpload != null)
             {
-                File = new FileDescription(fileName),//set string to input variable of user uploaded image (works with both URLs and file paths)
-                PublicId = imageName
-            };
-            var uploadResult = cloudinary.Upload(uploadParams);
+                var uploadParams = new ImageUploadParams
+                {
+                    File = new FileDescription(fileUpload.FileName, fileUpload.InputStream),
+                    PublicId = imageName
+                };
+                var uploadResult = cloudinary.Upload(uploadParams);
 
-            JObject jsonData = (JObject)uploadResult.JsonObj;
+                JObject jsonData = (JObject)uploadResult.JsonObj;
 
-            ViewBag.Upload = jsonData["secure_url"];
-
-
-            return View();
-        }
-
-        public ActionResult UploadImage()
-        {
+                ViewBag.Upload = jsonData["secure_url"];
+            } else
+            {
+                ViewBag.Upload = "FAIL";
+            }
 
             return View();
         }

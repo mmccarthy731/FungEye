@@ -5,6 +5,12 @@
 <h3>@ViewBag.Message</h3>
 
 <p>Use this area to provide additional information.</p>
-<img src='http://res.cloudinary.com/fungeye/image/upload/v1512423435/yon2u2zdbgxpsr4jselm.jpg'
-     width='100' height='150'/>
-<img src='http://res.cloudinary.com/fungeye/image/upload/v1512482222/mncsb6zcetscegfsizwl.jpg' />
+@using (Html.BeginForm("UploadImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{ 
+    <p>
+        <input type="file" id="fileUpload" name="fileUpload" size="23" />
+        <input type="text" name="imageName" />
+    </p>
+    <p>
+        <input type="submit" value="Upload file" /></p> 
+}
