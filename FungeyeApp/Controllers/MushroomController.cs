@@ -9,8 +9,8 @@ using System.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Data.SqlClient;
-
 using FungeyeApp.Models;
+
 
 namespace FungeyeApp.Controllers
 {
