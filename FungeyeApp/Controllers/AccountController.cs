@@ -151,7 +151,7 @@ namespace FungeyeApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, UserName = model.UserName};
+                var user = new ApplicationUser { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, UserName = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

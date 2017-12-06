@@ -7,7 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
 using Newtonsoft.Json.Linq;
-
+using FungeyeApp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FungeyeApp.Controllers
 {
@@ -21,22 +22,22 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
-        public ActionResult About()
+        [Authorize]
+        public ActionResult UploadImage()
         {
-            
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            
-
             return View();
         }
 
-        public ActionResult UploadImage(HttpPostedFileBase fileUpload, string imageName)
+        
+        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string location, string mushroomID)
         {
+            FungeyeDBEntities1 ORM = new FungeyeDBEntities1();
+            UserMushroom newItem = new UserMushroom();
 
             Account account = new Account(ServerName, APIKey, APISecret);
             Cloudinary cloudinary = new Cloudinary(account);
@@ -45,14 +46,23 @@ namespace FungeyeApp.Controllers
             {
                 var uploadParams = new ImageUploadParams
                 {
-                    File = new FileDescription(fileUpload.FileName, fileUpload.InputStream),
-                    PublicId = imageName
+                    File = new FileDescription(fileUpload.FileName, fileUpload.InputStream)
                 };
                 var uploadResult = cloudinary.Upload(uploadParams);
 
                 JObject jsonData = (JObject)uploadResult.JsonObj;
 
+                newItem.UserID = User.Identity.GetUserId();
+                newItem.MushroomID = mushroomID;
+                newItem.PictureURL = jsonData["secure_url"].ToString();
+                newItem.Address = location;
+                newItem.Name = name;
+
+                ORM.UserMushrooms.Add(newItem);
+                ORM.SaveChanges();
+
                 ViewBag.Upload = jsonData["secure_url"];
+                ViewBag.Mike = "Hell yeah!!!";
             } else
             {
                 ViewBag.Upload = "FAIL";
