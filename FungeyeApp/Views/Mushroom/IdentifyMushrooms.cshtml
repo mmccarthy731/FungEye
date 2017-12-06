@@ -1,0 +1,47 @@
+﻿@using FungeyeApp.Models;
+
+@{
+    ViewBag.Title = "IdentifyMushrooms";
+}
+
+<form action="/Mushroom/ListShroomsByCapChar" method="get">
+    <h3>CapChar</h3>
+    <select name="CapChar">
+        @foreach (var CapChar in ViewBag.CapChars)
+        {
+            <option value="@CapChar">@CapChar</option>
+        }
+    </select>
+    <input type="submit" value="Search by CapChar" />
+</form>
+
+<h2>IdentifyMushrooms</h2>
+<table class="table">
+    <tr>
+        <th>Mushroom ID</th>
+        <th>Mushroom Species</th>
+        <th>Mushroom Common Name</th>
+        <th>Mushroom Cap Characteristic</th>
+        <th>Mushroom Stem</th>
+    </tr>
+    @foreach (var Shrooms in ViewBag.MushroomList)
+    {
+        <tr>
+            <td>
+                #@Shrooms.MushroomID
+            </td>
+            <td>
+                @Shrooms.Species
+            </td>
+            <td>
+                @Shrooms.CommonName
+            </td>
+            <td>
+                @Shrooms.CapChar
+            </td>
+            <td>
+                @Shrooms.Stem
+            </td>
+        </tr>
+    }
+</table>
