@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FungeyeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Mushrooms">
+          <Key>
+            <PropertyRef Name="MushroomID" />
+          </Key>
+          <Property Name="Species" Type="varchar" MaxLength="50" />
+          <Property Name="CommonName" Type="varchar" MaxLength="50" />
+          <Property Name="CapChar" Type="varchar" MaxLength="50" />
+          <Property Name="NextCapChar" Type="varchar" MaxLength="50" />
+          <Property Name="CapColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Stem" Type="nvarchar" MaxLength="50" />
+          <Property Name="StemColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Hymenium" Type="nvarchar" MaxLength="50" />
+          <Property Name="Attachment" Type="nvarchar" MaxLength="50" />
+          <Property Name="HymeniumColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="SporeColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="Annulus" Type="nvarchar" MaxLength="50" />
+          <Property Name="Ecology" Type="nvarchar" MaxLength="50" />
+          <Property Name="NewEcology" Type="nvarchar" MaxLength="50" />
+          <Property Name="Substrate" Type="nvarchar" MaxLength="50" />
+          <Property Name="GrowthPattern" Type="nvarchar" MaxLength="50" />
+          <Property Name="NewGrowthPattern" Type="nvarchar" MaxLength="50" />
+          <Property Name="MushroomID" Type="nchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FungeyeDBModelStoreContainer">
+          <EntitySet Name="Mushrooms" EntityType="Self.Mushrooms" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FungeyeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Mushroom">
+          <Key>
+            <PropertyRef Name="MushroomID" />
+          </Key>
+          <Property Name="Species" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CommonName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CapChar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NextCapChar" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CapColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Stem" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StemColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Hymenium" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Attachment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HymeniumColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SporeColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Annulus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ecology" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewEcology" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Substrate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrowthPattern" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewGrowthPattern" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MushroomID" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FungeyeDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Mushrooms" EntityType="Self.Mushroom" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FungeyeDBModelStoreContainer" CdmEntityContainer="FungeyeDBEntities">
+          <EntitySetMapping Name="Mushrooms">
+            <EntityTypeMapping TypeName="FungeyeDBModel.Mushroom">
+              <MappingFragment StoreEntitySet="Mushrooms">
+                <ScalarProperty Name="Species" ColumnName="Species" />
+                <ScalarProperty Name="CommonName" ColumnName="CommonName" />
+                <ScalarProperty Name="CapChar" ColumnName="CapChar" />
+                <ScalarProperty Name="NextCapChar" ColumnName="NextCapChar" />
+                <ScalarProperty Name="CapColor" ColumnName="CapColor" />
+                <ScalarProperty Name="Stem" ColumnName="Stem" />
+                <ScalarProperty Name="StemColor" ColumnName="StemColor" />
+                <ScalarProperty Name="Hymenium" ColumnName="Hymenium" />
+                <ScalarProperty Name="Attachment" ColumnName="Attachment" />
+                <ScalarProperty Name="HymeniumColor" ColumnName="HymeniumColor" />
+                <ScalarProperty Name="SporeColor" ColumnName="SporeColor" />
+                <ScalarProperty Name="Annulus" ColumnName="Annulus" />
+                <ScalarProperty Name="Ecology" ColumnName="Ecology" />
+                <ScalarProperty Name="NewEcology" ColumnName="NewEcology" />
+                <ScalarProperty Name="Substrate" ColumnName="Substrate" />
+                <ScalarProperty Name="GrowthPattern" ColumnName="GrowthPattern" />
+                <ScalarProperty Name="NewGrowthPattern" ColumnName="NewGrowthPattern" />
+                <ScalarProperty Name="MushroomID" ColumnName="MushroomID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

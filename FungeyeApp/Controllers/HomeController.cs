@@ -30,6 +30,7 @@ namespace FungeyeApp.Controllers
 
         public ActionResult Contact()
         {
+            
 
             return View();
         }
