@@ -18,6 +18,8 @@ namespace FungeyeApp.Models
         public string Address { get; set; }
         public string UserID { get; set; }
         public string MushroomID { get; set; }
-        public string Name { get; set; }
+        public string UserDescription { get; set; }
+    
+        public virtual Mushroom Mushroom { get; set; }
     }
 }

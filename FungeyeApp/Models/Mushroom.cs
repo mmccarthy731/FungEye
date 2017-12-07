@@ -14,6 +14,12 @@ namespace FungeyeApp.Models
     
     public partial class Mushroom
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Mushroom()
+        {
+            this.UserMushrooms = new HashSet<UserMushroom>();
+        }
+    
         public string Species { get; set; }
         public string CommonName { get; set; }
         public string CapChar { get; set; }
@@ -33,5 +39,9 @@ namespace FungeyeApp.Models
         public string NewGrowthPattern { get; set; }
         public string MushroomID { get; set; }
         public string Edibility { get; set; }
+        public string Description { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserMushroom> UserMushrooms { get; set; }
     }
 }

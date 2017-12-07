@@ -28,9 +28,37 @@
           <Property Name="NewGrowthPattern" Type="nvarchar" MaxLength="50" />
           <Property Name="MushroomID" Type="nchar" MaxLength="3" Nullable="false" />
           <Property Name="Edibility" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="UserMushroom">
+          <Key>
+            <PropertyRef Name="PictureURL" />
+          </Key>
+          <Property Name="PictureURL" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="MushroomID" Type="nchar" MaxLength="3" Nullable="false" />
+          <Property Name="UserDescription" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <Association Name="FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID">
+          <End Role="Mushrooms" Type="Self.Mushrooms" Multiplicity="1" />
+          <End Role="UserMushroom" Type="Self.UserMushroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mushrooms">
+              <PropertyRef Name="MushroomID" />
+            </Principal>
+            <Dependent Role="UserMushroom">
+              <PropertyRef Name="MushroomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FungeyeDBModelStoreContainer">
           <EntitySet Name="Mushrooms" EntityType="Self.Mushrooms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMushroom" EntityType="Self.UserMushroom" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID" Association="Self.FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID">
+            <End Role="Mushrooms" EntitySet="Mushrooms" />
+            <End Role="UserMushroom" EntitySet="UserMushroom" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -60,9 +88,39 @@
           <Property Name="NewGrowthPattern" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MushroomID" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Edibility" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserMushrooms" Relationship="Self.FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID" FromRole="Mushrooms" ToRole="UserMushroom" />
         </EntityType>
+        <EntityType Name="UserMushroom">
+          <Key>
+            <PropertyRef Name="PictureURL" />
+          </Key>
+          <Property Name="PictureURL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MushroomID" Type="String" MaxLength="3" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="UserDescription" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Mushroom" Relationship="Self.FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID" FromRole="UserMushroom" ToRole="Mushrooms" />
+        </EntityType>
+        <Association Name="FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID">
+          <End Role="Mushrooms" Type="Self.Mushroom" Multiplicity="1" />
+          <End Role="UserMushroom" Type="Self.UserMushroom" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mushrooms">
+              <PropertyRef Name="MushroomID" />
+            </Principal>
+            <Dependent Role="UserMushroom">
+              <PropertyRef Name="MushroomID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="FungeyeDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Mushrooms" EntityType="Self.Mushroom" />
+          <EntitySet Name="UserMushrooms" EntityType="Self.UserMushroom" />
+          <AssociationSet Name="FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID" Association="Self.FK_dbo_UserMushroom_dbo_Mushrooms_MushroomID">
+            <End Role="Mushrooms" EntitySet="Mushrooms" />
+            <End Role="UserMushroom" EntitySet="UserMushrooms" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -92,6 +150,18 @@
                 <ScalarProperty Name="NewGrowthPattern" ColumnName="NewGrowthPattern" />
                 <ScalarProperty Name="MushroomID" ColumnName="MushroomID" />
                 <ScalarProperty Name="Edibility" ColumnName="Edibility" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMushrooms">
+            <EntityTypeMapping TypeName="FungeyeDBModel.UserMushroom">
+              <MappingFragment StoreEntitySet="UserMushroom">
+                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MushroomID" ColumnName="MushroomID" />
+                <ScalarProperty Name="UserDescription" ColumnName="UserDescription" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
