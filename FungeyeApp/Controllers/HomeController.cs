@@ -37,7 +37,7 @@ namespace FungeyeApp.Controllers
 
         public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string location, string MushroomID)
         {
-            FungeyeDBEntities1 ORM = new FungeyeDBEntities1();
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
             UserMushroom newItem = new UserMushroom();
 
             Account account = new Account(ServerName, APIKey, APISecret);
@@ -57,7 +57,7 @@ namespace FungeyeApp.Controllers
                 newItem.MushroomID = MushroomID;
                 newItem.PictureURL = jsonData["secure_url"].ToString();
                 newItem.Address = location;
-                newItem.Name = name;
+                newItem.UserDescription = name;
 
                 ORM.UserMushrooms.Add(newItem);
                 ORM.SaveChanges();
