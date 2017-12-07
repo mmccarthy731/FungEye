@@ -8,7 +8,7 @@
 @using (Html.BeginForm("ViewUploadedImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 { 
     <p>
-        <input type="file" id="fileUpload" name="fileUpload" size="23" />
+        <input type="file" id="fileUpload" name="fileUpload"/>
         <input type="text" name="name" />
         <input type="text" name="location" />
         <input type="text" name="mushroomID" value="@ViewBag.MushroomID" readonly />

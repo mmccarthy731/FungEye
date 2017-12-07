@@ -33,6 +33,7 @@
 <form action="../Home/UploadImage" method="post">
     <table class="table">
         <tr>
+            <th></th>
             <th>ID</th>
             <th>Species</th>
             <th>Common Name</th>
@@ -45,7 +46,7 @@
         {
             <tr>
                 <td>
-                    <img src="~/Content/IndexPics/@Shrooms.MushroomID .jpg" style="height:130px; width: 130px" />
+                    <a href="/Mushroom/ListSpecificMushroom?MushroomID=@Shrooms.MushroomID" ><img src="@Shrooms.PictureURL" style="height:130px; width: 130px"/></a>
                 </td>
                 <td>
                     #@Shrooms.MushroomID

@@ -9,6 +9,7 @@ using System.Configuration;
 using Newtonsoft.Json.Linq;
 using FungeyeApp.Models;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 
 namespace FungeyeApp.Controllers
 {
