@@ -62,5 +62,15 @@ namespace FungeyeApp.Controllers
 
             return View("IdentifyMushrooms");
         }
+
+        public ActionResult ListSpecificMushroom(string MushroomID)
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+
+            ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
+
+            return View("MushroomView");
+        }
     }
 }
