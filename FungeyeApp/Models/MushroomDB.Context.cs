@@ -26,5 +26,6 @@ namespace FungeyeApp.Models
         }
     
         public virtual DbSet<Mushroom> Mushrooms { get; set; }
+        public virtual DbSet<UserMushroom> UserMushrooms { get; set; }
     }
 }
