@@ -285,41 +285,26 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Mushroom.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Mushroom.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Mushroom.cs">
-      <DependentUpon>Mushroom.tt</DependentUpon>
+      <DependentUpon>MushroomDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Mushroom.Designer.cs">
+    <Compile Include="Models\MushroomDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Mushroom.edmx</DependentUpon>
+      <DependentUpon>MushroomDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Mushroom1.cs">
+    <Compile Include="Models\MushroomDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Mushroom.tt</DependentUpon>
+      <DependentUpon>MushroomDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UserMushroom.Context.cs">
+    <Compile Include="Models\MushroomDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>UserMushroom.Context.tt</DependentUpon>
+      <DependentUpon>MushroomDB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\UserMushroom.cs">
-      <DependentUpon>UserMushroom.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserMushroom.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserMushroom.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\UserMushroom1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserMushroom.tt</DependentUpon>
+      <DependentUpon>MushroomDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -509,40 +494,23 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
-    <EntityDeploy Include="Models\UserMushroom.edmx">
+    <EntityDeploy Include="Models\MushroomDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>UserMushroom.Designer.cs</LastGenOutput>
+      <LastGenOutput>MushroomDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Mushroom.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Mushroom.edmx</DependentUpon>
-      <LastGenOutput>Mushroom.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Mushroom.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Mushroom.edmx</DependentUpon>
-      <LastGenOutput>Mushroom1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\UserMushroom.edmx.diagram">
-      <DependentUpon>UserMushroom.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\Mushroom.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Mushroom.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Mushroom.edmx.diagram">
-      <DependentUpon>Mushroom.edmx</DependentUpon>
+    <Content Include="Models\MushroomDB.edmx.diagram">
+      <DependentUpon>MushroomDB.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
-    <Content Include="Models\UserMushroom.Context.tt">
+    <Content Include="Models\MushroomDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserMushroom.edmx</DependentUpon>
-      <LastGenOutput>UserMushroom.Context.cs</LastGenOutput>
+      <DependentUpon>MushroomDB.edmx</DependentUpon>
+      <LastGenOutput>MushroomDB.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\UserMushroom.tt">
+    <Content Include="Models\MushroomDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>UserMushroom.edmx</DependentUpon>
-      <LastGenOutput>UserMushroom1.cs</LastGenOutput>
+      <DependentUpon>MushroomDB.edmx</DependentUpon>
+      <LastGenOutput>MushroomDB.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
