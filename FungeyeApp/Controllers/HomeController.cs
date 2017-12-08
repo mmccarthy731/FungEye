@@ -73,5 +73,16 @@ namespace FungeyeApp.Controllers
 
             return View();
         }
+
+        public ActionResult Leaderboards()
+        {
+            return View("LeaderboardsView");
+        }
+
+        public ActionResult AboutUs()
+        {
+
+            return View();
+        }
     }
 }

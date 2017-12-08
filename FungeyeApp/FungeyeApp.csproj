@@ -569,6 +569,8 @@
     <Content Include="Views\Home\ViewUploadedImage.cshtml" />
     <Content Include="Views\Mushroom\IdentifyMushrooms.cshtml" />
     <Content Include="Views\Mushroom\MushroomView.cshtml" />
+    <Content Include="Views\Home\LeaderboardsView.cshtml" />
+    <Content Include="Views\Home\AboutUs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
