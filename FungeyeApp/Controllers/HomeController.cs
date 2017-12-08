@@ -12,6 +12,9 @@ using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using GoogleMaps.LocationServices;
 
+
+using Newtonsoft.Json;
+
 namespace FungeyeApp.Controllers
 {
    
@@ -38,13 +41,19 @@ namespace FungeyeApp.Controllers
         }
 
 
-        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string location, string MushroomID)
+        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string address, string mushroomid)
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
             ApplicationDbContext UserORM = new ApplicationDbContext();
 
             Account account = new Account(ServerName, APIKey, APISecret);
             Cloudinary cloudinary = new Cloudinary(account);
+
+            //var address = input;
+            //var locationService = new GoogleLocationService();
+            //var point = locationService.GetLatLongFromAddress(address);
+            //double latitude = point.Latitude;
+            //double longitude = point.Longitude;
 
             if (fileUpload != null)
             {
@@ -58,14 +67,22 @@ namespace FungeyeApp.Controllers
 
                 var locationService = new GoogleLocationService();
 
-                var point = locationService.GetLatLongFromAddress(location);
+                var point = locationService.GetLatLongFromAddress(address);
 
                 string email = UserORM.Users.Find(User.Identity.GetUserId()).Email;
 
-                string commonName = ORM.Mushrooms.Find(MushroomID).CommonName;
+                string commonName = ORM.Mushrooms.Find(mushroomid).CommonName;
 
                 
-                ORM.UserMushrooms.Add(new UserMushroom(jsonData["secure_url"].ToString(), location, User.Identity.GetUserId(), MushroomID, name, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
+                ORM.UserMushrooms.Add(new UserMushroom(jsonData["secure_url"].ToString(), address, User.Identity.GetUserId(), mushroomid, name, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
+
+                //newItem.UserID = User.Identity.GetUserId();
+                //newItem.MushroomID = mushroomid;
+                //newItem.PictureURL = jsonData["secure_url"].ToString();
+                //newItem.Address = address;
+                //newItem.UserDescription = name;
+                //newItem.Latitude = latitude.ToString();
+                //newItem.Longitude = longitude.ToString();
 
                 ORM.SaveChanges();
 
@@ -103,7 +120,21 @@ namespace FungeyeApp.Controllers
             ViewBag.user = user;
             ViewBag.UserMushrooms = list;
             return View("User");
-
         }
+        //public ActionResult Contact2(string input)
+        //{
+
+        //    var address = input;
+        //    var locationService = new GoogleLocationService();
+        //    var point = locationService.GetLatLongFromAddress(address);
+        //    var latitude = point.Latitude;
+        //    var longitude = point.Longitude;
+
+        //    ViewBag.Lat = latitude;
+        //    ViewBag.Long = longitude;
+        //    ViewBag.Input = input;
+
+        //    return View("UploadImage");
+        //}
     }
 }

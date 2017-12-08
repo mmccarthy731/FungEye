@@ -497,11 +497,11 @@
     <Content Include="bin\roslyn\vbc.exe.config" />
     <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="GoogleMaps.LocationServices.readme.txt" />
     <EntityDeploy Include="Models\MushroomDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MushroomDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="GoogleMaps.LocationServices.readme.txt" />
     <Content Include="Models\MushroomDB.edmx.diagram">
       <DependentUpon>MushroomDB.edmx</DependentUpon>
     </Content>
@@ -577,6 +577,7 @@
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\Home\User.cshtml" />
     <Content Include="Views\Mushroom\AddMushroom.cshtml" />
+    <Content Include="Views\Mushroom\UserMushroomMapView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

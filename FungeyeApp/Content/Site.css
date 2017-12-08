@@ -29,9 +29,16 @@ textarea {
 
 #profile-image1 {
     cursor: pointer;
-    width: 100px;
-    height: 100px;
+    width: 350px;
+    height: 350px;
     border: 2px solid #03b1ce;
+}
+
+.ImgSpace {
+    display: inline-block;
+    margin: 5px 20px;
+    padding: 5px;
+    border: 1px solid #CCC;
 }
 
 .tital {

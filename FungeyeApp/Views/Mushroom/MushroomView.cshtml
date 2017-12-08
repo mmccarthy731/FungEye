@@ -5,12 +5,17 @@
 }
 
 @*<img src="@ViewBag.Mushroom.PictureURL" style="height:300px; width: 300px"/>*@
-
+<head>
+    <style>
+        img {
+            border-radius: 15%;
+            border: 2px solid #03b1ce;
+        }
+    </style>
+</head>
 <div class="container">
     <div class="row">
-        <h2>Create your snippet's HTML, CSS and Javascript in the editor tabs</h2>
-
-
+        @*@ViewBag.json*@
         <div class="col-md-12 ">
             <div class="panel panel-default">
                 <div class="panel-heading">  <h4>Mushroom Profile</h4></div>
@@ -19,13 +24,14 @@
                     <div class="box box-info">
 
                         <div class="box-body">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div align="center">
-                                    <img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" id="profile-image1" class="img-rounded img-responsive">
+                                    <img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" style="height: 300px">
 
                                     <input id="profile-image-upload" class="hidden" type="file">
-                                    <div style="color:#999;">click here to change profile image</div>
                                     <!--Upload Image Js And Css-->
+                                    <h4 style="color:#00b1b1;">@ViewBag.Mushroom.Species</h4>
+                                    <span><p>@ViewBag.Mushroom.CommonName</p></span>
 
 
                                 </div>
@@ -35,8 +41,11 @@
                                 <!-- /input-group -->
                             </div>
                             <div class="col-sm-6">
-                                <h4 style="color:#00b1b1;">@ViewBag.Mushroom.Species</h4>
-                                <span><p>@ViewBag.Mushroom.CommonName</p></span>
+                                <div align="center">
+                                <div id="map" style="width:300px;height:300px" class="map"></div>
+                                <h4 style="color:#00b1b1;">Mushroom ID: #@ViewBag.Mushroom.MushroomID</h4>
+                                <span><p>Map</p></span>
+                                    </div>
                             </div>
                             <div class="clearfix"></div>
                             <hr style="margin:5px 0 5px 0;">
@@ -94,6 +103,56 @@
                 </div>
             </div>
         </div>
+        <script>
+        (function() {
+
+	    window.onload = function() {
+
+		// Creating a new map
+		var map = new google.maps.Map(document.getElementById("map"), {
+            center: new google.maps.LatLng(44.5577549, -84.600220),
+          zoom: 6,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+
+		// Creating the JSON data
+		var json = @Html.Raw(ViewBag.json)
+
+		// Creating a global infoWindow object that will be reused by all markers
+		var infoWindow = new google.maps.InfoWindow();
+
+		// Looping through the JSON data
+		for (var i = 0, length = json.length; i < length; i++) {
+			var data = json[i],
+				latLng = new google.maps.LatLng(data.lat, data.lng);
+
+			// Creating a marker and putting it on the map
+			var marker = new google.maps.Marker({
+				position: latLng,
+				map: map,
+				title: data.title
+			});
+
+			// Creating a closure to retain the correct data, notice how I pass the current data in the loop into the closure (marker, data)
+			(function(marker, data) {
+
+				// Attaching a click event to the current marker
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "Mushroom ID: </b>" + data.title + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "</div>");
+					infoWindow.open(map, marker);
+				});
+
+
+			})(marker, data);
+
+		}
+
+	}
+
+})();
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU0vf5tqNcAnbihaVLxDpCjq9G0WkYFDU&callback=myMap"></script>
         <script>
               $(function() {
     $('#profile-image1').on('click', function() {

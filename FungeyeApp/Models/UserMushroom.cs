@@ -11,7 +11,7 @@ namespace FungeyeApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class UserMushroom
     {
         public string PictureURL { get; set; }
@@ -41,7 +41,7 @@ namespace FungeyeApp.Models
         {
 
         }
-    
+
         public virtual Mushroom Mushroom { get; set; }
     }
 }

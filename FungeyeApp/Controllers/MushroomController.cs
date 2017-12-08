@@ -78,6 +78,22 @@ namespace FungeyeApp.Controllers
 
             ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
 
+            List<UserMushroom> LocationList = ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID).ToList();
+
+            if (LocationList == null)
+            {
+                return View("MushroomView");
+            }
+
+            string result = "";
+            for (int i = 0; i < LocationList.Count; i++)
+            {
+                result += $"{{ \"title\": \"{LocationList[i].MushroomID}\", \"lat\": {LocationList[i].Latitude}, \"lng\": {LocationList[i].Longitude}, \"description\": \"{LocationList[i].UserDescription}\", \"address\": \"{LocationList[i].Address}\", \"ImageLink\": \"{LocationList[i].PictureURL}\"}},";
+                string resul = result.Substring(0, result.Length - 1);
+                string json = $"[{resul}]";
+
+                ViewBag.json = json;
+            }
             return View("MushroomView");
         }
 
@@ -127,6 +143,24 @@ namespace FungeyeApp.Controllers
             }
 
             return RedirectToAction("IdentifyMushrooms");
+        }
+        public ActionResult UserMushroomMapView()
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            List<UserMushroom> LocationList = ORM.UserMushrooms.ToList();
+            string result = "";
+            for (int i = 0; i < LocationList.Count; i++)
+            {
+                result += $"{{ \"title\": \"{LocationList[i].MushroomID}\", \"lat\": {LocationList[i].Latitude}, \"lng\": {LocationList[i].Longitude}, \"description\": \"{LocationList[i].UserDescription}\", \"address\": \"{LocationList[i].Address}\", \"ImageLink\": \"{LocationList[i].PictureURL}\"}},";
+            }
+
+            string resul = result.Substring(0, result.Length - 1);
+            string json = $"[{resul}]";
+
+            ViewBag.json = json;
+
+            return View();
         }
     }
 }
