@@ -19,7 +19,7 @@ namespace FungeyeApp.Models
         {
             this.UserMushrooms = new HashSet<UserMushroom>();
         }
-    
+
         public string Species { get; set; }
         public string CommonName { get; set; }
         public string CapChar { get; set; }
@@ -41,7 +41,32 @@ namespace FungeyeApp.Models
         public string Edibility { get; set; }
         public string Description { get; set; }
         public string PictureURL { get; set; }
-    
+
+        public Mushroom(string Species, string CommonName, string CapChar, string NextCapChar, string CapColor, string Stem, string StemColor, string Hymenium, string Attachment, string HymeniumColor, string SporeColor, string Annulus, string Ecology, string NewEcology, string Substrate, string GrowthPattern, string NewGrowthPattern, string MushroomID, string Edibility, string Description, string PictureURL)
+        {
+            this.Species = Species;
+            this.CommonName = CommonName;
+            this.CapChar = CapChar;
+            this.NextCapChar = NextCapChar;
+            this.CapColor = CapColor;
+            this.Stem = Stem;
+            this.StemColor = StemColor;
+            this.Hymenium = Hymenium;
+            this.Attachment = Attachment;
+            this.HymeniumColor = HymeniumColor;
+            this.SporeColor = SporeColor;
+            this.Annulus = Annulus;
+            this.Ecology = Ecology;
+            this.NewEcology = NewEcology;
+            this.Substrate = Substrate;
+            this.GrowthPattern = GrowthPattern;
+            this.NewGrowthPattern = NewGrowthPattern;
+            this.MushroomID = MushroomID;
+            this.Edibility = Edibility;
+            this.Description = Description;
+            this.PictureURL = PictureURL;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserMushroom> UserMushrooms { get; set; }
     }

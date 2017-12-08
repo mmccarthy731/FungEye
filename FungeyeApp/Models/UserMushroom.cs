@@ -19,6 +19,28 @@ namespace FungeyeApp.Models
         public string UserID { get; set; }
         public string MushroomID { get; set; }
         public string UserDescription { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Email { get; set; }
+        public string CommonName { get; set; }
+
+        public UserMushroom(string PictureURL, string Address, string UserID, string MushroomID, string UserDescription, string Latitude, string Longitude, string Email, string CommonName)
+        {
+            this.PictureURL = PictureURL;
+            this.Address = Address;
+            this.UserID = UserID;
+            this.MushroomID = MushroomID;
+            this.UserDescription = UserDescription;
+            this.Latitude = Latitude;
+            this.Longitude = Longitude;
+            this.Email = Email;
+            this.CommonName = CommonName;
+        }
+
+        public UserMushroom()
+        {
+
+        }
     
         public virtual Mushroom Mushroom { get; set; }
     }

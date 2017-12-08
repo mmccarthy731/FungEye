@@ -76,6 +76,14 @@
                             <div class="clearfix"></div>
                             <div class="bot-border"></div>
                             <div class="col-sm-5 col-xs-6 tital ">Growth Pattern:</div><div class="col-sm-7">@ViewBag.Mushroom.GrowthPattern</div>
+                            <br />
+                            @foreach (var userMush in ViewBag.userMushrooms)
+                            {
+                                <div class="col-sm-5 col-xs-6 tital "><img src="@userMush.PictureURL" /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.UserID</a></div>
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
+                            }
+
 
                             <!-- /.box-body -->
                         </div>

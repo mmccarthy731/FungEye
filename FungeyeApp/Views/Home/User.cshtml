@@ -5,9 +5,7 @@
 
 <h2>User</h2>
 
-
-
-@*<img src="@ViewBag.Mushroom.PictureURL" style="height:300px; width: 300px" />*@
+@*<img src="@ViewBag.Mushroom.PictureURL" style="height:300px; width: 300px"/>*@
 
 <div class="container">
     <div class="row">
@@ -24,10 +22,10 @@
                         <div class="box-body">
                             <div class="col-sm-4">
                                 <div align="center">
-                                    <img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" id="profile-image1" class="img-rounded img-responsive">
+                                    @*<img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" id="profile-image1" class="img-rounded img-responsive">*@
 
-                                    <input id="profile-image-upload" class="hidden" type="file">
-                                    <div style="color:#999;">click here to change profile image</div>
+                                    @*<input id="profile-image-upload" class="hidden" type="file">
+                                    <div style="color:#999;">click here to change profile image</div>*@
                                     <!--Upload Image Js And Css-->
 
 
@@ -38,18 +36,18 @@
                                 <!-- /input-group -->
                             </div>
                             <div class="col-sm-6">
-                                <h4 style="color:#00b1b1;">@ViewBag.Mushroom.Species</h4>
-                                <span><p>@ViewBag.Mushroom.CommonName</p></span>
+                                <h4 style="color:#00b1b1;">@ViewBag.user.FirstName @ViewBag.user.LastName</h4>
+                                <span><p>@ViewBag.user.Email</p></span>
                             </div>
                             <div class="clearfix"></div>
                             <hr style="margin:5px 0 5px 0;">
 
-                            @foreach (var userMush in ViewBag.UserMushrooms)
-                            {
-                            <div class="col-sm-5 col-xs-6 tital "><img src="@userMush.PictureURL" /></div><div class="col-sm-7 col-xs-6 "><a href="../Mushroom/MushroomView?MushroomID=userMush.MushroomID">@userMush.MushroomID</a></div>
+                            @foreach(var userMush in ViewBag.UserMushrooms )
+                            {                            
+                            <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.UserID</a></div>
                             <div class="clearfix"></div>
                             <div class="bot-border"></div>
-                            } 
+                            }
                             <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
