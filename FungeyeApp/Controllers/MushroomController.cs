@@ -9,6 +9,7 @@ using System.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Entity;
 
 using FungeyeApp.Models;
 
@@ -106,6 +107,34 @@ namespace FungeyeApp.Controllers
             ViewBag.json = json;
 
             return View();
+        }
+
+        public ActionResult DeleteShroom(string MushroomID)
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            DbContextTransaction DeleteShroomMoom =
+                ORM.Database.BeginTransaction();
+
+            try
+            {
+                Mushroom Temp = ORM.Mushrooms.Find(MushroomID);
+
+                ORM.Mushrooms.Remove(Temp);
+
+                ORM.SaveChanges();
+
+
+                DeleteShroomMoom.Commit();
+            }
+
+            catch
+            {   
+                DeleteShroomMoom.Rollback();
+
+            }
+
+            return RedirectToAction("IdentifyMushrooms");
         }
     }
 }
