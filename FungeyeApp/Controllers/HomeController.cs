@@ -11,6 +11,10 @@ using FungeyeApp.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 
+using GoogleMaps.LocationServices;
+
+using Newtonsoft.Json;
+
 namespace FungeyeApp.Controllers
 {
     public class HomeController : Controller
@@ -36,13 +40,19 @@ namespace FungeyeApp.Controllers
         }
 
 
-        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string location, string MushroomID)
+        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string address, string mushroomid)
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
             UserMushroom newItem = new UserMushroom();
 
             Account account = new Account(ServerName, APIKey, APISecret);
             Cloudinary cloudinary = new Cloudinary(account);
+
+            //var address = input;
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(address);
+            double latitude = point.Latitude;
+            double longitude = point.Longitude;
 
             if (fileUpload != null)
             {
@@ -54,11 +64,14 @@ namespace FungeyeApp.Controllers
 
                 JObject jsonData = (JObject)uploadResult.JsonObj;
 
+
                 newItem.UserID = User.Identity.GetUserId();
-                newItem.MushroomID = MushroomID;
+                newItem.MushroomID = mushroomid;
                 newItem.PictureURL = jsonData["secure_url"].ToString();
-                newItem.Address = location;
+                newItem.Address = address;
                 newItem.UserDescription = name;
+                newItem.Latitude = latitude.ToString();
+                newItem.Longitude = longitude.ToString();
 
                 ORM.UserMushrooms.Add(newItem);
                 ORM.SaveChanges();
@@ -83,6 +96,22 @@ namespace FungeyeApp.Controllers
         {
 
             return View();
+        }
+
+        public ActionResult Contact2(string input)
+        {
+
+            var address = input;
+            var locationService = new GoogleLocationService();
+            var point = locationService.GetLatLongFromAddress(address);
+            var latitude = point.Latitude;
+            var longitude = point.Longitude;
+
+            ViewBag.Lat = latitude;
+            ViewBag.Long = longitude;
+            ViewBag.Input = input;
+
+            return View("UploadImage");
         }
     }
 }

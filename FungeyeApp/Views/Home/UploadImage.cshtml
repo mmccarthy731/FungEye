@@ -3,16 +3,80 @@
 }
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html,
+        body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
+        #map {
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
 <p>Use this area to provide additional information.</p>
 @using (Html.BeginForm("ViewUploadedImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 { 
-    <p>
+    @*<p>
         <input type="file" id="fileUpload" name="fileUpload"/>
         <input type="text" name="name" />
         <input type="text" name="location" />
         <input type="text" name="mushroomID" value="@ViewBag.MushroomID" readonly />
-    </p>
-    <p>
-        <input type="submit" value="Upload file" /></p> 
+    </p>*@
+        <div class="form-group">
+            <label for="Input">Location: </label>
+            <input type="text" class="form-control" name="address">
+        </div>
+
+        <div class="form-group">
+            <label for="Input">Mushroom Description: </label>
+            <input type="text" class="form-control" name="name">
+        </div>
+
+        <div class="form-group">
+            <label for="Input">Mushroom ID: </label>
+            <input type="text" class="form-control" name="mushroomid" value="@ViewBag.MushroomID" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="Input">Picture Upload: </label>
+            <input type="file" id="fileUpload" name="fileUpload" />
+        </div>
+
+        <h3>Is this where you found it? Save it!</h3>
+        <input type="submit" value="Upload file" />
+
 }
+    
+    <script>
+      var map;
+      function initMap() {
+        // Constructor creates a new map - only center and zoom are required.
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: {lat: @ViewBag.Lat, lng: @ViewBag.Long},
+          zoom: 8
+        });
+        var tribeca = {lat: @ViewBag.Lat, lng: @ViewBag.Long};
+        var marker = new google.maps.Marker({
+          position: tribeca,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title: 'First Marker!'
+        });
+      }
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhYesS1SK-1OYSDl6iv81mGecxM-W-0wE&v=3&callback=initMap">
+    </script>
+
+    </body>
+</html>
