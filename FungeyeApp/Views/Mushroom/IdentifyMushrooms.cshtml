@@ -5,27 +5,36 @@
 }
 
 <form action="/Mushroom/FilterResults" method="post">
-    <select name="CapChar">
-        <option value="null" selected></option>
-        @foreach (var CapChar in ViewBag.CapChars)
-        {
-            <option value="@CapChar">@CapChar</option>
-        }
-    </select>
-    <select name="CapColor">
-        <option value="null" selected></option>
-        @foreach (var CapColor in ViewBag.CapColors)
-        {
-            <option value="@CapColor">@CapColor</option>
-        }
-    </select>
-    <select name="Stem">
-        <option value="null" selected></option>
-        @foreach (var Stem in ViewBag.Stems)
-        {
-            <option value="@Stem">@Stem</option>
-        }
-    </select>
+    <label>
+        Cap Characteristic
+        <select name="CapChar">
+            <option value="null" selected></option>
+            @foreach (var CapChar in ViewBag.CapChars)
+            {
+                <option value="@CapChar">@CapChar</option>
+            }
+        </select>
+    </label>
+    <label>
+        Cap Color
+        <select name="CapColor">
+            <option value="null" selected></option>
+            @foreach (var CapColor in ViewBag.CapColors)
+            {
+                <option value="@CapColor">@CapColor</option>
+            }
+        </select>
+    </label>
+    <label>
+        Stem
+        <select name="Stem">
+            <option value="null" selected></option>
+            @foreach (var Stem in ViewBag.Stems)
+            {
+                <option value="@Stem">@Stem</option>
+            }
+        </select>
+    </label>
     <input type="submit" value="Filter" />
 </form>
 

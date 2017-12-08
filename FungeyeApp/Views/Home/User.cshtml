@@ -44,7 +44,7 @@
 
                             @foreach(var userMush in ViewBag.UserMushrooms )
                             {                            
-                            <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.UserID</a></div>
+                            <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.UserID</a></div>
                             <div class="clearfix"></div>
                             <div class="bot-border"></div>
                             }
