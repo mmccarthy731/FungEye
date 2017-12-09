@@ -10,10 +10,10 @@ using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Data.SqlClient;
 using GoogleMaps.LocationServices;
-
 using FungeyeApp.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 
 namespace FungeyeApp.Controllers
 {
@@ -22,13 +22,12 @@ namespace FungeyeApp.Controllers
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
         public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
         public string ServerName = "fungeye";
-        // GET: Mushroom
+
         public ActionResult Index()
         {
             return View();
         }
         
-
         public ActionResult IdentifyMushrooms()
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -73,7 +72,6 @@ namespace FungeyeApp.Controllers
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
-
             ViewBag.userMushrooms = ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID);
 
             ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
@@ -102,6 +100,7 @@ namespace FungeyeApp.Controllers
             return View("AddMushroom");
         }
 
+        [Authorize]
         public ActionResult AddMushroom(HttpPostedFileBase fileUpload, string Address, string UserDescription, string Species, string CommonName, string CapChar, string CapColor, string Stem, string StemColor, string Hymenium, string HymeniumColor, string SporeColor, string Ecology, string Substrate, string GrowthPattern)
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -124,9 +123,9 @@ namespace FungeyeApp.Controllers
 
                 var point = locationService.GetLatLongFromAddress(Address);
 
-                string mushID = (ORM.Mushrooms.ToList().Count() + 1).ToString();
+                string mushID = Convert.ToString((int.Parse(ORM.Mushrooms.ToList().Last().MushroomID)) + 1);
 
-                if (mushID.Length < 3)
+                while (mushID.Length < 3)
                 {
                     mushID = "0" + mushID;
                 }
@@ -144,6 +143,7 @@ namespace FungeyeApp.Controllers
 
             return RedirectToAction("IdentifyMushrooms");
         }
+
         public ActionResult UserMushroomMapView()
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -161,6 +161,43 @@ namespace FungeyeApp.Controllers
             ViewBag.json = json;
 
             return View();
+        }
+
+        [Authorize]
+        public ActionResult DeleteMushroom(string MushroomID)
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            ORM.UserMushrooms.RemoveRange(ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID));
+            ORM.Mushrooms.Remove(ORM.Mushrooms.Find(MushroomID));
+            ORM.SaveChanges();
+
+            return RedirectToAction("IdentifyMushrooms");
+        }
+
+        [Authorize]
+        public ActionResult UpdateMushroom(string MushroomID)
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
+            return View("UpdateMushroomForm");
+        }
+
+        [Authorize]
+        public ActionResult SaveUpdatedMushroom(Mushroom updatedMushroom)
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            Mushroom toBeUpdated = ORM.Mushrooms.Find(updatedMushroom.MushroomID);
+            foreach (UserMushroom userMush in ORM.UserMushrooms.Where(x => x.CommonName == toBeUpdated.CommonName).ToList())
+            {
+                userMush.CommonName = updatedMushroom.CommonName;
+            }
+            toBeUpdated = updatedMushroom;
+            ORM.Entry(toBeUpdated).State = EntityState.Modified;
+            ORM.SaveChanges();
+            
+            return RedirectToAction("IdentifyMushrooms");
         }
     }
 }

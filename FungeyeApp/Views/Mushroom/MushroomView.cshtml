@@ -20,36 +20,28 @@
             <div class="panel panel-default">
                 <div class="panel-heading">  <h4>Mushroom Profile</h4></div>
                 <div class="panel-body">
-
                     <div class="box box-info">
-
                         <div class="box-body">
                             <div class="col-sm-6">
                                 <div align="center">
                                     <img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" style="height: 300px">
-
                                     <input id="profile-image-upload" class="hidden" type="file">
                                     <!--Upload Image Js And Css-->
                                     <h4 style="color:#00b1b1;">@ViewBag.Mushroom.Species</h4>
-                                    <span><p>@ViewBag.Mushroom.CommonName</p></span>
-
-
+                                    <span>@ViewBag.Mushroom.CommonName</span>
                                 </div>
-
                                 <br>
-
                                 <!-- /input-group -->
                             </div>
-                            <div class="col-sm-6">
-                                <div align="center">
-                                <div id="map" style="width:300px;height:300px" class="map"></div>
-                                <h4 style="color:#00b1b1;">Mushroom ID: #@ViewBag.Mushroom.MushroomID</h4>
-                                <span><p>Map</p></span>
+                                 <div class="col-sm-6">
+                                    <div align="center">
+                                        <div id="map" style="width:300px;height:300px" class="map"></div>
+                                        <h4 style="color:#00b1b1;">Mushroom ID: #@ViewBag.Mushroom.MushroomID</h4>
+                                        <span>Map</span>
                                     </div>
-                            </div>
+                                </div>
                             <div class="clearfix"></div>
                             <hr style="margin:5px 0 5px 0;">
-
 
                             <div class="col-sm-5 col-xs-6 tital ">Binomial Name:</div><div class="col-sm-7 col-xs-6 ">@ViewBag.Mushroom.Species</div>
                             <div class="clearfix"></div>
@@ -88,17 +80,17 @@
                             <br />
                             @foreach (var userMush in ViewBag.userMushrooms)
                             {
-                                <div class="col-sm-5 col-xs-6 tital "><img src="@userMush.PictureURL" /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.UserID</a></div>
+                                <div class="col-sm-5 col-xs-6 tital "><img src="@userMush.PictureURL" /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a></div>
                                 <div class="clearfix"></div>
                                 <div class="bot-border"></div>
                             }
-
-
                             <!-- /.box-body -->
                         </div>
                         <!-- /.box -->
                     </div>
-
+                    
+                    <a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom</a>
+                    <a href="/Mushroom/DeleteMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-danger" onclick="return confirm("Are you sure?")>Delete Mushroom</a>
 
                 </div>
             </div>

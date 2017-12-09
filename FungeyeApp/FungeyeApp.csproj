@@ -444,33 +444,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\IndexPics\001 .jpg" />
-    <Content Include="Content\IndexPics\002 .JPG" />
-    <Content Include="Content\IndexPics\004 .jpg" />
-    <Content Include="Content\IndexPics\003 .jpg" />
-    <Content Include="Content\IndexPics\005 .jpg" />
-    <Content Include="Content\IndexPics\006 .jpg" />
-    <Content Include="Content\IndexPics\007 .jpg" />
-    <Content Include="Content\IndexPics\008 .jpg" />
-    <Content Include="Content\IndexPics\009 .jpg" />
-    <Content Include="Content\IndexPics\010 .jpg" />
-    <Content Include="Content\IndexPics\011 .jpg" />
-    <Content Include="Content\IndexPics\013 .jpg" />
-    <Content Include="Content\IndexPics\012 .jpg" />
-    <Content Include="Content\IndexPics\017 .jpg" />
-    <Content Include="Content\IndexPics\014 .jpg" />
-    <Content Include="Content\IndexPics\015 .jpg" />
-    <Content Include="Content\IndexPics\016 .jpg" />
-    <Content Include="Content\IndexPics\018 .jpg" />
-    <Content Include="Content\IndexPics\020 .jpg" />
-    <Content Include="Content\IndexPics\021 .jpg" />
-    <Content Include="Content\IndexPics\026 .jpg" />
-    <Content Include="Content\IndexPics\022 .jpg" />
-    <Content Include="Content\IndexPics\023 .jpg" />
-    <Content Include="Content\IndexPics\024 .jpg" />
-    <Content Include="Content\IndexPics\025 .jpg" />
-    <Content Include="Content\IndexPics\027 .jpg" />
-    <Content Include="Content\IndexPics\019 .jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -578,6 +551,9 @@
     <Content Include="Views\Home\User.cshtml" />
     <Content Include="Views\Mushroom\AddMushroom.cshtml" />
     <Content Include="Views\Mushroom\UserMushroomMapView.cshtml" />
+    <Content Include="Views\Mushroom\User.cshtml" />
+    <Content Include="Views\Home\MushroomView.cshtml" />
+    <Content Include="Views\Mushroom\UpdateMushroomForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
