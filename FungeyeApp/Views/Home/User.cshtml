@@ -9,9 +9,6 @@
 
 <div class="container">
     <div class="row">
-        <h2>Create your snippet's HTML, CSS and Javascript in the editor tabs</h2>
-
-
         <div class="col-md-12 ">
             <div class="panel panel-default">
                 <div class="panel-heading">  <h4>User Profile</h4></div>
@@ -36,15 +33,15 @@
                                 <!-- /input-group -->
                             </div>
                             <div class="col-sm-6">
-                                <h4 style="color:#00b1b1;">@ViewBag.user.FirstName @ViewBag.user.LastName</h4>
-                                <span><p>@ViewBag.user.Email</p></span>
+                                <h4 style="color:#00b1b1;">@ViewBag.User.FirstName @ViewBag.User.LastName</h4>
+                                <span><p>@ViewBag.User.Email</p></span>
                             </div>
                             <div class="clearfix"></div>
                             <hr style="margin:5px 0 5px 0;">
 
                             @foreach(var userMush in ViewBag.UserMushrooms )
                             {                            
-                            <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.UserID</a></div>
+                            <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div><div class="col-sm-7 col-xs-6 "><a href="../Mushroom/ListSpecificMushroom?MushroomID=@userMush.MushroomID">@userMush.CommonName</a></div>
                             <div class="clearfix"></div>
                             <div class="bot-border"></div>
                             }

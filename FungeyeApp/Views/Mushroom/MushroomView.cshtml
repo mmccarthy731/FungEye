@@ -78,23 +78,39 @@
                             <div class="bot-border"></div>
                             <div class="col-sm-5 col-xs-6 tital ">Growth Pattern:</div><div class="col-sm-7">@ViewBag.Mushroom.GrowthPattern</div>
                             <br />
-                            @foreach (var userMush in ViewBag.userMushrooms)
+                        </div>
+
+
+                            @*@foreach (var userMush in ViewBag.userMushrooms)
                             {
-                                <div class="col-sm-5 col-xs-6 tital "><img src="@userMush.PictureURL" /></div><div class="col-sm-7 col-xs-6 "><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a></div>
+                                <div class="col-sm-6">
+                                    <img src="@userMush.PictureURL"  style="height: 100px; width:100px; "/>
+                                    <a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a>
+                                </div>
                                 <div class="clearfix"></div>
                                 <div class="bot-border"></div>
-                            }
+                            }*@
                             <!-- /.box-body -->
-                        </div>
                         <!-- /.box -->
                     </div>
-                    
+                    <br />
                     <a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom</a>
                     <a href="/Mushroom/DeleteMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-danger" onclick="return confirm("Are you sure?")>Delete Mushroom</a>
 
                 </div>
+                @foreach (var userMush in ViewBag.userMushrooms)
+                {
+                    <div class="col-sm-6">
+                        <img src="@userMush.PictureURL" style="height: 250px; width:250px; " />
+                        <a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a>
+                    </div>
+                    <div class="clearfix"></div>
+                        <div class="bot-border"></div>
+                }
             </div>
+
         </div>
+        
         <script>
         (function() {
 
@@ -152,14 +168,6 @@
     });
 });
         </script>
-
-
-
-
-
-
-
-
 
     </div>
 </div>

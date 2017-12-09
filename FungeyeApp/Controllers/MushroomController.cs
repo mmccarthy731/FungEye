@@ -9,6 +9,7 @@ using System.Configuration;
 using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.Entity;
 using GoogleMaps.LocationServices;
 using FungeyeApp.Models;
 using System.IO;
@@ -72,26 +73,25 @@ namespace FungeyeApp.Controllers
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
-            ViewBag.userMushrooms = ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID);
-
             ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
 
-            List<UserMushroom> LocationList = ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID).ToList();
+            List<UserMushroom> UserMushrooms = ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID).ToList();
 
-            if (LocationList == null)
+            if (UserMushrooms.Count > 0)
             {
-                return View("MushroomView");
-            }
+                string result = "";
+                for (int i = 0; i < UserMushrooms.Count; i++)
+                {
+                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\"}},";
+                }
 
-            string result = "";
-            for (int i = 0; i < LocationList.Count; i++)
-            {
-                result += $"{{ \"title\": \"{LocationList[i].MushroomID}\", \"lat\": {LocationList[i].Latitude}, \"lng\": {LocationList[i].Longitude}, \"description\": \"{LocationList[i].UserDescription}\", \"address\": \"{LocationList[i].Address}\", \"ImageLink\": \"{LocationList[i].PictureURL}\"}},";
                 string resul = result.Substring(0, result.Length - 1);
                 string json = $"[{resul}]";
 
                 ViewBag.json = json;
+                ViewBag.UserMushrooms = UserMushrooms;
             }
+
             return View("MushroomView");
         }
 
@@ -196,7 +196,7 @@ namespace FungeyeApp.Controllers
             toBeUpdated = updatedMushroom;
             ORM.Entry(toBeUpdated).State = EntityState.Modified;
             ORM.SaveChanges();
-            
+
             return RedirectToAction("IdentifyMushrooms");
         }
     }

@@ -551,7 +551,6 @@
     <Content Include="Views\Home\User.cshtml" />
     <Content Include="Views\Mushroom\AddMushroom.cshtml" />
     <Content Include="Views\Mushroom\UserMushroomMapView.cshtml" />
-    <Content Include="Views\Mushroom\User.cshtml" />
     <Content Include="Views\Home\MushroomView.cshtml" />
     <Content Include="Views\Mushroom\UpdateMushroomForm.cshtml" />
   </ItemGroup>

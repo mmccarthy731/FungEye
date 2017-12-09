@@ -54,3 +54,36 @@ textarea {
 .btn-linkedin {
     display: inline-block;
 }
+
+.jumbotron-section-1 {
+    padding-top: 70px !important;
+}
+
+.jumbotron-section-1-bg {
+    height: 360px;
+    background-size: 100% 100%;
+    background-attachment:;
+}
+
+.introduction {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    width: 100%;
+}
+
+.name {
+    font-family: "custom-headerfont",sans-serif;
+}
+
+.introduction p {
+    font-weight: bold;
+}
