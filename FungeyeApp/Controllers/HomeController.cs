@@ -113,5 +113,23 @@ namespace FungeyeApp.Controllers
             ViewBag.UserMushrooms = List;
             return View("User");
         }
+
+        public ActionResult ListUsers()
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+
+            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
+
+            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
+            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
+
+            ViewBag.test = groups;
+
+
+            return View("LeaderboardsView");
+        }
+
     }
 }

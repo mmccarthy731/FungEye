@@ -5,4 +5,26 @@
 
 <h2>Leaderboards</h2>
 
-<h4> Leaderboards coming soon! Stay tuned!</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            User
+        </th>
+        <th>
+            Observation Count
+        </th>
+    </tr>
+
+    @for (int i = 0; i < ViewBag.UserList.Count; i++)
+    {
+        <tr>
+            <td>
+                @ViewBag.UserList[i]
+            </td>
+            <td>
+                @ViewBag.UserCount[i]
+            </td>
+        </tr>
+    }
+</table>
