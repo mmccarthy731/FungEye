@@ -23,6 +23,7 @@ namespace FungeyeApp.Controllers
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
         public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
         public string ServerName = "fungeye";
+
         public ActionResult Index()
         {
             return View();
@@ -96,6 +97,7 @@ namespace FungeyeApp.Controllers
 
         public ActionResult AboutUs()
         {
+            User.Identity.GetUserId();
 
             return View();
         }

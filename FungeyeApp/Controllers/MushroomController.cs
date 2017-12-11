@@ -15,6 +15,7 @@ using FungeyeApp.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
@@ -36,39 +37,47 @@ namespace FungeyeApp.Controllers
             ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
             ViewBag.CapColors = ORM.Mushrooms.Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
-            ViewBag.MushroomList = ORM.Mushrooms.ToList();
+            //ViewBag.MushroomList = ORM.Mushrooms.ToList();
 
             return View();
         }
 
-        public ActionResult FilterResults(string CapChar, string CapColor, string Stem)
+        [HttpPost]
+        public ContentResult FilterResults(string CapChar, string CapColor, string Stem)
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
             List<Mushroom> results = ORM.Mushrooms.ToList();
-            ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
-            ViewBag.CapColors = ORM.Mushrooms.Select(x => x.CapColor).Distinct().ToList();
-            ViewBag.Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
+            //ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
+            //ViewBag.CapColors = ORM.Mushrooms.Select(x => x.CapColor).Distinct().ToList();
+            //ViewBag.Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
 
-            if (CapChar != "null")
+            if (!string.IsNullOrEmpty(CapChar)&&CapChar != "null")
             {
                 results = ORM.Mushrooms.Where(x => x.CapChar == CapChar).ToList();
             }
 
-            if (CapColor != "null")
+            if (!string.IsNullOrEmpty(CapColor) && CapColor != "null")
             {
                 results = results.Where(x => x.CapColor == CapColor).ToList();
             }
 
-            if (Stem != "null")
+            if (!string.IsNullOrEmpty(Stem) && Stem != "null")
             {
                 results = results.Where(x => x.Stem == Stem).ToList();
             }
 
-            ViewBag.MushroomList = results;
+            var list = JsonConvert.SerializeObject(results,
+    Formatting.None,
+    new JsonSerializerSettings()
+    {
+        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+    });
 
-            return View("IdentifyMushrooms");
+            return Content(list, "application/json");
+
+           
         }
-
+        
         public ActionResult ListSpecificMushroom(string MushroomID)
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
