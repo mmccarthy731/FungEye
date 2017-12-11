@@ -272,6 +272,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MapsController.cs" />
     <Compile Include="Controllers\MushroomController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -553,6 +554,7 @@
     <Content Include="Views\Mushroom\UserMushroomMapView.cshtml" />
     <Content Include="Views\Home\MushroomView.cshtml" />
     <Content Include="Views\Mushroom\UpdateMushroomForm.cshtml" />
+    <Content Include="Views\Maps\Maps.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
