@@ -1,57 +1,95 @@
 ﻿@using FungeyeApp.Models;
 
 @{
-    ViewBag.Title = "IdentifyMushrooms";
+    ViewBag.Title = "Identify Mushrooms";
 }
+<div id="filterOptions">
+    <label>Cap Characteristic: </label>
+    <select name="CapChar" id="CapChar">
+        <option value="null" selected></option>
+        @foreach (var CapChar in ViewBag.CapChars)
+        {
+            <option value="@CapChar">@CapChar</option>
+        }
+    </select>
+    
+    <label>Cap Color: </label>
+    <select name="CapColor" id="CapColor">
+        <option value="null" selected></option>
+        @foreach (var CapColor in ViewBag.CapColors)
+        {
+            <option value="@CapColor">@CapColor</option>
+        }
+    </select>
 
-<form action="/Mushroom/FilterResults" method="post">
-    <label>
-        Cap Characteristic
-        <select name="CapChar">
-            <option value="null" selected></option>
-            @foreach (var CapChar in ViewBag.CapChars)
-            {
-                <option value="@CapChar">@CapChar</option>
-            }
-        </select>
-    </label>
-    <label>
-        Cap Color
-        <select name="CapColor">
-            <option value="null" selected></option>
-            @foreach (var CapColor in ViewBag.CapColors)
-            {
-                <option value="@CapColor">@CapColor</option>
-            }
-        </select>
-    </label>
-    <label>
-        Stem
-        <select name="Stem">
-            <option value="null" selected></option>
-            @foreach (var Stem in ViewBag.Stems)
-            {
-                <option value="@Stem">@Stem</option>
-            }
-        </select>
-    </label>
-    <input type="submit" value="Filter" />
-</form>
+    <label>Stem: </label>
+    <select name="Stem" id="Stem">
+        <option value="null" selected></option>
+        @foreach (var Stem in ViewBag.Stems)
+        {
+            <option value="@Stem">@Stem</option>
+        }
+    </select>
+
+    <input type="button" class="btn btn-primary" id="filterButton" value="Filter" />
+</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#filterButton").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/Mushroom/FilterResults",
+                data: '{CapChar: "' + $("#CapChar").val() + '", CapColor:"' + $("#CapColor").val()+ '", Stem:"' + $("#Stem").val()+'"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#mushroomTable").html("")
+                        var th = ("<tr>" + 
+                        "<th></th>" +
+                        "<th>ID</th>" +
+                        "<th>Species</th>" +
+                        "<th>Common Name</th>" +
+                        "<th>Cap Characteristic</th>" +
+                        "<th>Cap Color</th>" +
+                        "<th>Stem</th>" +
+                        "<th></th>" +
+                        "</tr>")
+                        $("#mushroomTable").append(th);
+                    for (var i = 0; i < response.length; i++) {
+                        var Mushroom = response[i];
+                        var tr = "<tr>";
+                        var td1 = ("<td>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img src='" + Mushroom.PictureURL + "' style='height: 130px; width: 130px;'/>" + "</a>" + "</td>");
+                        var td2 = ("<td>" + Mushroom.MushroomID + "</td>");
+                        var td3 = ("<td>" + Mushroom.Species + "</td>");
+                        var td4 = ("<td>" + Mushroom.CommonName + "</td>");
+                        var td5 = ("<td>" + Mushroom.CapChar + "</td>");
+                        var td6 = ("<td>" + Mushroom.CapColor + "</td>");
+                        var td7 = ("<td>" + Mushroom.Stem + "</td>");
+                        var td8 = ("<td>" + "Is this the mushroom you picked? " + "<input type='radio' name='MushroomID' value=" + Mushroom.MushroomID + "/>" + "</td >");
+                        $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + "</tr>");
+                    }
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+<table class="table" id="mushroomTable">
+
+</table>
+
 
 <h2>IdentifyMushrooms</h2>
 <form action="../Home/UploadImage" method="post">
-    <table class="table">
-        <tr>
-            <th></th>
-            <th>ID</th>
-            <th>Species</th>
-            <th>Common Name</th>
-            <th>Cap Characteristic</th>
-            <th>Cap Color</th>
-            <th>Stem</th>
-        </tr>
-
-        @foreach (var Shrooms in ViewBag.MushroomList)
+    <table class="table" id="mushroomTable">
+        @*@foreach (var Shrooms in ViewBag.MushroomList)
         {
             <tr>
                 <td>
@@ -79,7 +117,7 @@
                     Is this the mushroom you picked? <input type="radio" name="MushroomID" value="@Shrooms.MushroomID" />
                 </td>
             </tr>
-        }
+        }*@
     </table>
     <input type="submit" class ="btn btn-primary" value="Upload Image" />
 </form><br />

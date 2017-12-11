@@ -9,6 +9,7 @@
 
 namespace FungeyeApp.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
 
@@ -41,7 +42,7 @@ namespace FungeyeApp.Models
         {
 
         }
-
+        [JsonIgnore]
         public virtual Mushroom Mushroom { get; set; }
     }
 }
