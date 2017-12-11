@@ -114,13 +114,64 @@ namespace FungeyeApp.Controllers
             return View("User");
         }
 
-        public ActionResult ListUsers()
+        public ActionResult ListUsersHighestToLowest()
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
             List<UserMushroom> emails = ORM.UserMushrooms.ToList();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
+
+            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
+            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
+
+            ViewBag.test = groups;
+
+
+            return View("LeaderboardsView");
+        }
+
+        public ActionResult ListUsersLowestToHighest()
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+
+            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).ToList();
+
+            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
+            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
+
+            ViewBag.test = groups;
+
+
+            return View("LeaderboardsView");
+        }
+
+        public ActionResult ListUsersAtoZ()
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+
+            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).ToList();
+
+            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
+            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
+
+            ViewBag.test = groups;
+
+
+            return View("LeaderboardsView");
+        }
+
+        public ActionResult ListUsersZtoA()
+        {
+            FungeyeDBEntities ORM = new FungeyeDBEntities();
+
+            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+
+            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).Reverse().ToList();
 
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
