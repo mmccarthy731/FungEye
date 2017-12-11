@@ -122,7 +122,7 @@ namespace FungeyeApp.Controllers
 
             List<UserMushroom> emails = ORM.UserMushrooms.ToList();
 
-            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).Reverse().ToList();
+            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
 
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
