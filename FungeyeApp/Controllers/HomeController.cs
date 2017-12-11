@@ -114,24 +114,22 @@ namespace FungeyeApp.Controllers
             return View("User");
         }
 
-        public ActionResult ListUsersHighestToLowest()
+        public ActionResult SortUsersHighestToLowest()
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
             List<UserMushroom> emails = ORM.UserMushrooms.ToList();
 
-            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
+            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).Reverse().ToList();
 
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
-            ViewBag.test = groups;
 
 
             return View("LeaderboardsView");
         }
 
-        public ActionResult ListUsersLowestToHighest()
+        public ActionResult SortUsersLowestToHighest()
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
@@ -142,7 +140,6 @@ namespace FungeyeApp.Controllers
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 
-            ViewBag.test = groups;
 
 
             return View("LeaderboardsView");
@@ -159,7 +156,6 @@ namespace FungeyeApp.Controllers
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 
-            ViewBag.test = groups;
 
 
             return View("LeaderboardsView");
@@ -176,11 +172,12 @@ namespace FungeyeApp.Controllers
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 
-            ViewBag.test = groups;
 
 
             return View("LeaderboardsView");
         }
+
+        
 
     }
 }

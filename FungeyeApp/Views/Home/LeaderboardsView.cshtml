@@ -12,7 +12,10 @@
             User <a href="/Home/ListUsersAtoZ"><span>&#x25B2;</span></a><a href="/Home/ListUsersZtoA"><span>&#x25BC;</span></a>
         </th>
         <th>
-            Observation Count <a href="/Home/ListUsersHighestToLowest"><span>&#x25B2;</span></a><a href="/Home/ListUsersLowestToHighest"><span>&#x25BC;</span></a>
+            Total Observations <a href="/Home/SortUsersHighestToLowest"><span>&#x25B2;</span></a><a href="/Home/SortUsersLowestToHighest"><span>&#x25BC;</span></a>
+        </th>
+        <th>
+            Unique Observations
         </th>
     </tr>
 
@@ -24,6 +27,9 @@
             </td>
             <td>
                 @ViewBag.UserCount[i]
+            </td>
+            <td>
+                @ViewBag.UniqueList[i]
             </td>
         </tr>
     }
