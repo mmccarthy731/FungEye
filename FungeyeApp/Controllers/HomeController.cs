@@ -21,6 +21,7 @@ namespace FungeyeApp.Controllers
     {
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
         public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
+        public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
         public string ServerName = "fungeye";
 
         public ActionResult Index()

@@ -14,7 +14,6 @@ using GoogleMaps.LocationServices;
 using FungeyeApp.Models;
 using System.IO;
 using Microsoft.AspNet.Identity;
-using System.Data.Entity;
 using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
@@ -23,6 +22,7 @@ namespace FungeyeApp.Controllers
     {
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
         public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
+        public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
         public string ServerName = "fungeye";
 
         public ActionResult Index()
@@ -85,7 +85,7 @@ namespace FungeyeApp.Controllers
                 string result = "";
                 for (int i = 0; i < UserMushrooms.Count; i++)
                 {
-                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\"}},";
+                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\", \"email\": \"{UserMushrooms[i].Email}\", \"UserID\": \"{UserMushrooms[i].UserID}\"}},";
                 }
 
                 string resul = result.Substring(0, result.Length - 1);
@@ -94,7 +94,7 @@ namespace FungeyeApp.Controllers
                 ViewBag.json = json;
                 ViewBag.UserMushrooms = UserMushrooms;
             }
-
+            ViewBag.Key = GoogleKey;
             return View("MushroomView");
         }
 

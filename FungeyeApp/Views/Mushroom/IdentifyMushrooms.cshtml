@@ -58,7 +58,6 @@
                         $("#mushroomTable").append(th);
                     for (var i = 0; i < response.length; i++) {
                         var Mushroom = response[i];
-<<<<<<< HEAD
                         var tr = "<div class='col-sm-4'> <div class='panel panel-default'>";
                         var td1 = ("<div class='panel-heading'>" + "<h3 class='panel-title mushroomID'>" + "<b>Mushroom ID: </b>" + " #"+ Mushroom.MushroomID + "</h3></div>");
                         var td2 = ("<div class='panel-body bounding-box'> <div class='thumbnail'>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img class='img-responsive' src='" + Mushroom.PictureURL + "' style= 'height: 200px; width: 200px; '/>" + "</a>" + "</div>");
@@ -71,21 +70,6 @@
                         var td9 = ("Is this the mushroom you picked? " + "<a href=../Home/UploadImage?MushroomID=" + Mushroom.MushroomID + ">Go!</a>");
                         $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + td9 + "</div></div>");
                 }
-=======
-                        var tr = "<tr>";
-                        var td1 = ("<td>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img src='" + Mushroom.PictureURL + "' style='height: 130px; width: 130px;'/>" + "</a>" + "</td>");
-                        var td2 = ("<td>" + Mushroom.MushroomID + "</td>");
-                        var td3 = ("<td>" + Mushroom.Species + "</td>");
-                        var td4 = ("<td>" + Mushroom.CommonName + "</td>");
-                        var td5 = ("<td>" + Mushroom.CapChar + "</td>");
-                        var td6 = ("<td>" + Mushroom.CapColor + "</td>");
-                        var td7 = ("<td>" + Mushroom.Stem + "</td>");
-
-                        var td8 = ("<td>" + "Is this the mushroom you picked? " + "<input type='radio' name='MushroomID' value=" + Mushroom.MushroomID + " />" + "</td >");
-
-                        $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + "</tr>");
-                    }
->>>>>>> f1a898a642f9b65226416bee488635843255184f
                 },
                 failure: function (response) {
                     alert(response.responseText);
