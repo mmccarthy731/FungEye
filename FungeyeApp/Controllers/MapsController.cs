@@ -7,7 +7,6 @@ namespace FungeyeApp.Controllers
 {
     public class MapsController : Controller
     {
-        public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
         public ActionResult Index()
         {
             return View();
@@ -28,7 +27,7 @@ namespace FungeyeApp.Controllers
             string json = $"[{resul}]";
 
             ViewBag.json = json;
-            ViewBag.Key = GoogleKey;
+            ViewBag.Key = DAL.GoogleKey;
             return View();
         }
     }
