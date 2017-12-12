@@ -10,6 +10,7 @@ namespace FungeyeApp.Controllers
 {
     public class MushroomController : Controller
     {
+
         public ActionResult Index()
         {
             return View();
@@ -71,7 +72,7 @@ namespace FungeyeApp.Controllers
                 string result = "";
                 for (int i = 0; i < UserMushrooms.Count; i++)
                 {
-                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\"}},";
+                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\", \"email\": \"{UserMushrooms[i].Email}\", \"UserID\": \"{UserMushrooms[i].UserID}\"}},";
                 }
 
                 string resul = result.Substring(0, result.Length - 1);
@@ -80,7 +81,7 @@ namespace FungeyeApp.Controllers
                 ViewBag.json = json;
                 ViewBag.UserMushrooms = UserMushrooms;
             }
-
+            ViewBag.Key = DAL.GoogleKey;
             return View("MushroomView");
         }
 
