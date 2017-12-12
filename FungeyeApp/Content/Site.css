@@ -1,12 +1,14 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("http://www.tokkoro.com/picsup/1220871-mushroom.jpg")
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -57,12 +59,17 @@ textarea {
 
 .jumbotron-section-1 {
     padding-top: 70px !important;
+    
 }
 
 .jumbotron-section-1-bg {
     height: 360px;
     background-size: 100% 100%;
     background-attachment:;
+}
+
+.jumbotron {
+    background-color: navajowhite;
 }
 
 .introduction {
