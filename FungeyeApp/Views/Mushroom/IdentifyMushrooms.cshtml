@@ -45,7 +45,7 @@
                 dataType: "json",
                 success: function (response) {
                     $("#mushroomTable").html("")
-                        var th = ("<tr>" + 
+                        var th = ("<tr>" +
                         "<th></th>" +
                         "<th>ID</th>" +
                         "<th>Species</th>" +
@@ -58,6 +58,20 @@
                         $("#mushroomTable").append(th);
                     for (var i = 0; i < response.length; i++) {
                         var Mushroom = response[i];
+<<<<<<< HEAD
+                        var tr = "<div class='col-sm-4'> <div class='panel panel-default'>";
+                        var td1 = ("<div class='panel-heading'>" + "<h3 class='panel-title mushroomID'>" + "<b>Mushroom ID: </b>" + " #"+ Mushroom.MushroomID + "</h3></div>");
+                        var td2 = ("<div class='panel-body bounding-box'> <div class='thumbnail'>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img class='img-responsive' src='" + Mushroom.PictureURL + "' style= 'height: 200px; width: 200px; '/>" + "</a>" + "</div>");
+                        var td3 = ("<p class='text-left mushroomSpecies'>" + "<b>Species Name: </b>" + Mushroom.Species + "</p><br />");
+                        var td4 = ("<p class='text-left mushroomName'>" + "<b>Common Name: </b>"  + Mushroom.CommonName + "</p><br />");
+                        var td5 = ("<p class='text-left mushroomCapChar'>" + "<b>Cap Characteristic: </b>" + Mushroom.CapChar + "</p><br />");
+                        var td6 = ("<p class='text-left mushroomCapColor'>" + "<b>Cap Color: </b>" + Mushroom.CapColor + "</p><br />");
+                        var td7 = ("<p class='text-left mushroomStem'>" + "<b>Mushroom Stem: </b>" + Mushroom.Stem + "</p><br />");
+                        var td8 = ("<p class='text-left mushroomEdibilitiy' > " + " <b> Mushroom Edibility: </b> " + Mushroom.Edibility + "</p > <br />");
+                        var td9 = ("Is this the mushroom you picked? " + "<a href=../Home/UploadImage?MushroomID=" + Mushroom.MushroomID + ">Go!</a>");
+                        $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + td9 + "</div></div>");
+                }
+=======
                         var tr = "<tr>";
                         var td1 = ("<td>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img src='" + Mushroom.PictureURL + "' style='height: 130px; width: 130px;'/>" + "</a>" + "</td>");
                         var td2 = ("<td>" + Mushroom.MushroomID + "</td>");
@@ -71,6 +85,7 @@
 
                         $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + "</tr>");
                     }
+>>>>>>> f1a898a642f9b65226416bee488635843255184f
                 },
                 failure: function (response) {
                     alert(response.responseText);
@@ -84,39 +99,10 @@
 </script>
 
 <h2>IdentifyMushrooms</h2>
-<form action="../Home/UploadImage" method="post">
-    <table class="table" id="mushroomTable">
-        @*@foreach (var Shrooms in ViewBag.MushroomList)
-        {
-            <tr>
-                <td>
-                    <a href="/Mushroom/ListSpecificMushroom?MushroomID=@Shrooms.MushroomID" ><img src="@Shrooms.PictureURL" style="height:130px; width: 130px"/></a>
-                </td>
-                <td>
-                    #@Shrooms.MushroomID
-                </td>
-                <td>
-                    @Shrooms.Species
-                </td>
-                <td>
-                    @Shrooms.CommonName
-                </td>
-                <td>
-                    @Shrooms.CapChar
-                </td>
-                <td>
-                    @Shrooms.CapColor
-                </td>
-                <td>
-                    @Shrooms.Stem
-                </td>
-                <td>
-                    Is this the mushroom you picked? <input type="radio" name="MushroomID" value="@Shrooms.MushroomID" />
-                </td>
-            </tr>
-        }*@
-    </table>
-    <input type="submit" class ="btn btn-primary" value="Upload Image" />
-</form><br />
+    <div class="container" id="mushroomTable">
+        <div class="row align-items-center"id="mushroomTable">
+           
+           </div>
+            </div>
 
 Don't see your mushroom? <a href="../Mushroom/AddMushroomToDB" class="btn btn-primary">Add Mushroom</a>
