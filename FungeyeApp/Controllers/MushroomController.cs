@@ -1,30 +1,28 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Configuration;
-using Newtonsoft.Json.Linq;
 using System.Data;
-using System.Data.SqlClient;
-using System.Data.Entity;
-using GoogleMaps.LocationServices;
 using FungeyeApp.Models;
+<<<<<<< HEAD
 using System.IO;
 using Microsoft.AspNet.Identity;
+=======
+>>>>>>> b4d6d6daf19c1c8266c7839ed35baa2e9d147788
 using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
     public class MushroomController : Controller
     {
+<<<<<<< HEAD
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
         public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
         public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
         public string ServerName = "fungeye";
 
+=======
+>>>>>>> b4d6d6daf19c1c8266c7839ed35baa2e9d147788
         public ActionResult Index()
         {
             return View();
@@ -32,11 +30,11 @@ namespace FungeyeApp.Controllers
         
         public ActionResult IdentifyMushrooms()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
-            ViewBag.CapColors = ORM.Mushrooms.Select(x => x.CapColor).Distinct().ToList();
-            ViewBag.Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
+            ViewBag.CapChars = DAL.GetAllMushrooms().Select(x => x.CapChar).Distinct().ToList();
+            ViewBag.CapColors = DAL.GetAllMushrooms().Select(x => x.CapColor).Distinct().ToList();
+            ViewBag.Stems = DAL.GetAllMushrooms().Select(x => x.Stem).Distinct().ToList();
 
             return View();
         }
@@ -44,12 +42,13 @@ namespace FungeyeApp.Controllers
         [HttpPost]
         public ContentResult FilterResults(string CapChar, string CapColor, string Stem)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
-            List<Mushroom> results = ORM.Mushrooms.ToList();
+            FungeyeDAL DAL = new FungeyeDAL();
+
+            List<Mushroom> results = DAL.GetAllMushrooms();
 
             if (!string.IsNullOrEmpty(CapChar)&&CapChar != "null")
             {
-                results = ORM.Mushrooms.Where(x => x.CapChar == CapChar).ToList();
+                results = results.Where(x => x.CapChar == CapChar).ToList();
             }
 
             if (!string.IsNullOrEmpty(CapColor) && CapColor != "null")
@@ -74,11 +73,11 @@ namespace FungeyeApp.Controllers
         
         public ActionResult ListSpecificMushroom(string MushroomID)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
+            ViewBag.Mushroom = DAL.GetMushroomById(MushroomID);
 
-            List<UserMushroom> UserMushrooms = ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID).ToList();
+            List<UserMushroom> UserMushrooms = DAL.GetUserMushroomsByMushroomId(MushroomID);
 
             if (UserMushrooms.Count > 0)
             {
@@ -107,56 +106,32 @@ namespace FungeyeApp.Controllers
         [Authorize]
         public ActionResult AddMushroom(HttpPostedFileBase fileUpload, string Address, string UserDescription, string Species, string CommonName, string CapChar, string CapColor, string Stem, string StemColor, string Hymenium, string HymeniumColor, string SporeColor, string Ecology, string Substrate, string GrowthPattern)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
-            ApplicationDbContext UserORM = new ApplicationDbContext();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            Account account = new Account(ServerName, APIKey, APISecret);
-            Cloudinary cloudinary = new Cloudinary(account);
-
-            if (fileUpload != null)
+            if (fileUpload == null)
             {
-                var uploadParams = new ImageUploadParams
-                {
-                    File = new FileDescription(fileUpload.FileName, fileUpload.InputStream)
-                };
-                var uploadResult = cloudinary.Upload(uploadParams);
-
-                JObject jsonData = (JObject)uploadResult.JsonObj;
-
-                var locationService = new GoogleLocationService();
-
-                var point = locationService.GetLatLongFromAddress(Address);
-
-                string mushID = Convert.ToString((int.Parse(ORM.Mushrooms.ToList().Last().MushroomID)) + 1);
-
-                while (mushID.Length < 3)
-                {
-                    mushID = "0" + mushID;
-                }
-
-                string email = UserORM.Users.Find(User.Identity.GetUserId()).Email;
-
-                ORM.Mushrooms.Add(new Mushroom(Species, CommonName, CapChar, null, CapColor, Stem, StemColor, Hymenium, null, HymeniumColor, SporeColor, null, Ecology, null, Substrate, GrowthPattern, null, mushID, "inedible", null, jsonData["secure_url"].ToString()));
-
-                ORM.SaveChanges();
-
-                ORM.UserMushrooms.Add(new UserMushroom(jsonData["secure_url"].ToString(), Address, User.Identity.GetUserId(), mushID, UserDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, CommonName));
-
-                ORM.SaveChanges();
+                ViewBag.ErrorMessage = "We were unable to upload your image. Please try again.";
+                return View("AddMushroom");
             }
+
+            string pictureURL = DAL.UploadImage(fileUpload);
+
+            string mushroomID = DAL.AddMushroom(Species, CommonName, CapChar, CapColor, Stem, StemColor, Hymenium, HymeniumColor, SporeColor, Ecology, Substrate, GrowthPattern, pictureURL);
+
+            DAL.AddUserMushroom(UserDescription, Address, mushroomID, pictureURL);
 
             return RedirectToAction("IdentifyMushrooms");
         }
 
         public ActionResult UserMushroomMapView()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> LocationList = ORM.UserMushrooms.ToList();
+            List<UserMushroom> userMushrooms = DAL.GetAllUserMushrooms();
             string result = "";
-            for (int i = 0; i < LocationList.Count; i++)
+            for (int i = 0; i < userMushrooms.Count; i++)
             {
-                result += $"{{ \"title\": \"{LocationList[i].MushroomID}\", \"lat\": {LocationList[i].Latitude}, \"lng\": {LocationList[i].Longitude}, \"description\": \"{LocationList[i].UserDescription}\", \"address\": \"{LocationList[i].Address}\", \"ImageLink\": \"{LocationList[i].PictureURL}\"}},";
+                result += $"{{ \"title\": \"{userMushrooms[i].MushroomID}\", \"lat\": {userMushrooms[i].Latitude}, \"lng\": {userMushrooms[i].Longitude}, \"description\": \"{userMushrooms[i].UserDescription}\", \"address\": \"{userMushrooms[i].Address}\", \"ImageLink\": \"{userMushrooms[i].PictureURL}\"}},";
             }
 
             string resul = result.Substring(0, result.Length - 1);
@@ -170,11 +145,9 @@ namespace FungeyeApp.Controllers
         [Authorize]
         public ActionResult DeleteMushroom(string MushroomID)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            ORM.UserMushrooms.RemoveRange(ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID));
-            ORM.Mushrooms.Remove(ORM.Mushrooms.Find(MushroomID));
-            ORM.SaveChanges();
+            DAL.DeleteMushroom(MushroomID);
 
             return RedirectToAction("IdentifyMushrooms");
         }
@@ -182,44 +155,19 @@ namespace FungeyeApp.Controllers
         [Authorize]
         public ActionResult UpdateMushroom(string MushroomID)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
-            ViewBag.Mushroom = ORM.Mushrooms.Find(MushroomID);
+            FungeyeDAL DAL = new FungeyeDAL();
+
+            ViewBag.Mushroom = DAL.GetMushroomById(MushroomID);
+
             return View("UpdateMushroomForm");
         }
 
         [Authorize]
         public ActionResult SaveUpdatedMushroom(Mushroom updatedMushroom)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            Mushroom toBeUpdated = ORM.Mushrooms.Find(updatedMushroom.MushroomID);
-
-            foreach (UserMushroom userMush in ORM.UserMushrooms.Where(x => x.CommonName == toBeUpdated.CommonName).ToList())
-            {
-                userMush.CommonName = updatedMushroom.CommonName;
-            }
-
-            toBeUpdated.Species = updatedMushroom.Species;
-            toBeUpdated.CommonName = updatedMushroom.CommonName;
-            toBeUpdated.CapChar = updatedMushroom.CapChar;
-            toBeUpdated.NextCapChar = updatedMushroom.NextCapChar;
-            toBeUpdated.CapColor = updatedMushroom.CapColor;
-            toBeUpdated.Stem = updatedMushroom.Stem;
-            toBeUpdated.StemColor = updatedMushroom.StemColor;
-            toBeUpdated.Hymenium = updatedMushroom.Hymenium;
-            toBeUpdated.Attachment = updatedMushroom.Attachment;
-            toBeUpdated.HymeniumColor = updatedMushroom.HymeniumColor;
-            toBeUpdated.SporeColor = updatedMushroom.SporeColor;
-            toBeUpdated.CapColor = updatedMushroom.CapColor;
-            toBeUpdated.Annulus = updatedMushroom.Annulus;
-            toBeUpdated.Ecology = updatedMushroom.Ecology;
-            toBeUpdated.NewEcology = updatedMushroom.NewEcology;
-            toBeUpdated.Substrate = updatedMushroom.Substrate;
-            toBeUpdated.GrowthPattern = updatedMushroom.GrowthPattern;
-            toBeUpdated.NewGrowthPattern = updatedMushroom.NewGrowthPattern;
-
-            ORM.Entry(toBeUpdated).State = EntityState.Modified;
-            ORM.SaveChanges();
+            DAL.UpdateMushroom(updatedMushroom);
 
             return RedirectToAction("IdentifyMushrooms");
         }
