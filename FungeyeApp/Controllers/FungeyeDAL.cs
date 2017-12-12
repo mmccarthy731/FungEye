@@ -39,17 +39,18 @@ namespace FungeyeApp.Controllers
             return jsonData["secure_url"].ToString();
         }
 
-        public void AddUserMushroom(string userDescription, string address, string mushroomID, string pictureURL)
+        public void AddUserMushroom(string userDescription, string address, string mushroomID, string pictureURL, string email, string userID)
         {
             var locationService = new GoogleLocationService();
 
             var point = locationService.GetLatLongFromAddress(address);
 
-            string email = UserORM.Users.Find(User.Identity.GetUserId()).Email;
+           // string email = User.Identity.GetUserName();
 
             string commonName = ORM.Mushrooms.Find(mushroomID).CommonName;
 
-            ORM.UserMushrooms.Add(new UserMushroom(pictureURL, address, User.Identity.GetUserId(), mushroomID, userDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
+
+            ORM.UserMushrooms.Add(new UserMushroom(pictureURL, address, userID, mushroomID, userDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
 
             ORM.SaveChanges();
         }

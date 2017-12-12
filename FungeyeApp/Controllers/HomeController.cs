@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using FungeyeApp.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FungeyeApp.Controllers
 {
@@ -37,7 +38,7 @@ namespace FungeyeApp.Controllers
 
             string pictureURL = DAL.UploadImage(fileUpload);
 
-            DAL.AddUserMushroom(userDescription, address, mushroomID, pictureURL);
+            DAL.AddUserMushroom(userDescription, address, mushroomID, pictureURL, User.Identity.GetUserName(), User.Identity.GetUserId());
 
             ViewBag.Upload = pictureURL;
             return View();
