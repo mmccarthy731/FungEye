@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using System.Data;
 using FungeyeApp.Models;
 using Newtonsoft.Json;
-
+using Microsoft.AspNet.Identity;
 namespace FungeyeApp.Controllers
 {
     public class MushroomController : Controller
@@ -106,7 +106,7 @@ namespace FungeyeApp.Controllers
 
             string mushroomID = DAL.AddMushroom(Species, CommonName, CapChar, CapColor, Stem, StemColor, Hymenium, HymeniumColor, SporeColor, Ecology, Substrate, GrowthPattern, pictureURL);
 
-            DAL.AddUserMushroom(UserDescription, Address, mushroomID, pictureURL);
+            DAL.AddUserMushroom(UserDescription, Address, mushroomID, pictureURL,User.Identity.GetUserName(), User.Identity.GetUserId());
 
             return RedirectToAction("IdentifyMushrooms");
         }
