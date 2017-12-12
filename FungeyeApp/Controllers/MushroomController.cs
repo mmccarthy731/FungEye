@@ -37,17 +37,17 @@ namespace FungeyeApp.Controllers
 
             if (!string.IsNullOrEmpty(CapChar)&&CapChar != "null")
             {
-                results = results.Where(x => x.CapChar == CapChar).ToList();
+                results = results.Where(x => x.CapChar.ToLower() == CapChar.ToLower()).ToList();
             }
 
             if (!string.IsNullOrEmpty(CapColor) && CapColor != "null")
             {
-                results = results.Where(x => x.CapColor == CapColor).ToList();
+                results = results.Where(x => x.CapColor.ToLower() == CapColor.ToLower()).ToList();
             }
 
             if (!string.IsNullOrEmpty(Stem) && Stem != "null")
             {
-                results = results.Where(x => x.Stem == Stem).ToList();
+                results = results.Where(x => x.Stem.ToLower() == Stem.ToLower()).ToList();
             }
 
             var list = JsonConvert.SerializeObject(results,
