@@ -1,16 +1,7 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Configuration;
-using Newtonsoft.Json.Linq;
 using FungeyeApp.Models;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity;
-using GoogleMaps.LocationServices;
+
 
 namespace FungeyeApp.Controllers
 {
@@ -24,13 +15,13 @@ namespace FungeyeApp.Controllers
 
         public ActionResult Maps()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> LocationList = ORM.UserMushrooms.ToList();
+            List<UserMushroom> userMushrooms = DAL.GetAllUserMushrooms();
             string result = "";
-            for (int i = 0; i < LocationList.Count; i++)
+            for (int i = 0; i < userMushrooms.Count; i++)
             {
-                result += $"{{ \"title\": \"{LocationList[i].MushroomID}\", \"lat\": {LocationList[i].Latitude}, \"lng\": {LocationList[i].Longitude}, \"description\": \"{LocationList[i].UserDescription}\", \"address\": \"{LocationList[i].Address}\", \"ImageLink\": \"{LocationList[i].PictureURL}\", \"email\": \"{LocationList[i].Email}\", \"UserID\": \"{LocationList[i].UserID}\"}},";
+                result += $"{{ \"title\": \"{userMushrooms[i].MushroomID}\", \"lat\": {userMushrooms[i].Latitude}, \"lng\": {userMushrooms[i].Longitude}, \"description\": \"{userMushrooms[i].UserDescription}\", \"address\": \"{userMushrooms[i].Address}\", \"ImageLink\": \"{userMushrooms[i].PictureURL}\", \"email\": \"{userMushrooms[i].Email}\", \"UserID\": \"{userMushrooms[i].UserID}\"}},";
             }
 
             string resul = result.Substring(0, result.Length - 1);
