@@ -4,7 +4,6 @@
     ViewBag.Title = "MushroomView";
 }
 
-@*<img src="@ViewBag.Mushroom.PictureURL" style="height:300px; width: 300px"/>*@
 <head>
     <style>
         img {
@@ -15,7 +14,6 @@
 </head>
 <div class="container">
     <div class="row">
-        @*@ViewBag.json*@
         <div class="col-md-12 ">
             <div class="panel panel-default">
                 <div class="panel-heading">  <h4>Mushroom Profile</h4></div>
@@ -79,19 +77,6 @@
                             <div class="col-sm-5 col-xs-6 tital ">Growth Pattern:</div><div class="col-sm-7">@ViewBag.Mushroom.GrowthPattern</div>
                             <br />
                         </div>
-
-
-                            @*@foreach (var userMush in ViewBag.userMushrooms)
-                            {
-                                <div class="col-sm-6">
-                                    <img src="@userMush.PictureURL"  style="height: 100px; width:100px; "/>
-                                    <a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-                            }*@
-                            <!-- /.box-body -->
-                        <!-- /.box -->
                     </div>
                     <br />
                     <a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom</a>

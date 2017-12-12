@@ -18,8 +18,8 @@ namespace FungeyeApp.Controllers
     {
         FungeyeDBEntities ORM = new FungeyeDBEntities();
         ApplicationDbContext UserORM = new ApplicationDbContext();
-        public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
-        public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
+        public string APIKey = ConfigurationManager.AppSettings.Get("CloudinaryKey");
+        public string APISecret = ConfigurationManager.AppSettings.Get("CloudinarySecret");
         public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
         public string ServerName = "fungeye";
 

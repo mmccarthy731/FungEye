@@ -45,23 +45,9 @@
                 dataType: "json",
                 success: function (response) {
                     $("#mushroomTable").html("")
-                        //var th = ("<tr>" +
-                        //"<th></th>" +
-                        //"<th>ID</th>" +
-                        //"<th>Species</th>" +
-                        //"<th>Common Name</th>" +
-                        //"<th>Cap Characteristic</th>" +
-                        //"<th>Cap Color</th>" +
-                        //"<th>Stem</th>" +
-                        //"<th></th>" +
-                        //"</tr>")
-                        $("#mushroomTable").append();
+                    $("#mushroomTable").append();
                     for (var i = 0; i < response.length; i++) {
                         var Mushroom = response[i];
-<<<<<<< HEAD
-
-=======
->>>>>>> b4d6d6daf19c1c8266c7839ed35baa2e9d147788
                         var tr = "<div class='col-sm-4'> <div class='panel panel-default'>";
                         var td1 = ("<div class='panel-heading'>" + "<h3 class='panel-title mushroomID'>" + "<b>Mushroom ID: </b>" + " #"+ Mushroom.MushroomID + "</h3></div>");
                         var td2 = ("<div class='panel-body bounding-box'> <div class='thumbnail'>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img class='img-responsive' src='" + Mushroom.PictureURL + "' style= 'height: 200px; width: 200px; '/>" + "</a>" + "</div>");
@@ -71,14 +57,9 @@
                         var td6 = ("<p class='text-left mushroomCapColor'>" + "<b>Cap Color: </b>" + Mushroom.CapColor + "</p><br />");
                         var td7 = ("<p class='text-left mushroomStem'>" + "<b>Mushroom Stem: </b>" + Mushroom.Stem + "</p><br />");
                         var td8 = ("<p class='text-left mushroomEdibilitiy' > " + " <b> Mushroom Edibility: </b> " + Mushroom.Edibility + "</p > <br />");
-                        var td9 = ("Is this the mushroom you picked? " + "<a href=../Home/UploadImage?MushroomID=" + Mushroom.MushroomID + ">Go!</a>");
+                        var td9 = ("Is this the mushroom you picked? " + "<a href=../Home/UploadImage?MushroomID=" + Mushroom.MushroomID + " class='btn btn-primary'>Go!</a>");
                         $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + td9 + "</div></div>");
-<<<<<<< HEAD
                     }
-
-=======
-                }
->>>>>>> b4d6d6daf19c1c8266c7839ed35baa2e9d147788
                 },
                 failure: function (response) {
                     alert(response.responseText);

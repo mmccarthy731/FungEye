@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using System.Data;
 using FungeyeApp.Models;
 using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace FungeyeApp.Controllers
 {
@@ -24,7 +25,10 @@ namespace FungeyeApp.Controllers
             ViewBag.CapColors = DAL.GetAllMushrooms().Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = DAL.GetAllMushrooms().Select(x => x.Stem).Distinct().ToList();
 
-            return View();
+
+            // return FilterResults(null,null,null);
+            //  return RedirectToAction("FilterResults", new { CapChar = "null", CapColor = "null", Stem = "null" });
+            return View();  
         }
 
         [HttpPost]
