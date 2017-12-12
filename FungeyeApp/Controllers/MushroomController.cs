@@ -11,7 +11,6 @@ namespace FungeyeApp.Controllers
 {
     public class MushroomController : Controller
     {
-
         public ActionResult Index()
         {
             return View();
@@ -25,9 +24,7 @@ namespace FungeyeApp.Controllers
             ViewBag.CapColors = DAL.GetAllMushrooms().Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = DAL.GetAllMushrooms().Select(x => x.Stem).Distinct().ToList();
 
-
-            // return FilterResults(null,null,null);
-            //  return RedirectToAction("FilterResults", new { CapChar = "null", CapColor = "null", Stem = "null" });
+            ViewBag.Mushrooms = DAL.GetAllMushrooms();
             return View();  
         }
 
