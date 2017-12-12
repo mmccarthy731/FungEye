@@ -59,6 +59,18 @@ namespace FungeyeApp.Controllers
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
+            List<UserMushroom> userMushrooms = DAL.GetUserMushroomsByUserId(Id);
+            string result = "";
+            for (int i = 0; i < userMushrooms.Count; i++)
+            {
+                result += $"{{ \"MushroomID\": \"{userMushrooms[i].MushroomID}\", \"lat\": {userMushrooms[i].Latitude}, \"lng\": {userMushrooms[i].Longitude}, \"description\": \"{userMushrooms[i].UserDescription}\", \"address\": \"{userMushrooms[i].Address}\", \"ImageLink\": \"{userMushrooms[i].PictureURL}\", \"email\": \"{userMushrooms[i].Email}\", \"CommonName\": \"{userMushrooms[i].CommonName}\"}},";
+            }
+
+            string resul = result.Substring(0, result.Length - 1);
+            string json = $"[{resul}]";
+
+            ViewBag.json = json;
+            ViewBag.Key = DAL.GoogleKey;
             ViewBag.User = DAL.GetUser(Id);
             ViewBag.UserMushrooms = DAL.GetUserMushroomsByUserId(Id);
             return View("User");

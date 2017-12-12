@@ -6,7 +6,18 @@
 <h2>User</h2>
 
 @*<img src="@ViewBag.Mushroom.PictureURL" style="height:300px; width: 300px"/>*@
-
+<head>
+    <style>
+        .imgAv {
+            border-radius: 100%;
+            border: 2px solid #03b1ce;
+        }
+        .imgPic {
+            border-radius: 15%;
+            border: 2px solid #03b1ce;
+        }
+    </style>
+</head>
 <div class="container">
     <div class="row">
         <div class="col-md-12 ">
@@ -17,27 +28,27 @@
                     <div class="box box-info">
 
                         <div class="box-body">
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div align="center">
-                                    @*<img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" id="profile-image1" class="img-rounded img-responsive">*@
-
-                                    @*<input id="profile-image-upload" class="hidden" type="file">
-                                    <div style="color:#999;">click here to change profile image</div>*@
+                                    <img class="imgAv" alt="Avatar" src="http://www.destinyjunkie.com/themes/comb/img/avatar/default-avatar-male_3.png" style="height: 300px">
+                                    <input id="profile-image-upload" class="hidden" type="file">
                                     <!--Upload Image Js And Css-->
-
-
+                                    <h4 style="color:#00b1b1;">@ViewBag.User.FirstName @ViewBag.User.LastName</h4>
+                                    <span>@ViewBag.User.Email</span>
                                 </div>
-
                                 <br>
-
                                 <!-- /input-group -->
                             </div>
-                            <div class="col-sm-6">
-                                <h4 style="color:#00b1b1;">@ViewBag.User.FirstName @ViewBag.User.LastName</h4>
-                                <span>@ViewBag.User.Email</span>
+                        </div>
+                        <div class="col-sm-6">
+                            <div align="center">
+                                <div id="map" style="width:300px;height:300px" class="map"></div>
+                                <h4 style="color:#00b1b1;">Map of @ViewBag.User.FirstName's Observation</h4>
+                                <span>Map</span>
                             </div>
-                            <div class="clearfix"></div>
-                            <hr style="margin:5px 0 5px 0;">
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr style="margin:5px 0 5px 0;">
 
                             @foreach(var userMush in ViewBag.UserMushrooms )
                             {                            
@@ -55,11 +66,61 @@
             </div>
         </div>
         <script>
-              $(function() {
-    $('#profile-image1').on('click', function() {
-        $('#profile-image-upload').click();
-    });
-});
+        (function() {
+
+	    window.onload = function() {
+
+		// Creating a new map
+		var map = new google.maps.Map(document.getElementById("map"), {
+            center: new google.maps.LatLng(44.5577549, -84.600220),
+          zoom: 6,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+
+		// Creating the JSON data
+		var json = @Html.Raw(ViewBag.json)
+
+		// Creating a global infoWindow object that will be reused by all markers
+		var infoWindow = new google.maps.InfoWindow();
+
+		// Looping through the JSON data
+		for (var i = 0, length = json.length; i < length; i++) {
+			var data = json[i],
+				latLng = new google.maps.LatLng(data.lat, data.lng);
+
+			// Creating a marker and putting it on the map
+			var marker = new google.maps.Marker({
+				position: latLng,
+                map: map,
+                MushroomID: data.MushroomID
+			});
+
+			// Creating a closure to retain the correct data, notice how I pass the current data in the loop into the closure (marker, data)
+			(function(marker, data) {
+
+				// Attaching a click event to the current marker
+                google.maps.event.addListener(marker, "click", function (e) {
+                    infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "<b>Common Name: </b>" + "<a href=../Mushroom/ListSpecificMushroom?MushroomID=" + data.MushroomID + ">" + data.CommonName + "</a><br/>" + "Mushroom ID: #</b>" + data.MushroomID + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br />" + "</div>");
+					infoWindow.open(map, marker);
+				});
+
+
+			})(marker, data);
+
+		}
+
+	}
+
+})();
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.Key&callback=myMap"></script>
+        <script>
+            $(function () {
+                $('#profile-image1').on('click', function () {
+                    $('#profile-image-upload').click();
+                });
+            });
         </script>
     </div>
 </div>
