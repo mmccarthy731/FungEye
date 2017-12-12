@@ -3,7 +3,7 @@
     ViewBag.Title = "UpdateMushroomForm";
 }
 
-<h2>UpdateMushroomForm</h2>
+<h2>Update Mushroom Form</h2>
 
 <img src="@ViewBag.Mushroom.PictureURL" style="height:300px;width:300px;" />
 
@@ -15,71 +15,71 @@
     </div>
     <div class="form-group">
         <label>Binomial Name:</label>
-        <input type="text" class="form-control" name="Species" value="@ViewBag.Mushroom.Species" required>
+        <input type="text" class="form-control" name="Species" value="@ViewBag.Mushroom.Species" pattern="^[A-Za-z]{3,} [A-Za-z]{3,}$" title="Invalid Binomial Name" required>
     </div>
     <div class="form-group">
         <label>Common Name:</label>
-        <input type="text" class="form-control" name="CommonName" value="@ViewBag.Mushroom.CommonName" required>
+        <input type="text" class="form-control" name="CommonName" value="@ViewBag.Mushroom.CommonName" pattern="^[A-Za-z ]{3,}$" title="Invalid Name" required>
     </div>
     <div class="form-group">
         <label>Cap Shape:</label>
-        <input type="text" class="form-control" name="CapChar" value="@ViewBag.Mushroom.CapChar">
+        <input type="text" class="form-control" name="CapChar" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.CapChar">
     </div>
     <div class="form-group">
         <label>Other Cap Characteristic:</label>
-        <input type="text" class="form-control" name="NextCapChar" value="@ViewBag.Mushroom.NextCapChar">
+        <input type="text" class="form-control" name="NextCapChar" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.NextCapChar">
     </div>
     <div class="form-group">
         <label>Cap Color:</label>
-        <input type="text" class="form-control" name="CapColor" value="@ViewBag.Mushroom.CapColor">
+        <input type="text" class="form-control" name="CapColor" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.CapColor">
     </div>
     <div class="form-group">
         <label>Stem Shape:</label>
-        <input type="text" class="form-control" name="Stem" value="@ViewBag.Mushroom.Stem">
+        <input type="text" class="form-control" name="Stem" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.Stem">
     </div>
     <div class="form-group">
         <label>Stem Color:</label>
-        <input type="text" class="form-control" name="StemColor" value="@ViewBag.Mushroom.StemColor">
+        <input type="text" class="form-control" name="StemColor" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.StemColor">
     </div>
     <div class="form-group">
         <label>Spore Bearing Surface:</label>
-        <input type="text" class="form-control" name="Hymenium" value="@ViewBag.Mushroom.Hymenium">
+        <input type="text" class="form-control" name="Hymenium" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.Hymenium">
     </div>
     <div class="form-group">
         <label>Gill Attachment:</label>
-        <input type="text" class="form-control" name="Attachment" value="@ViewBag.Mushroom.Attachment">
+        <input type="text" class="form-control" name="Attachment" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.Attachment">
     </div>
     <div class="form-group">
         <label>Spore Bearing Surface Color:</label>
-        <input type="text" class="form-control" name="HymeniumColor" value="@ViewBag.Mushroom.HymeniumColor">
+        <input type="text" class="form-control" name="HymeniumColor" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.HymeniumColor">
     </div>
     <div class="form-group">
         <label>Spore Color:</label>
-        <input type="text" class="form-control" name="SporeColor" value="@ViewBag.Mushroom.SporeColor">
+        <input type="text" class="form-control" name="SporeColor" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.SporeColor">
     </div>
     <div class="form-group">
         <label>Annalus:</label>
-        <input type="text" class="form-control" name="Annulus" value="@ViewBag.Mushroom.Annulus">
+        <input type="text" class="form-control" name="Annulus" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.Annulus">
     </div>
     <div class="form-group">
         <label>Ecology:</label>
-        <input type="text" class="form-control" name="Ecology" value="@ViewBag.Mushroom.Ecology">
+        <input type="text" class="form-control" name="Ecology" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.Ecology">
     </div>
     <div class="form-group">
         <label>Secondary Ecology:</label>
-        <input type="text" class="form-control" name="NewEcology" value="@ViewBag.Mushroom.NewEcology">
+        <input type="text" class="form-control" name="NewEcology" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.NewEcology">
     </div>
     <div class="form-group">
         <label>Substrate:</label>
-        <input type="text" class="form-control" name="Substrate" value="@ViewBag.Mushroom.Substrate">
+        <input type="text" class="form-control" name="Substrate" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.Substrate">
     </div>
     <div class="form-group">
         <label>Growth Pattern:</label>
-        <input type="text" class="form-control" name="GrowthPattern" value="@ViewBag.Mushroom.GrowthPattern">
+        <input type="text" class="form-control" name="GrowthPattern" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.GrowthPattern">
     </div>
     <div class="form-group">
         <label>Secondary Growth Pattern:</label>
-        <input type="text" class="form-control" name="NewGrowthPattern" value="@ViewBag.Mushroom.NewGrowthPattern">
+        <input type="text" class="form-control" name="NewGrowthPattern" pattern="^[A-Za-z ]{0,}$" title="Invalid entry" value="@ViewBag.Mushroom.NewGrowthPattern">
     </div>
     <div class="form-group">
         <label>Edibility:</label>
