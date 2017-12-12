@@ -20,6 +20,7 @@ namespace FungeyeApp.Controllers
         ApplicationDbContext UserORM = new ApplicationDbContext();
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
         public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
+        public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
         public string ServerName = "fungeye";
 
         public string UploadImage(HttpPostedFileBase fileUpload)

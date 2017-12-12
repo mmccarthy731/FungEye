@@ -8,14 +8,6 @@ namespace FungeyeApp.Controllers
 {
     public class HomeController : Controller
     {
-<<<<<<< HEAD
-        public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
-        public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
-        public string GoogleKey = ConfigurationManager.AppSettings.Get("GoogleKey");
-        public string ServerName = "fungeye";
-
-=======
->>>>>>> b4d6d6daf19c1c8266c7839ed35baa2e9d147788
         public ActionResult Index()
         {
             return View();
