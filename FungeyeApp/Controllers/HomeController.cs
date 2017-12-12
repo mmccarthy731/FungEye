@@ -1,28 +1,13 @@
-﻿using CloudinaryDotNet.Actions;
-using CloudinaryDotNet;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Configuration;
-using Newtonsoft.Json.Linq;
 using FungeyeApp.Models;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity;
-using GoogleMaps.LocationServices;
-
-
-using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
     public class HomeController : Controller
     {
-        public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
-        public string APISecret = ConfigurationManager.AppSettings.Get("APISecret");
-        public string ServerName = "fungeye";
-
         public ActionResult Index()
         {
             return View();
@@ -41,44 +26,20 @@ namespace FungeyeApp.Controllers
         }
 
         [Authorize]
-        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string address, string mushroomid)
+        public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string userDescription, string address, string mushroomID)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
-            ApplicationDbContext UserORM = new ApplicationDbContext();
-
-            Account account = new Account(ServerName, APIKey, APISecret);
-            Cloudinary cloudinary = new Cloudinary(account);
-
-            if (fileUpload != null)
+            FungeyeDAL DAL = new FungeyeDAL();
+            if (fileUpload == null)
             {
-                var uploadParams = new ImageUploadParams
-                {
-                    File = new FileDescription(fileUpload.FileName, fileUpload.InputStream)
-                };
-                var uploadResult = cloudinary.Upload(uploadParams);
-
-                JObject jsonData = (JObject)uploadResult.JsonObj;
-
-                var locationService = new GoogleLocationService();
-
-                var point = locationService.GetLatLongFromAddress(address);
-
-                string email = UserORM.Users.Find(User.Identity.GetUserId()).Email;
-
-                string commonName = ORM.Mushrooms.Find(mushroomid).CommonName;
-
-                ORM.UserMushrooms.Add(new UserMushroom(jsonData["secure_url"].ToString(), address, User.Identity.GetUserId(), mushroomid, name, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
-
-                ORM.SaveChanges();
-
-                ViewBag.Upload = jsonData["secure_url"];
-
-            }
-            else
-            {
-                ViewBag.Upload = "FAIL";
+                ViewBag.ErrorMessage = "We were unable to upload your image. Please try again.";
+                return View("UploadImage");
             }
 
+            string pictureURL = DAL.UploadImage(fileUpload);
+
+            DAL.AddUserMushroom(userDescription, address, mushroomID, pictureURL);
+
+            ViewBag.Upload = pictureURL;
             return View();
         }
 
@@ -95,23 +56,18 @@ namespace FungeyeApp.Controllers
 
         public ActionResult GetUserInfo(string Id)
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            ApplicationDbContext UserORM = new ApplicationDbContext();
-
-            ApplicationUser User = UserORM.Users.Find(Id);
-            List<UserMushroom> List = ORM.UserMushrooms.Where(x => x.UserID == Id).ToList();
-
-            ViewBag.User = User;
-            ViewBag.UserMushrooms = List;
+            ViewBag.User = DAL.GetUser(Id);
+            ViewBag.UserMushrooms = DAL.GetUserMushroomsByUserId(Id);
             return View("User");
         }
 
         public ActionResult SortUsersHighestToLowest()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
 
@@ -123,9 +79,9 @@ namespace FungeyeApp.Controllers
 
         public ActionResult SortUsersLowestToHighest()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).ToList();
 
@@ -137,9 +93,9 @@ namespace FungeyeApp.Controllers
 
         public ActionResult ListUsersAtoZ()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).ToList();
 
@@ -151,9 +107,9 @@ namespace FungeyeApp.Controllers
 
         public ActionResult ListUsersZtoA()
         {
-            FungeyeDBEntities ORM = new FungeyeDBEntities();
+            FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> emails = ORM.UserMushrooms.ToList();
+            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).Reverse().ToList();
 
