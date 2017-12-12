@@ -66,7 +66,7 @@
                         var td5 = ("<td>" + Mushroom.CapChar + "</td>");
                         var td6 = ("<td>" + Mushroom.CapColor + "</td>");
                         var td7 = ("<td>" + Mushroom.Stem + "</td>");
-                        var td8 = ("<td>" + "Is this the mushroom you picked? " + "<input type='radio' name='MushroomID' value=" + Mushroom.MushroomID + "/>" + "</td >");
+                        var td8 = ("<td>" + "Is this the mushroom you picked? " + "<input type='radio' name='MushroomID' value=" + Mushroom.MushroomID + " />" + "</td >");
                         $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + "</tr>");
                     }
                 },
@@ -80,11 +80,6 @@
         });
     });
 </script>
-
-<table class="table" id="mushroomTable">
-
-</table>
-
 
 <h2>IdentifyMushrooms</h2>
 <form action="../Home/UploadImage" method="post">

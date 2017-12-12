@@ -62,32 +62,32 @@
             
                 <div class="form-group">
                     <label>Binomial Name:</label>
-                    <input type="text" class="form-control" name="Species" required>
+                    <input type="text" class="form-control" name="Species" pattern="^[A-Za-z]{3,} [A-Za-z]{3,}$" title="Invalid Binomial Name" required>
                 </div>
                 <div class="form-group">
                     <label>Common Name:</label>
-                    <input type="text" class="form-control" name="CommonName" required>
+                    <input type="text" class="form-control" name="CommonName" pattern="^[A-Za-z ]{3,}$" title="Invalid Name" required>
                 </div>
                 <div class="form-group">
                     <label>Cap Shape:</label>
-                    <select name="CapChar"class="form-control"  required>
+                    <select name="CapChar"class="form-control">
                         <option value="null"></option>
-                        <option value="convex">Convex</option>
-                        <option value="bellShaped">Bell-Shaped</option>
-                        <option value="conical">Conical</option>
-                        <option value="knobbed">Knobbed</option>
-                        <option value="flat">Flat</option>
-                        <option value="sunken">Sunken</option>
+                        <option value="Convex">Convex</option>
+                        <option value="Bell-Shaped">Bell-Shaped</option>
+                        <option value="Conical">Conical</option>
+                        <option value="Knobbed">Knobbed</option>
+                        <option value="Flat">Flat</option>
+                        <option value="Sunken">Sunken</option>
                         </select> 
 
                 </div>
                 <div class="form-group">
                     <label>Cap Color:</label>
-                    <input type="text" class="form-control" name="CapColor" required>
+                    <input type="text" class="form-control" name="CapColor" pattern="^[A-Za-z ]$" title="Invalid entry">
                 </div>
                 <div class="form-group">
                     <label>Stem Shape:</label>
-                    <select name="Stem" class="form-control" required>
+                    <select name="Stem" class="form-control">
                         <option value="null"></option>
                         <option value="equal">Equal</option>
                         <option value="clubShaped">Club-Shaped</option>
@@ -100,11 +100,11 @@
                 </div>
                 <div class="form-group">
                     <label>Stem Color:</label>
-                    <input type="text" class="form-control" name="StemColor" required>
+                    <input type="text" class="form-control" name="StemColor" pattern="^[A-Za-z ]$" title="Invalid entry" >
                 </div>
                 <div class="form-group">
                     <label>Spore Bearing Surface:</label>
-                    <select name="Hymenium" class="form-control" required>
+                    <select name="Hymenium" class="form-control">
                         <option value="null"></option>
                         <option value="pseudoGills">Pseudo-Gills</option>
                         <option value="pores">Pores</option>
@@ -115,15 +115,15 @@
                 </div>
                 <div class="form-group">
                     <label>Spore Bearing Surface Color:</label>
-                    <input type="text" class="form-control" name="HymeniumColor" required>
+                    <input type="text" class="form-control" name="HymeniumColor" pattern="^[A-Za-z ]$" title="Invalid entry">
                 </div>
                 <div class="form-group">
                     <label>Spore Color:</label>
-                    <input type="text" class="form-control" name="SporeColor" required>
+                    <input type="text" class="form-control" name="SporeColor" pattern="^[A-Za-z ]$" title="Invalid entry" >
                 </div>
                 <div class="form-group">
                     <label>Ecology:</label>
-                    <select name="Ecology" class="form-control" required>
+                    <select name="Ecology" class="form-control">
                         <option value="null"></option>
                         <option value="parasitic">Parasitic(On Living Trees)</option>
                         <option value="saprotrophic">Saprotophic (On Dead Trees)</option>
@@ -134,7 +134,7 @@
                 </div>
                 <div class="form-group">
                     <label>Substrate:</label>
-                    <select name="Substrate" class="form-control" required>
+                    <select name="Substrate" class="form-control">
                         <option value="null"></option>
                         <option value="hardwood">Hardwood(e.g. Oak, Beech, Ash, etc.)</option>
                         <option value="conifer">Conifer(e.g. Pine, Fir, Spruce, etc.)</option>
@@ -145,16 +145,12 @@
                 </div>
                 <div class="form-group">
                     <label>Growth Pattern:</label>
-                    <select name="GrowthPattern" class="form-control" required>
+                    <select name="GrowthPattern" class="form-control">
                         <option value="null"></option>
                         <option value="alone">Alone</option>
                         <option value="clusters">Clusters</option>
-                                              
                     </select>
-
                 </div>
-
-
                 <button type="submit" id="submit" class="btn btn-primary">Add Mushroom</button>
             </form>
  }

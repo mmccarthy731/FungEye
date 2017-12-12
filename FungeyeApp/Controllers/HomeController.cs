@@ -17,7 +17,6 @@ using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
-   
     public class HomeController : Controller
     {
         public string APIKey = ConfigurationManager.AppSettings.Get("APIKey");
@@ -41,7 +40,7 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
-
+        [Authorize]
         public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string name, string address, string mushroomid)
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -49,12 +48,6 @@ namespace FungeyeApp.Controllers
 
             Account account = new Account(ServerName, APIKey, APISecret);
             Cloudinary cloudinary = new Cloudinary(account);
-
-            //var address = input;
-            //var locationService = new GoogleLocationService();
-            //var point = locationService.GetLatLongFromAddress(address);
-            //double latitude = point.Latitude;
-            //double longitude = point.Longitude;
 
             if (fileUpload != null)
             {
@@ -74,7 +67,6 @@ namespace FungeyeApp.Controllers
 
                 string commonName = ORM.Mushrooms.Find(mushroomid).CommonName;
 
-                
                 ORM.UserMushrooms.Add(new UserMushroom(jsonData["secure_url"].ToString(), address, User.Identity.GetUserId(), mushroomid, name, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
 
                 ORM.SaveChanges();
@@ -97,10 +89,9 @@ namespace FungeyeApp.Controllers
 
         public ActionResult AboutUs()
         {
-            User.Identity.GetUserId();
-
             return View();
         }
+
 
         public ActionResult GetUserInfo(string Id)
         {
@@ -127,7 +118,6 @@ namespace FungeyeApp.Controllers
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 
-
             return View("LeaderboardsView");
         }
 
@@ -141,8 +131,6 @@ namespace FungeyeApp.Controllers
 
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
-
 
             return View("LeaderboardsView");
         }
@@ -158,8 +146,6 @@ namespace FungeyeApp.Controllers
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 
-
-
             return View("LeaderboardsView");
         }
 
@@ -174,12 +160,7 @@ namespace FungeyeApp.Controllers
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 
-
-
             return View("LeaderboardsView");
         }
-
-        
-
     }
 }

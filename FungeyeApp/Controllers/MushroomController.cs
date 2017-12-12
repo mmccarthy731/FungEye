@@ -37,7 +37,6 @@ namespace FungeyeApp.Controllers
             ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
             ViewBag.CapColors = ORM.Mushrooms.Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
-            //ViewBag.MushroomList = ORM.Mushrooms.ToList();
 
             return View();
         }
@@ -47,9 +46,6 @@ namespace FungeyeApp.Controllers
         {
             FungeyeDBEntities ORM = new FungeyeDBEntities();
             List<Mushroom> results = ORM.Mushrooms.ToList();
-            //ViewBag.CapChars = ORM.Mushrooms.Select(x => x.CapChar).Distinct().ToList();
-            //ViewBag.CapColors = ORM.Mushrooms.Select(x => x.CapColor).Distinct().ToList();
-            //ViewBag.Stems = ORM.Mushrooms.Select(x => x.Stem).Distinct().ToList();
 
             if (!string.IsNullOrEmpty(CapChar)&&CapChar != "null")
             {
@@ -67,15 +63,13 @@ namespace FungeyeApp.Controllers
             }
 
             var list = JsonConvert.SerializeObject(results,
-    Formatting.None,
-    new JsonSerializerSettings()
-    {
-        ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-    });
+                Formatting.None,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                });
 
             return Content(list, "application/json");
-
-           
         }
         
         public ActionResult ListSpecificMushroom(string MushroomID)
@@ -104,6 +98,7 @@ namespace FungeyeApp.Controllers
             return View("MushroomView");
         }
 
+        [Authorize]
         public ActionResult AddMushroomToDB()
         {
             return View("AddMushroom");
@@ -198,11 +193,31 @@ namespace FungeyeApp.Controllers
             FungeyeDBEntities ORM = new FungeyeDBEntities();
 
             Mushroom toBeUpdated = ORM.Mushrooms.Find(updatedMushroom.MushroomID);
+
             foreach (UserMushroom userMush in ORM.UserMushrooms.Where(x => x.CommonName == toBeUpdated.CommonName).ToList())
             {
                 userMush.CommonName = updatedMushroom.CommonName;
             }
-            toBeUpdated = updatedMushroom;
+
+            toBeUpdated.Species = updatedMushroom.Species;
+            toBeUpdated.CommonName = updatedMushroom.CommonName;
+            toBeUpdated.CapChar = updatedMushroom.CapChar;
+            toBeUpdated.NextCapChar = updatedMushroom.NextCapChar;
+            toBeUpdated.CapColor = updatedMushroom.CapColor;
+            toBeUpdated.Stem = updatedMushroom.Stem;
+            toBeUpdated.StemColor = updatedMushroom.StemColor;
+            toBeUpdated.Hymenium = updatedMushroom.Hymenium;
+            toBeUpdated.Attachment = updatedMushroom.Attachment;
+            toBeUpdated.HymeniumColor = updatedMushroom.HymeniumColor;
+            toBeUpdated.SporeColor = updatedMushroom.SporeColor;
+            toBeUpdated.CapColor = updatedMushroom.CapColor;
+            toBeUpdated.Annulus = updatedMushroom.Annulus;
+            toBeUpdated.Ecology = updatedMushroom.Ecology;
+            toBeUpdated.NewEcology = updatedMushroom.NewEcology;
+            toBeUpdated.Substrate = updatedMushroom.Substrate;
+            toBeUpdated.GrowthPattern = updatedMushroom.GrowthPattern;
+            toBeUpdated.NewGrowthPattern = updatedMushroom.NewGrowthPattern;
+
             ORM.Entry(toBeUpdated).State = EntityState.Modified;
             ORM.SaveChanges();
 
