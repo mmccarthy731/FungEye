@@ -2,7 +2,7 @@
     ViewBag.Title = "About";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h3 id="ErrorMessage">@ViewBag.ErrorMessage</h3>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,12 +25,6 @@
 <p>Use this area to provide additional information.</p>
 @using (Html.BeginForm("ViewUploadedImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 { 
-    @*<p>
-        <input type="file" id="fileUpload" name="fileUpload"/>
-        <input type="text" name="name" />
-        <input type="text" name="location" />
-        <input type="text" name="mushroomID" value="@ViewBag.MushroomID" readonly />
-    </p>*@
         <div class="form-group">
             <label for="Input">Location: </label>
             <input type="text" class="form-control" name="address">

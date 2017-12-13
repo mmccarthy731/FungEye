@@ -81,6 +81,7 @@ namespace FungeyeApp.Controllers
 
                 ViewBag.Json = json;
                 ViewBag.UserMushrooms = UserMushrooms;
+                ViewBag.CurrentUser = User.Identity.GetUserId();
             }
 
             ViewBag.Key = DAL.GoogleKey;
@@ -107,7 +108,7 @@ namespace FungeyeApp.Controllers
 
             string pictureURL = DAL.UploadImage(fileUpload);
 
-            string mushroomID = DAL.AddMushroom(species, commonName, capChar, capColor, stem, stemColor, hymenium, hymeniumColor, sporeColor, ecology, substrate, growthPattern, pictureURL);
+            string mushroomID = DAL.AddMushroom(species, commonName, capChar, capColor, stem, stemColor, hymenium, hymeniumColor, sporeColor, ecology, substrate, growthPattern, pictureURL, User.Identity.GetUserId());
 
             DAL.AddUserMushroom(userDescription, address, mushroomID, pictureURL, User.Identity.GetUserName(), User.Identity.GetUserId());
 
@@ -134,11 +135,11 @@ namespace FungeyeApp.Controllers
         }
 
         [Authorize]
-        public ActionResult DeleteMushroom(string mushroomID)
+        public ActionResult DeleteUserMushroom(string pictureURL)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
-            DAL.DeleteMushroom(mushroomID);
+            DAL.DeleteUserMushroom(pictureURL, User.Identity.GetUserId());
 
             return RedirectToAction("IdentifyMushrooms");
         }

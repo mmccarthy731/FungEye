@@ -2,9 +2,18 @@
 @{
     ViewBag.Title = "User";
 }
+<script type="text/javascript">
+    function validateUser(user, currentUser) {
+        if (user != currentUser) {
+            document.getElementById(ErrorMessage).innerHTML = "You are not authorized to delete this entry."
+            return false;
+        }
+        return true;
+    }
+</script>
 
 <h2>User</h2>
-
+<h3 id="ErrorMessage"></h3>
 <head>
     <style>
         .imgAv {
@@ -38,17 +47,22 @@
                         <div class="col-sm-6">
                             <div align="center">
                                 <div id="map" style="width:300px;height:300px" class="map"></div>
-                                <h4 style="color:#00b1b1;">Map of @ViewBag.User.FirstName's Observation</h4>
+                                <h4 style="color:#00b1b1;">Map of @ViewBag.User.FirstName's Observations</h4>
                                 <span>Map</span>
                             </div>
                         </div>
                         <div class="clearfix"></div>
                         <hr style="margin:5px 0 5px 0;">
-                            @foreach(var userMush in ViewBag.UserMushrooms )
+                            @foreach(var userMush in ViewBag.UserMushrooms)
                             {                            
-                            <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div><div class="col-sm-7 col-xs-6 "><a href="../Mushroom/ListSpecificMushroom?MushroomID=@userMush.MushroomID">@userMush.CommonName</a></div>
-                            <div class="clearfix"></div>
-                            <div class="bot-border"></div>
+                                <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div>
+                                <div class="col-sm-7 col-xs-6 "><a href="../Mushroom/ListSpecificMushroom?MushroomID=@userMush.MushroomID">@userMush.CommonName</a></div>
+                                if(userMush.UserID == ViewBag.CurrentUser)
+                                {
+                                <div class="col-sm-5 col-xs-6 "><a href="../Mushroom/DeleteUserMushroom?pictureURL=@userMush.PictureURL" class="btn btn-danger">Delete</a></div>
+                                }
+                                <div class="clearfix"></div>
+                                <div class="bot-border"></div>
                             }
                         </div>
                     </div>

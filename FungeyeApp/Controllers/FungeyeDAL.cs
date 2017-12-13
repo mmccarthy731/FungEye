@@ -39,29 +39,48 @@ namespace FungeyeApp.Controllers
             return jsonData["secure_url"].ToString();
         }
 
+        public bool ValidateAddress(string address)
+        {
+            GoogleLocationService locationService = new GoogleLocationService();
+
+            MapPoint point = locationService.GetLatLongFromAddress(address);
+
+            return point != null;
+        }
+
         public void AddUserMushroom(string userDescription, string address, string mushroomID, string pictureURL, string email, string userID)
         {
-            var locationService = new GoogleLocationService();
+            GoogleLocationService locationService = new GoogleLocationService();
 
-            var point = locationService.GetLatLongFromAddress(address);
+            MapPoint point = locationService.GetLatLongFromAddress(address);
 
             string commonName = ORM.Mushrooms.Find(mushroomID).CommonName;
 
             ORM.UserMushrooms.Add(new UserMushroom(pictureURL, address, userID, mushroomID, userDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
 
             ORM.SaveChanges();
+
+            //UserORM.Users.Find(userID).TotalMushrooms += UserORM.Users.Find(userID).TotalMushrooms;
+
+            UserORM.SaveChanges();
         }
 
-        public string AddMushroom(string species, string commonName, string capChar, string capColor, string stem, string stemColor, string hymenium, string hymeniumColor, string sporeColor, string ecology, string substrate, string growthPattern, string pictureURL)
+        public string AddMushroom(string species, string commonName, string capChar, string capColor, string stem, string stemColor, string hymenium, string hymeniumColor, string sporeColor, string ecology, string substrate, string growthPattern, string pictureURL, string userID)
         {
             string mushID = Convert.ToString((int.Parse(ORM.Mushrooms.ToList().Last().MushroomID)) + 1);
+
             while (mushID.Length < 3)
             {
                 mushID = "0" + mushID;
             }
 
             ORM.Mushrooms.Add(new Mushroom(species, commonName, capChar, null, capColor, stem, stemColor, hymenium, null, hymeniumColor, sporeColor, null, ecology, null, substrate, growthPattern, null, mushID, "inedible", null, pictureURL));
+
             ORM.SaveChanges();
+
+            //UserORM.Users.Find(userID).UniqueMushrooms += UserORM.Users.Find(userID).UniqueMushrooms;
+
+            UserORM.SaveChanges();
 
             return mushID;
         }
@@ -96,10 +115,20 @@ namespace FungeyeApp.Controllers
             return UserORM.Users.Find(id);
         }
 
-        public void DeleteMushroom(string mushroomID)
+        public void DeleteUserMushroom(string pictureURL, string userID)
         {
-            ORM.UserMushrooms.RemoveRange(ORM.UserMushrooms.Where(x => x.MushroomID == mushroomID));
-            ORM.Mushrooms.Remove(ORM.Mushrooms.Find(mushroomID));
+            string mushroomID = ORM.UserMushrooms.Find(pictureURL).MushroomID;
+
+            //if (ORM.UserMushrooms.Where(x => x.MushroomID == mushroomID).ToList().Count < 2)
+            //{
+            //    UserORM.Users.Find(userID).UniqueMushrooms -= UserORM.Users.Find(userID).UniqueMushrooms;
+            //}
+
+            //UserORM.Users.Find(userID).TotalMushrooms -= UserORM.Users.Find(userID).TotalMushrooms;
+
+            ORM.UserMushrooms.Remove(ORM.UserMushrooms.Find(pictureURL));
+
+            UserORM.SaveChanges();
             ORM.SaveChanges();
         }
 
@@ -132,6 +161,7 @@ namespace FungeyeApp.Controllers
             toBeUpdated.NewGrowthPattern = updatedMushroom.NewGrowthPattern;
 
             ORM.Entry(toBeUpdated).State = EntityState.Modified;
+
             ORM.SaveChanges();
         }
     }

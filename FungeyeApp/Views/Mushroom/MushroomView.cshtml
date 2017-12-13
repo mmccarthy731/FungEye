@@ -78,7 +78,6 @@
                     </div>
                     <br />
                     <a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom</a>
-                    <a href="/Mushroom/DeleteMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-danger" onclick="return confirm("Are you sure?")>Delete Mushroom</a>
 
                 </div>
                 @if (ViewBag.userMushrooms != null)
@@ -88,6 +87,10 @@
                         <div class="col-sm-6">
                             <img src="@userMush.PictureURL" style="height: 250px; width:250px; " />
                             <a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a>
+                            @if(userMush.UserID == ViewBag.CurrentUser)
+                            {
+                                <a href="../Mushroom/DeleteUserMushroom?pictureURL=@userMush.PictureURL" class="btn btn-danger">Delete</a>
+                            }
                         </div>
                         <div class="clearfix"></div>
                             <div class="bot-border"></div>

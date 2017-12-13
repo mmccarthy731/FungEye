@@ -64,8 +64,7 @@ textarea {
 
 .jumbotron-section-1-bg {
     height: 360px;
-    background-size: 100% 100%;
-    background-attachment:;
+    background-size: 100%;
 }
 
 .jumbotron {
@@ -93,5 +92,9 @@ textarea {
 
 .introduction p {
     font-weight: bold;
+}
+
+#ErrorMessage{
+    color: red;
 }
 
