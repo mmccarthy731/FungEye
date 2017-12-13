@@ -42,6 +42,7 @@ namespace FungeyeApp.Models
         {
 
         }
+
         [JsonIgnore]
         public virtual Mushroom Mushroom { get; set; }
     }

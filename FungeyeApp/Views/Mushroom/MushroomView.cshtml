@@ -24,12 +24,10 @@
                                 <div align="center">
                                     <img alt="Mushroom Pic" src="@ViewBag.Mushroom.PictureURL" style="height: 300px">
                                     <input id="profile-image-upload" class="hidden" type="file">
-                                    <!--Upload Image Js And Css-->
                                     <h4 style="color:#00b1b1;">@ViewBag.Mushroom.Species</h4>
                                     <span>@ViewBag.Mushroom.CommonName</span>
                                 </div>
                                 <br>
-                                <!-- /input-group -->
                             </div>
                                  <div class="col-sm-6">
                                     <div align="center">
@@ -120,7 +118,7 @@
 
 
 		// Creating the JSON data
-		var json = @Html.Raw(ViewBag.json)
+		var json = @Html.Raw(ViewBag.Json)
 
 		// Creating a global infoWindow object that will be reused by all markers
 		var infoWindow = new google.maps.InfoWindow();

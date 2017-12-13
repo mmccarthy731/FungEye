@@ -9,7 +9,7 @@
     </style>
 </head>
 <body>
-    @ViewBag.json
+    @ViewBag.Json
     <div id="map" style="width:100%;height:400px" class="map"></div>
     <script>
         (function() {
@@ -23,9 +23,8 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-
 		// Creating the JSON data
-		var json = @Html.Raw(ViewBag.json)
+		var json = @Html.Raw(ViewBag.Json)
 
 		// Creating a global infoWindow object that will be reused by all markers
 		var infoWindow = new google.maps.InfoWindow();
@@ -50,12 +49,8 @@
                     infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "Mushroom ID: </b>" + data.title + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br/>" + "<b>User: </b>" + data.email + "</div>");
 					infoWindow.open(map, marker);
 				});
-
-
 			})(marker, data);
-
 		}
-
 	}
 
 })();

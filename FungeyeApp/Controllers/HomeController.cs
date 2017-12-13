@@ -15,9 +15,9 @@ namespace FungeyeApp.Controllers
         }
 
         [Authorize]
-        public ActionResult UploadImage(string MushroomID)
+        public ActionResult UploadImage(string mushroomID)
         {
-            ViewBag.MushroomID = MushroomID;
+            ViewBag.MushroomID = mushroomID;
             return View();
         }
 
@@ -54,12 +54,11 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
-
-        public ActionResult GetUserInfo(string Id)
+        public ActionResult GetUserInfo(string id)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> userMushrooms = DAL.GetUserMushroomsByUserId(Id);
+            List<UserMushroom> userMushrooms = DAL.GetUserMushroomsByUserId(id);
             string result = "";
             for (int i = 0; i < userMushrooms.Count; i++)
             {
@@ -69,10 +68,10 @@ namespace FungeyeApp.Controllers
             string resul = result.Substring(0, result.Length - 1);
             string json = $"[{resul}]";
 
-            ViewBag.json = json;
+            ViewBag.Json = json;
             ViewBag.Key = DAL.GoogleKey;
-            ViewBag.User = DAL.GetUser(Id);
-            ViewBag.UserMushrooms = DAL.GetUserMushroomsByUserId(Id);
+            ViewBag.User = DAL.GetUser(id);
+            ViewBag.UserMushrooms = DAL.GetUserMushroomsByUserId(id);
             return View("User");
         }
 
