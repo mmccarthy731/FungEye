@@ -3,6 +3,19 @@
 @{
     ViewBag.Title = "Identify Mushrooms";
 }
+<head>
+    <style>
+        .imgAv {
+            border-radius: 100%;
+            border: 2px solid #03b1ce;
+        }
+
+        #imgPic {
+            border-radius: 15%;
+            border: 2px solid #03b1ce;
+        }
+    </style>
+</head>
 <div id="filterOptions">
     <label>Cap Characteristic: </label>
     <select name="CapChar" id="CapChar">
@@ -50,7 +63,7 @@
                         var Mushroom = response[i];
                         var tr = "<div class='col-sm-4'> <div class='panel panel-default'>";
                         var td1 = ("<div class='panel-heading'>" + "<h3 class='panel-title mushroomID'>" + "<b>Mushroom ID: </b>" + " #"+ Mushroom.MushroomID + "</h3></div>");
-                        var td2 = ("<div class='panel-body bounding-box'> <div class='thumbnail'>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img class='img-responsive' src='" + Mushroom.PictureURL + "' style= 'height: 200px; width: 200px; '/>" + "</a>" + "</div>");
+                        var td2 = ("<div class='panel-body bounding-box'> <div class='thumbnail'>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img id='imgPic' class='img-responsive' src='" + Mushroom.PictureURL + "' style= ' height: 200px; width: 200px; '/>" + "</a>" + "</div>");
                         var td3 = ("<p class='text-left mushroomSpecies'>" + "<b>Species Name: </b>" + Mushroom.Species + "</p><br />");
                         var td4 = ("<p class='text-left mushroomName'>" + "<b>Common Name: </b>"  + Mushroom.CommonName + "</p><br />");
                         var td5 = ("<p class='text-left mushroomCapChar'>" + "<b>Cap Characteristic: </b>" + Mushroom.CapChar + "</p><br />");
@@ -81,7 +94,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading"><h3 class="panel-title"><b>Mushroom ID#: </b>@Mushroom.MushroomID</h3></div>
                         <div class="panel-body bounding-box">
-                        <div class="thumbnail"><a href="/Mushroom/ListSpecificMushroom?MushroomID=@Mushroom.MushroomID"><img class="img-responsive" src="@Mushroom.PictureURL" style="height: 200px; width: 200px;" /></a></div>
+                        <div class="thumbnail"><a href="/Mushroom/ListSpecificMushroom?MushroomID=@Mushroom.MushroomID"><img id="imgPic" class="img-responsive" src="@Mushroom.PictureURL" style="height: 200px; width: 200px;" /></a></div>
                         <p class="text-left"><b>Species Name: </b>@Mushroom.Species</p><br />
                         <p class="text-left"><b>Common Name: </b>@Mushroom.CommonName</p><br />
                         <p class="text-left"><b>Cap Characteristic: </b>@Mushroom.CapChar</p><br />

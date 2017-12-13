@@ -16,7 +16,7 @@ namespace FungeyeApp.Controllers
             return View();
         }
         
-        public ActionResult IdentifyMushrooms()
+        public ActionResult IdentifyMushrooms(string Id)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
@@ -24,6 +24,7 @@ namespace FungeyeApp.Controllers
             ViewBag.CapColors = DAL.GetAllMushrooms().Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = DAL.GetAllMushrooms().Select(x => x.Stem).Distinct().ToList();
 
+            ViewBag.User = DAL.GetUser(Id);
             ViewBag.Mushrooms = DAL.GetAllMushrooms();
             return View();  
         }

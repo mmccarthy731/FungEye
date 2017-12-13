@@ -75,6 +75,9 @@
                             <div class="clearfix"></div>
                             <div class="bot-border"></div>
                             <div class="col-sm-5 col-xs-6 tital ">Growth Pattern:</div><div class="col-sm-7">@ViewBag.Mushroom.GrowthPattern</div>
+                            <div class="clearfix"></div>
+                            <div class="bot-border"></div>
+                            <div class="col-sm-5 col-xs-6 tital ">Edibility:</div><div class="col-sm-7">@ViewBag.Mushroom.Edibility</div>
                             <br />
                         </div>
                     </div>
@@ -87,9 +90,13 @@
                 {
                     foreach (var userMush in ViewBag.userMushrooms)
                     {
-                        <div class="col-sm-6">
+                        <div class="col-sm-5 col-xs-6 tital ">
                             <img src="@userMush.PictureURL" style="height: 250px; width:250px; " />
-                            <a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a>
+                            
+                        </div>
+                        <div class="col-sm-7">
+                        <b>Email: </b><a href="../Home/GetUserInfo?Id=@userMush.UserID">@userMush.Email</a>
+                        @*<b>Name: </b>@ViewBag.User.FirstName;*@
                         </div>
                         <div class="clearfix"></div>
                             <div class="bot-border"></div>
