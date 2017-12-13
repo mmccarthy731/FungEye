@@ -8,51 +8,41 @@
 
 @using (Html.BeginForm("AddMushroom", "Mushroom", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-       
-
-        <form action="/Mushroom/AddMushroom" method="post">
+            <form action="/Mushroom/AddMushroom" method="post">
             <div class="form-group">
                 <label>Upload Image:</label>
                 <input type="file" class="form-control" name="fileUpload" required />
             </div>
             <div class="form-group">
                 <label>Location Found:</label>
-                <input type="text" class="form-control" name="Address" required />
+                <input type="text" class="form-control" name="Address" pattern="^[A-Za-z.']{3,}$" title="Invalid location" required />
             </div>
             <div class="form-group">
                 <label>Description:</label>
                 <input type="text" class="form-control" name="Description">
             </div>
-        
             <br />
             <div class="w3-row-padding w3-margin-top">
                 <div class="w3-third">
                     <div class="w3-card">
                         <h3>Cap Shape</h3>
                         <img src="~/Content/Images/MushroomCapShapes.jpg" style="width:70%; float:right">
-                        <div class="w3-container">
-
-                        </div>
+                        <div class="w3-container"></div>
                     </div>
                 </div>
                 <div class="w3-third">
                     <div class="w3-card">
                         <img src="~/Content/Images/mushroomStems.jpg" style="width:70%; float:right">
-                        <div class="w3-container">
-                        </div>
+                        <div class="w3-container"></div>
                     </div>
                 </div>
-
                 <div class="w3-third">
                     <div class="w3-card">
                         <img src="~/Content/Images/spore_surface.jpg" style="width:70%; float:right">
-                        <div class="w3-container">
-
-                        </div>
+                        <div class="w3-container"></div>
                     </div>
                 </div>
             </div>
-
 
             <h4>Mushroom Characteristics:</h4>
 
@@ -74,9 +64,8 @@
                         <option value="Knobbed">Knobbed</option>
                         <option value="Flat">Flat</option>
                         <option value="Sunken">Sunken</option>
-                        <option value="bracket">Bracket</option>
+                        <option value="Bracket">Bracket</option>
                         </select> 
-
                 </div>
                 <div class="form-group">
                     <label>Cap Color:</label>
@@ -86,15 +75,14 @@
                     <label>Stem Shape:</label>
                     <select name="Stem" class="form-control">
                         <option value="null"></option>
-                        <option value="equal">Equal</option>
-                        <option value="clubShaped">Club-Shaped</option>
-                        <option value="bulbous">Bulbous</option>
-                        <option value="withCup">With Cup (Volva)</option>
-                        <option value="rooting">Rooting</option>
-                        <option value="rhizoids">Rhizoids</option>
-                        <option value="bracket">Bracket</option>
+                        <option value="Equal">Equal</option>
+                        <option value="Club-Shaped">Club-Shaped</option>
+                        <option value="Bulbous">Bulbous</option>
+                        <option value="With Cup">With Cup (Volva)</option>
+                        <option value="Rooting">Rooting</option>
+                        <option value="Rhizoids">Rhizoids</option>
+                        <option value="Bracket">Bracket</option>
                     </select>
-
                 </div>
                 <div class="form-group">
                     <label>Stem Color:</label>
@@ -104,12 +92,11 @@
                     <label>Spore Bearing Surface:</label>
                     <select name="Hymenium" class="form-control">
                         <option value="null"></option>
-                        <option value="pseudoGills">Pseudo-Gills</option>
-                        <option value="pores">Pores</option>
-                        <option value="gills">Gills</option>
-                        <option value="teeth">Teeth</option>                       
+                        <option value="Pseudo-Gills">Pseudo-Gills</option>
+                        <option value="Pores">Pores</option>
+                        <option value="Gills">Gills</option>
+                        <option value="Teeth">Teeth</option>                       
                     </select>
-           
                 </div>
                 <div class="form-group">
                     <label>Spore Bearing Surface Color:</label>
@@ -123,10 +110,10 @@
                     <label>Ecology:</label>
                     <select name="Ecology" class="form-control">
                         <option value="null"></option>
-                        <option value="parasitic">Parasitic(On Living Trees)</option>
-                        <option value="saprotrophic">Saprotophic (On Dead Trees)</option>
-                        <option value="both">Parasitic and Saprotrophic</option>
-                        <option value="mychorrizal">Mychorrizal(On Ground)</option>
+                        <option value="Parasitic">Parasitic (On Living Trees)</option>
+                        <option value="Saprotrophic">Saprotophic (On Dead Trees)</option>
+                        <option value="Both">Parasitic and Saprotrophic</option>
+                        <option value="Mychorrizal">Mychorrizal (On Ground)</option>
                     </select>
 
                 </div>
@@ -134,19 +121,18 @@
                     <label>Substrate:</label>
                     <select name="Substrate" class="form-control">
                         <option value="null"></option>
-                        <option value="hardwood">Hardwood(e.g. Oak, Beech, Ash, etc.)</option>
-                        <option value="conifer">Conifer(e.g. Pine, Fir, Spruce, etc.)</option>
-                        <option value="soil">Soil</option>
+                        <option value="Hardwood">Hardwood (e.g. Oak, Beech, Ash, etc.)</option>
+                        <option value="Conifer">Conifer (e.g. Pine, Fir, Spruce, etc.)</option>
+                        <option value="Soil">Soil</option>
                         <
                     </select>
-
                 </div>
                 <div class="form-group">
                     <label>Growth Pattern:</label>
                     <select name="GrowthPattern" class="form-control">
                         <option value="null"></option>
-                        <option value="alone">Alone</option>
-                        <option value="clusters">Clusters</option>
+                        <option value="Alone">Alone</option>
+                        <option value="Clusters">Clusters</option>
                     </select>
                 </div>
                 <button type="submit" id="submit" class="btn btn-primary">Add Mushroom</button>

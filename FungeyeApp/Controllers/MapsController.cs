@@ -26,7 +26,7 @@ namespace FungeyeApp.Controllers
             string resul = result.Substring(0, result.Length - 1);
             string json = $"[{resul}]";
 
-            ViewBag.json = json;
+            ViewBag.Json = json;
             ViewBag.Key = DAL.GoogleKey;
             return View();
         }

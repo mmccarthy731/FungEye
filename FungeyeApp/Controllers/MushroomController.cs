@@ -29,25 +29,25 @@ namespace FungeyeApp.Controllers
         }
 
         [HttpPost]
-        public ContentResult FilterResults(string CapChar, string CapColor, string Stem)
+        public ContentResult FilterResults(string capChar, string capColor, string stem)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
             List<Mushroom> results = DAL.GetAllMushrooms();
 
-            if (!string.IsNullOrEmpty(CapChar)&&CapChar != "null")
+            if (!string.IsNullOrEmpty(capChar)&&capChar != "null")
             {
-                results = results.Where(x => x.CapChar.ToLower() == CapChar.ToLower()).ToList();
+                results = results.Where(x => x.CapChar.ToLower() == capChar.ToLower()).ToList();
             }
 
-            if (!string.IsNullOrEmpty(CapColor) && CapColor != "null")
+            if (!string.IsNullOrEmpty(capColor) && capColor != "null")
             {
-                results = results.Where(x => x.CapColor.ToLower() == CapColor.ToLower()).ToList();
+                results = results.Where(x => x.CapColor.ToLower() == capColor.ToLower()).ToList();
             }
 
-            if (!string.IsNullOrEmpty(Stem) && Stem != "null")
+            if (!string.IsNullOrEmpty(stem) && stem != "null")
             {
-                results = results.Where(x => x.Stem.ToLower() == Stem.ToLower()).ToList();
+                results = results.Where(x => x.Stem.ToLower() == stem.ToLower()).ToList();
             }
 
             var list = JsonConvert.SerializeObject(results,
@@ -60,13 +60,13 @@ namespace FungeyeApp.Controllers
             return Content(list, "application/json");
         }
         
-        public ActionResult ListSpecificMushroom(string MushroomID)
+        public ActionResult ListSpecificMushroom(string mushroomID)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
-            ViewBag.Mushroom = DAL.GetMushroomById(MushroomID);
+            ViewBag.Mushroom = DAL.GetMushroomById(mushroomID);
 
-            List<UserMushroom> UserMushrooms = DAL.GetUserMushroomsByMushroomId(MushroomID);
+            List<UserMushroom> UserMushrooms = DAL.GetUserMushroomsByMushroomId(mushroomID);
 
             if (UserMushrooms.Count > 0)
             {
@@ -79,10 +79,12 @@ namespace FungeyeApp.Controllers
                 string resul = result.Substring(0, result.Length - 1);
                 string json = $"[{resul}]";
 
-                ViewBag.json = json;
+                ViewBag.Json = json;
                 ViewBag.UserMushrooms = UserMushrooms;
             }
+
             ViewBag.Key = DAL.GoogleKey;
+
             return View("MushroomView");
         }
 
@@ -93,7 +95,7 @@ namespace FungeyeApp.Controllers
         }
 
         [Authorize]
-        public ActionResult AddMushroom(HttpPostedFileBase fileUpload, string Address, string UserDescription, string Species, string CommonName, string CapChar, string CapColor, string Stem, string StemColor, string Hymenium, string HymeniumColor, string SporeColor, string Ecology, string Substrate, string GrowthPattern)
+        public ActionResult AddMushroom(HttpPostedFileBase fileUpload, string address, string userDescription, string species, string commonName, string capChar, string capColor, string stem, string stemColor, string hymenium, string hymeniumColor, string sporeColor, string ecology, string substrate, string growthPattern)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
@@ -105,9 +107,9 @@ namespace FungeyeApp.Controllers
 
             string pictureURL = DAL.UploadImage(fileUpload);
 
-            string mushroomID = DAL.AddMushroom(Species, CommonName, CapChar, CapColor, Stem, StemColor, Hymenium, HymeniumColor, SporeColor, Ecology, Substrate, GrowthPattern, pictureURL);
+            string mushroomID = DAL.AddMushroom(species, commonName, capChar, capColor, stem, stemColor, hymenium, hymeniumColor, sporeColor, ecology, substrate, growthPattern, pictureURL);
 
-            DAL.AddUserMushroom(UserDescription, Address, mushroomID, pictureURL,User.Identity.GetUserName(), User.Identity.GetUserId());
+            DAL.AddUserMushroom(userDescription, address, mushroomID, pictureURL, User.Identity.GetUserName(), User.Identity.GetUserId());
 
             return RedirectToAction("IdentifyMushrooms");
         }
@@ -126,27 +128,27 @@ namespace FungeyeApp.Controllers
             string resul = result.Substring(0, result.Length - 1);
             string json = $"[{resul}]";
 
-            ViewBag.json = json;
+            ViewBag.Json = json;
 
             return View();
         }
 
         [Authorize]
-        public ActionResult DeleteMushroom(string MushroomID)
+        public ActionResult DeleteMushroom(string mushroomID)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
-            DAL.DeleteMushroom(MushroomID);
+            DAL.DeleteMushroom(mushroomID);
 
             return RedirectToAction("IdentifyMushrooms");
         }
 
         [Authorize]
-        public ActionResult UpdateMushroom(string MushroomID)
+        public ActionResult UpdateMushroom(string mushroomID)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
-            ViewBag.Mushroom = DAL.GetMushroomById(MushroomID);
+            ViewBag.Mushroom = DAL.GetMushroomById(mushroomID);
 
             return View("UpdateMushroomForm");
         }

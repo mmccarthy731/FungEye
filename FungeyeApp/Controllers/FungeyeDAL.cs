@@ -45,17 +45,14 @@ namespace FungeyeApp.Controllers
 
             var point = locationService.GetLatLongFromAddress(address);
 
-           // string email = User.Identity.GetUserName();
-
             string commonName = ORM.Mushrooms.Find(mushroomID).CommonName;
-
 
             ORM.UserMushrooms.Add(new UserMushroom(pictureURL, address, userID, mushroomID, userDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
 
             ORM.SaveChanges();
         }
 
-        public string AddMushroom(string Species, string CommonName, string CapChar, string CapColor, string Stem, string StemColor, string Hymenium, string HymeniumColor, string SporeColor, string Ecology, string Substrate, string GrowthPattern, string pictureURL)
+        public string AddMushroom(string species, string commonName, string capChar, string capColor, string stem, string stemColor, string hymenium, string hymeniumColor, string sporeColor, string ecology, string substrate, string growthPattern, string pictureURL)
         {
             string mushID = Convert.ToString((int.Parse(ORM.Mushrooms.ToList().Last().MushroomID)) + 1);
             while (mushID.Length < 3)
@@ -63,7 +60,7 @@ namespace FungeyeApp.Controllers
                 mushID = "0" + mushID;
             }
 
-            ORM.Mushrooms.Add(new Mushroom(Species, CommonName, CapChar, null, CapColor, Stem, StemColor, Hymenium, null, HymeniumColor, SporeColor, null, Ecology, null, Substrate, GrowthPattern, null, mushID, "inedible", null, pictureURL));
+            ORM.Mushrooms.Add(new Mushroom(species, commonName, capChar, null, capColor, stem, stemColor, hymenium, null, hymeniumColor, sporeColor, null, ecology, null, substrate, growthPattern, null, mushID, "inedible", null, pictureURL));
             ORM.SaveChanges();
 
             return mushID;
@@ -74,9 +71,9 @@ namespace FungeyeApp.Controllers
             return ORM.Mushrooms.ToList();
         }
 
-        public Mushroom GetMushroomById(string MushroomID)
+        public Mushroom GetMushroomById(string mushroomID)
         {
-            return ORM.Mushrooms.Find(MushroomID);
+            return ORM.Mushrooms.Find(mushroomID);
         }
 
         public List<UserMushroom> GetAllUserMushrooms()
@@ -84,9 +81,9 @@ namespace FungeyeApp.Controllers
             return ORM.UserMushrooms.ToList();
         }
 
-        public List<UserMushroom> GetUserMushroomsByUserId(string Id)
+        public List<UserMushroom> GetUserMushroomsByUserId(string id)
         {
-            return ORM.UserMushrooms.Where(x => x.UserID == Id).ToList();
+            return ORM.UserMushrooms.Where(x => x.UserID == id).ToList();
         }
 
         public List<UserMushroom> GetUserMushroomsByMushroomId(string MushroomID)
@@ -94,15 +91,15 @@ namespace FungeyeApp.Controllers
             return ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID).ToList();
         }
 
-        public ApplicationUser GetUser(string Id)
+        public ApplicationUser GetUser(string id)
         {
-            return UserORM.Users.Find(Id);
+            return UserORM.Users.Find(id);
         }
 
-        public void DeleteMushroom(string MushroomID)
+        public void DeleteMushroom(string mushroomID)
         {
-            ORM.UserMushrooms.RemoveRange(ORM.UserMushrooms.Where(x => x.MushroomID == MushroomID));
-            ORM.Mushrooms.Remove(ORM.Mushrooms.Find(MushroomID));
+            ORM.UserMushrooms.RemoveRange(ORM.UserMushrooms.Where(x => x.MushroomID == mushroomID));
+            ORM.Mushrooms.Remove(ORM.Mushrooms.Find(mushroomID));
             ORM.SaveChanges();
         }
 

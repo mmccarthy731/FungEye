@@ -5,7 +5,6 @@
 
 <h2>User</h2>
 
-@*<img src="@ViewBag.Mushroom.PictureURL" style="height:300px; width: 300px"/>*@
 <head>
     <style>
         .imgAv {
@@ -24,20 +23,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">  <h4>User Profile</h4></div>
                 <div class="panel-body">
-
                     <div class="box box-info">
-
                         <div class="box-body">
                             <div class="col-sm-6">
                                 <div align="center">
                                     <img class="imgAv" alt="Avatar" src="http://www.destinyjunkie.com/themes/comb/img/avatar/default-avatar-male_3.png" style="height: 300px">
                                     <input id="profile-image-upload" class="hidden" type="file">
-                                    <!--Upload Image Js And Css-->
                                     <h4 style="color:#00b1b1;">@ViewBag.User.FirstName @ViewBag.User.LastName</h4>
                                     <span>@ViewBag.User.Email</span>
                                 </div>
                                 <br>
-                                <!-- /input-group -->
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -49,19 +44,14 @@
                         </div>
                         <div class="clearfix"></div>
                         <hr style="margin:5px 0 5px 0;">
-
                             @foreach(var userMush in ViewBag.UserMushrooms )
                             {                            
                             <div class="col-sm-5 col-xs-6 tital "><img src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div><div class="col-sm-7 col-xs-6 "><a href="../Mushroom/ListSpecificMushroom?MushroomID=@userMush.MushroomID">@userMush.CommonName</a></div>
                             <div class="clearfix"></div>
                             <div class="bot-border"></div>
                             }
-                            <!-- /.box-body -->
                         </div>
-                        <!-- /.box -->
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -79,7 +69,7 @@
 
 
 		// Creating the JSON data
-		var json = @Html.Raw(ViewBag.json)
+		var json = @Html.Raw(ViewBag.Json)
 
 		// Creating a global infoWindow object that will be reused by all markers
 		var infoWindow = new google.maps.InfoWindow();
@@ -104,14 +94,9 @@
                     infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "<b>Common Name: </b>" + "<a href=../Mushroom/ListSpecificMushroom?MushroomID=" + data.MushroomID + ">" + data.CommonName + "</a><br/>" + "Mushroom ID: #</b>" + data.MushroomID + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br />" + "</div>");
 					infoWindow.open(map, marker);
 				});
-
-
 			})(marker, data);
-
 		}
-
 	}
-
 })();
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.Key&callback=myMap"></script>
@@ -123,7 +108,7 @@
             });
         </script>
     </div>
-</div>
+
 
 @Html.ActionLink("Update User Info", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
 
