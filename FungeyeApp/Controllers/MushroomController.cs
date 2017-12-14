@@ -23,6 +23,7 @@ namespace FungeyeApp.Controllers
             ViewBag.CapChars = DAL.GetAllMushrooms().Select(x => x.CapChar).Distinct().ToList();
             ViewBag.CapColors = DAL.GetAllMushrooms().Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = DAL.GetAllMushrooms().Select(x => x.Stem).Distinct().ToList();
+            ViewBag.Edibility = DAL.GetAllMushrooms().Select(x => x.Edibility).Distinct().ToList();
 
             ViewBag.User = DAL.GetUser(Id);
             ViewBag.Mushrooms = DAL.GetAllMushrooms();
@@ -30,7 +31,7 @@ namespace FungeyeApp.Controllers
         }
 
         [HttpPost]
-        public ContentResult FilterResults(string capChar, string capColor, string stem)
+        public ContentResult FilterResults(string capChar, string capColor, string stem, string edibility)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
@@ -49,6 +50,11 @@ namespace FungeyeApp.Controllers
             if (!string.IsNullOrEmpty(stem) && stem != "null")
             {
                 results = results.Where(x => x.Stem.ToLower() == stem.ToLower()).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(edibility) && edibility != "null")
+            {
+                results = results.Where(x => x.Edibility.ToLower() == edibility.ToLower()).ToList();
             }
 
             var list = JsonConvert.SerializeObject(results,
