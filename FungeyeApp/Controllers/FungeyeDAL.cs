@@ -13,6 +13,11 @@ using System.Web.Mvc;
 
 namespace FungeyeApp.Controllers
 {
+   public class UniqueMushroom
+    {
+        public string Email { get; set; }
+        public int Count { get; set; }
+    }
     public class FungeyeDAL : Controller
     {
         FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -89,7 +94,26 @@ namespace FungeyeApp.Controllers
             return mushID;
         }
 
-        public List<Mushroom> GetAllMushrooms()
+        public List<UniqueMushroom> GetUniqueMushroomCount()
+    {
+
+
+            List<UniqueMushroom> qres = (from so in ORM.UserMushrooms
+                   group so by so.Email into TotaledOrders
+                   select new UniqueMushroom
+                   {
+                       Email = TotaledOrders.Key,
+                       Count = TotaledOrders.Select(s => s.MushroomID).Distinct().Count()
+
+                   }).ToList();
+
+           
+
+            return qres;
+
+    }
+
+    public List<Mushroom> GetAllMushrooms()
         {
             return ORM.Mushrooms.ToList();
         }

@@ -8,6 +8,8 @@ using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
+   
+
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -114,7 +116,21 @@ namespace FungeyeApp.Controllers
             List<UserMushroom> emails = DAL.GetAllUserMushrooms();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
-            
+
+            var uniqueC = DAL.GetUniqueMushroomCount();
+
+           var lst = 
+                from res in groups
+            join res2 in uniqueC
+            on res.EmailName equals res2.Email 
+            select new
+            {
+                Email = res.EmailName,
+                EmailCount = res.EmailCount,
+                UniqueCount = res2.Count
+
+            };
+
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
 

@@ -89,6 +89,10 @@ namespace FungeyeApp.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //public string PictureURL { get; set; }
+        //public int UniqueMushrooms { get; set; }
+        //public int TotalMushrooms { get; set; }
     }
 
     public class ResetPasswordViewModel
