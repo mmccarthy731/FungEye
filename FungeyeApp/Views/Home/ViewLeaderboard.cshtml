@@ -7,9 +7,9 @@
 <div id="SortOptions">
     <label>Sort By: </label>
     <select name="SortOption" id="SortOption">
-        <option value="userName" selected>Username (A-Z)</option>
-        <option value="totalMushrooms">Total Mushrooms</option>
-        <option value="uniqueMushrooms">Unique Mushrooms</option>
+        <option value="totalCount" selected>Total Mushrooms</option>
+        <option value="uniqueCount">Unique Mushrooms</option>
+        <option value="userName">Username (A-Z)</option>
     </select>
     <input type="button" class="btn btn-primary" id="sortButton" value="Sort" />
 </div>
@@ -20,20 +20,22 @@
         $("#sortButton").click(function () {
             $.ajax({
                 type: "POST",
-                url: "/User/SortLeaderboard",
+                url: "/Home/SortLeaderboard",
                 data: '{sortOption: "' + $("#SortOption").val() + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     $("#leaderboard").html("")
-                    $("#leaderboard").append();
+                    $("#leaderboard").append("<table class='table' id='leaderboard'>" + "<tr>" + "<th>" + "Users" + "</th>" + "<th>" + "Unique Mushrooms Found" + "</th>" + "<th>" + "Total Mushrooms Found" + "</th>" + "</tr>");
                     for (var i = 0; i < response.length; i++) {
                         var User = response[i];
-                        var td1 = ("<td>" + User.Id + "</td>");
-                        var td2 = ("<td>" + User.UniqueMushrooms + "</td>");
-                        var td3 = ("<td>" + User.TotalMushrooms + "</td>");
-                        $("#leaderboard").append("<tr>" + td1 + td2 + td3 + "</tr>");
+                        var tr = "<tr>"
+                        var td1 = ("<td>" + User.Email + "</td>");
+                        var td2 = ("<td>" + User.UniqueCount + "</td>");
+                        var td3 = ("<td>" + User.TotalCount + "</td>");
+                        $("#leaderboard").append(tr + td1 + td2 + td3 + "</tr>");
                     }
+                    $("#leaderboard").append("</table>")
                 },
                 failure: function (response) {
                     alert(response.responseText);
@@ -58,17 +60,17 @@
         </th>
     </tr>
 
-    @for (int i = 0; i < ViewBag.UserList.Count; i++)
+    @foreach(var user in ViewBag.Leaderboard)
     {
         <tr>
             <td>
-                @ViewBag.UserList[i].Id
+                @user.Email
             </td>
             <td>
-                @ViewBag.UserList[i].UniqueMushrooms
+                @user.UniqueCount
             </td>
             <td>
-                @ViewBag.UserList[i].TotalMushrooms
+                @user.TotalCount
             </td>
         </tr>
     }
