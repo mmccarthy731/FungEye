@@ -16,20 +16,21 @@
         }
     </style>
 </head>
-@if (ViewBag.User.Id == ViewBag.CurrentUser)
-{
-    <h4 id="center">
-        @Html.ActionLink("Change Account Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-    </h4>
-}
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-primary">
-                <div class="panel-heading">  <h4 id="center">User Profile</h4></div>
+                <div class="panel-heading"><h3 id="center">User Profile</h3></div>
                 <div class="panel-body">
                     <div class="box box-info">
                         <div class="box-body">
+                            @if (ViewBag.User.Id == ViewBag.CurrentUser)
+                            {
+                                <br /><div id="center">
+                                    @Html.ActionLink("Change Account Settings", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                                </div><br />
+                            }
                             <div class="col-sm-6">
                                 <div align="center">
                                     <img class="imgAv" alt="Avatar" src="http://www.destinyjunkie.com/themes/comb/img/avatar/default-avatar-male_3.png" style="height: 300px">
@@ -47,24 +48,28 @@
                                 <span>Map</span>
                             </div>
                         </div>
-                        <div class="clearfix"></div>
-                        <hr style="margin:5px 0 5px 0;">
-                            @foreach(var userMush in ViewBag.UserMushrooms)
-                            {                            
-                                <div class="col-sm-5 col-xs-6 tital"><img id="imgPic" src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div>
-                                <div class="col-sm-7 col-xs-6 ">
-                                    <b>Mushroom Common Name: </b><a href="../Mushroom/ListSpecificMushroom?MushroomID=@userMush.MushroomID">@userMush.CommonName</a><br />
-                                    @*<b>Mushroom Species Name: </b>@userMush.Species <br />*@
-                                    <b>Mushroom ID: </b>#@userMush.MushroomID <br />
-                                    @if(userMush.UserID == ViewBag.CurrentUser)
-                                    {
-                                    <br /><br />
-                                    <div class="col-sm-3" id="deleteUserMush"><a href="../Mushroom/DeleteUserMushroom?pictureURL=@userMush.PictureURL" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></div>
-                                    }
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="bot-border"></div>
-                            }
+                        @if (ViewBag.UserMushrooms != null)
+                        {
+                            <div class="clearfix"></div>
+                            <hr style="margin:5px 0 5px 0;">
+                            <br /><br /><h3 id="center">@ViewBag.User.FirstName's Findings</h3><br /><br />
+                                foreach (var userMush in ViewBag.UserMushrooms)
+                                {
+                                    <div class="col-sm-5 col-xs-6 tital"><img id="imgPic" src=" @userMush.PictureURL " style="height: 250px; width:250px; "/></div>
+                                    <div class="col-sm-7 col-xs-6 ">
+                                        <b>Mushroom Common Name: </b><a href="../Mushroom/ListSpecificMushroom?MushroomID=@userMush.MushroomID">@userMush.CommonName</a><br />
+                                        @*<b>Mushroom Species Name: </b>@userMush.Species <br />*@
+                                        <b>Mushroom ID: </b>#@userMush.MushroomID <br />
+                                        @if (userMush.UserID == ViewBag.CurrentUser)
+                                        {
+                                        <br /><br />
+                                        <div class="col-sm-3" id="deleteUserMush"><a href="../Mushroom/DeleteUserMushroom?pictureURL=@userMush.PictureURL" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a></div>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="bot-border"></div>
+                                }
+                        }
                         </div>
                     </div>
                 </div>
@@ -106,7 +111,7 @@
 
 				// Attaching a click event to the current marker
                 google.maps.event.addListener(marker, "click", function (e) {
-                    infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "<b>Common Name: </b>" + "<a href=../Mushroom/ListSpecificMushroom?MushroomID=" + data.MushroomID + ">" + data.CommonName + "</a><br/>" + "Mushroom ID: #</b>" + data.MushroomID + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br />" + "</div>");
+                    infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "<b>Common Name: </b>" + "<a href=../Mushroom/ListSpecificMushroom?MushroomID=" + data.MushroomID + ">" + data.CommonName + "</a><br/>" + "Mushroom ID#: </b>" + data.MushroomID + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br />" + "</div>");
 					infoWindow.open(map, marker);
 				});
 			})(marker, data);

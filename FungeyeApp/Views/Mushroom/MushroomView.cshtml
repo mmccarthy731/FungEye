@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-primary">
-                <div class="panel-heading">  <h4 class="center">Mushroom Profile</h4></div>
+                <div class="panel-heading"> <h3 id="center">Mushroom Profile</h3></div>
                 <div class="panel-body">
                     <div class="box box-info">
                         <div class="box-body">
@@ -32,7 +32,7 @@
                                  <div class="col-sm-6">
                                     <div align="center">
                                         <div id="map" style="width:300px;height:300px" class="map"></div>
-                                        <h4 style="color:#00b1b1;">Mushroom ID: #@ViewBag.Mushroom.MushroomID</h4>
+                                        <h4 style="color:#00b1b1;">Mushroom ID#: @ViewBag.Mushroom.MushroomID</h4>
                                         <span>Map</span>
                                     </div>
                                 </div>
@@ -80,34 +80,32 @@
                         </div>
                     </div>
                     <br />
-                    <a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom</a>
-                
-                <br /><br /><h3 id="center">User Findings</h3><br /><br />
+                    <div id="center"><a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom Info</a></div>
                 </div>
-                @if (ViewBag.userMushrooms != null)
+                @if (ViewBag.UserMushrooms != null)
                 {
-                    foreach (var userMush in ViewBag.userMushrooms)
+                    <br /><br /><h3 id="center">User Findings</h3><br /><br />
+                    foreach (var userMush in ViewBag.UserMushrooms)
                     {
                         <div class="col-sm-5 col-xs-6 tital ">
                             <img src="@userMush.PictureURL" style="height: 250px; width:250px; " />             
                         </div>
-                        <div class="col-sm-7">
-                        <b>Email: </b><a href="../Home/GetUserInfo?id=@userMush.UserID">@userMush.Email</a>
-                        @*<b>Name: </b>@ViewBag.User.FirstName;*@
-                        </div>
-                        if (userMush.UserID == ViewBag.CurrentUser)
-                        {
+                        <div class="col-sm-7 col-xs-6">
+                            <b>Email: </b><a href="../Home/GetUserInfo?id=@userMush.UserID">@userMush.Email</a>
+                            @*<b>Name: </b>@ViewBag.User.FirstName;*@
+                            @if (userMush.UserID == ViewBag.CurrentUser)
+                            {
                             <br /><br />
                             <div class="col-sm-3" id="deleteUserMush">
                                 <a href="../Mushroom/DeleteUserMushroom?pictureURL=@userMush.PictureURL" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
                             </div>
-                        }
+                            }
+                        </div>
                         <div class="clearfix"></div>
                             <div class="bot-border"></div>
                     }
                 }
             </div>
-
         </div>
         
         <script>
