@@ -112,9 +112,15 @@ textarea {
     align-content: center;
 }
 
+
+
 #center{
     text-align: center;
     align-content: center;
+}
+
+#leaderboard{
+    background-color: white;
 }
 
 

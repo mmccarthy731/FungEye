@@ -18,6 +18,7 @@ namespace FungeyeApp.Controllers
         public string Email { get; set; }
         public int Count { get; set; }
     }
+
     public class FungeyeDAL : Controller
     {
         FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -63,15 +64,6 @@ namespace FungeyeApp.Controllers
             ORM.UserMushrooms.Add(new UserMushroom(pictureURL, address, userID, mushroomID, userDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
 
             ORM.SaveChanges();
-
-            //UserORM.Users.Find(userID).TotalMushrooms += UserORM.Users.Find(userID).TotalMushrooms;
-
-            //if (ORM.UserMushrooms.Where(x => x.UserID == userID).Select(x => x.MushroomID).ToList().Contains(mushroomID))
-            //{
-            //    UserORM.Users.Find(userID).UniqueMushrooms += UserORM.Users.Find(userID).UniqueMushrooms;
-            //}
-
-            UserORM.SaveChanges();
         }
 
         public string AddMushroom(string species, string commonName, string capChar, string capColor, string stem, string stemColor, string hymenium, string hymeniumColor, string sporeColor, string ecology, string substrate, string growthPattern, string pictureURL, string userID)
@@ -87,17 +79,11 @@ namespace FungeyeApp.Controllers
 
             ORM.SaveChanges();
 
-            //UserORM.Users.Find(userID).UniqueMushrooms += UserORM.Users.Find(userID).UniqueMushrooms;
-
-            UserORM.SaveChanges();
-
             return mushID;
         }
 
         public List<UniqueMushroom> GetUniqueMushroomCount()
     {
-
-
             List<UniqueMushroom> qres = (from so in ORM.UserMushrooms
                    group so by so.Email into TotaledOrders
                    select new UniqueMushroom
@@ -106,8 +92,6 @@ namespace FungeyeApp.Controllers
                        Count = TotaledOrders.Select(s => s.MushroomID).Distinct().Count()
 
                    }).ToList();
-
-           
 
             return qres;
 

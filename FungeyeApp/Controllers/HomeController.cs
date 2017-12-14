@@ -8,7 +8,14 @@ using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
-   
+    
+    public class Leaderboard
+    {
+        public string Email { set; get; }
+        public int TotalCount { set; get; }
+        public int UniqueCount { set; get; }
+
+    }
 
     public class HomeController : Controller
     {
@@ -79,37 +86,7 @@ namespace FungeyeApp.Controllers
             return View("User");
         }
 
-        public ActionResult Leaderboards()
-        {
-            return View("LeaderboardsView");
-        }
-
-        //public ContentResult SortLeaderboard(string sortOption)
-        //{
-        //    FungeyeDAL DAL = new FungeyeDAL();
-
-        //    List<ApplicationUser> users = DAL.GetAllUsers();
-
-        //    if (sortOption == "uniqueMushrooms")
-        //    {
-        //        users = users.OrderByDescending(x => x.UniqueMushrooms);
-        //    }
-        //    else if (sortOption == "totalMushrooms")
-        //    {
-        //        users = users.OrderByDescending(x => x.TotalMushrooms);
-        //    }
-
-        //    var list = JsonConvert.SerializeObject(users,
-        //        Formatting.None,
-        //        new JsonSerializerSettings()
-        //        {
-        //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        //        });
-
-        //    return Content(list, "application/json");
-        //}
-
-        public ActionResult SortUsersHighestToLowest()
+        public ActionResult ViewLeaderboard()
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
@@ -119,22 +96,64 @@ namespace FungeyeApp.Controllers
 
             var uniqueC = DAL.GetUniqueMushroomCount();
 
-           var lst = 
-                from res in groups
-            join res2 in uniqueC
-            on res.EmailName equals res2.Email 
-            select new
+            var lst =
+                 (from res in groups
+                 join res2 in uniqueC
+                 on res.EmailName equals res2.Email
+                 select new Leaderboard
+                 {
+                     Email = res.EmailName,
+                     TotalCount = res.EmailCount,
+                     UniqueCount = res2.Count
+                 }).ToList();
+
+            ViewBag.Leaderboard = lst.OrderByDescending(x => x.TotalCount).ToList();
+
+            return View();
+        }
+
+        public ContentResult SortLeaderboard(string sortOption)
+        {
+            FungeyeDAL DAL = new FungeyeDAL();
+
+            List<UserMushroom> userMushrooms = DAL.GetAllUserMushrooms();
+
+            var groups = userMushrooms.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
+
+            var uniqueC = DAL.GetUniqueMushroomCount();
+
+            var lst =
+                 (from res in groups
+                 join res2 in uniqueC
+                 on res.EmailName equals res2.Email
+                 select new Leaderboard
+                 {
+                     Email = res.EmailName,
+                     TotalCount = res.EmailCount,
+                     UniqueCount = res2.Count
+                 }).ToList();
+
+            if (sortOption == "totalCount")
             {
-                Email = res.EmailName,
-                EmailCount = res.EmailCount,
-                UniqueCount = res2.Count
+                lst = lst.OrderByDescending(x => x.TotalCount).ToList();
+            }
+            else if(sortOption == "uniqueCount")
+            {
+                lst = lst.OrderByDescending(x => x.UniqueCount).ToList();
+            }
+            else
+            {
+                lst = lst.OrderBy(x => x.Email).ToList();
+            }
 
-            };
+            var list = JsonConvert.SerializeObject(lst,
+                Formatting.None,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
 
-            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
-            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
-            return View("LeaderboardsView");
+            return Content(list, "application/json");
         }
 
         public ActionResult SortUsersLowestToHighest()

@@ -559,7 +559,6 @@
     <Content Include="Views\Home\ViewUploadedImage.cshtml" />
     <Content Include="Views\Mushroom\IdentifyMushrooms.cshtml" />
     <Content Include="Views\Mushroom\MushroomView.cshtml" />
-    <Content Include="Views\Home\LeaderboardsView.cshtml" />
     <Content Include="Views\Home\AboutUs.cshtml" />
     <Content Include="Views\Home\User.cshtml" />
     <Content Include="Views\Mushroom\AddMushroom.cshtml" />
@@ -567,7 +566,7 @@
     <Content Include="Views\Home\MushroomView.cshtml" />
     <Content Include="Views\Mushroom\UpdateMushroomForm.cshtml" />
     <Content Include="Views\Maps\Maps.cshtml" />
-    <Content Include="Views\Home\LeaderboardView.cshtml" />
+    <Content Include="Views\Home\ViewLeaderboard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

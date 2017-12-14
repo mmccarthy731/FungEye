@@ -27,6 +27,7 @@ namespace FungeyeApp.Controllers
 
             ViewBag.User = DAL.GetUser(Id);
             ViewBag.Mushrooms = DAL.GetAllMushrooms();
+
             return View();  
         }
 
@@ -61,7 +62,7 @@ namespace FungeyeApp.Controllers
                 Formatting.None,
                 new JsonSerializerSettings()
                 {
-                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 });
 
             return Content(list, "application/json");
