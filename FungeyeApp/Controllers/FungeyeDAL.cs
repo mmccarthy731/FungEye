@@ -150,18 +150,8 @@ namespace FungeyeApp.Controllers
 
         public void DeleteUserMushroom(string pictureURL, string userID)
         {
-            string mushroomID = ORM.UserMushrooms.Find(pictureURL).MushroomID;
-
-            //if (ORM.UserMushrooms.Where(x => x.MushroomID == mushroomID).ToList().Count < 2)
-            //{
-            //    UserORM.Users.Find(userID).UniqueMushrooms -= UserORM.Users.Find(userID).UniqueMushrooms;
-            //}
-
-            //UserORM.Users.Find(userID).TotalMushrooms -= UserORM.Users.Find(userID).TotalMushrooms;
-
             ORM.UserMushrooms.Remove(ORM.UserMushrooms.Find(pictureURL));
 
-            UserORM.SaveChanges();
             ORM.SaveChanges();
         }
 
