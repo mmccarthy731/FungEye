@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "About";
 }
-<h2>@ViewBag.Title.</h2>
+<h2>Upload Image</h2>
 <h3 id="ErrorMessage">@ViewBag.ErrorMessage</h3>
 <!DOCTYPE html>
 <html>
@@ -22,7 +22,6 @@
     </style>
 </head>
 <body>
-<p>Use this area to provide additional information.</p>
 @using (Html.BeginForm("ViewUploadedImage", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 { 
         <div class="form-group">
@@ -45,32 +44,8 @@
             <input type="file" id="fileUpload" name="fileUpload" />
         </div>
 
-        <h3>Is this where you found it? Save it!</h3>
         <input type="submit" value="Upload file" />
 
 }
-    
-    <script>
-      var map;
-      function initMap() {
-        // Constructor creates a new map - only center and zoom are required.
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: @ViewBag.Lat, lng: @ViewBag.Long},
-          zoom: 8
-        });
-        var tribeca = {lat: @ViewBag.Lat, lng: @ViewBag.Long};
-        var marker = new google.maps.Marker({
-          position: tribeca,
-          map: map,
-          animation: google.maps.Animation.DROP,
-          title: 'First Marker!'
-        });
-      }
-    </script>
-
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhYesS1SK-1OYSDl6iv81mGecxM-W-0wE&v=3&callback=initMap">
-    </script>
-
     </body>
 </html>

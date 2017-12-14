@@ -171,5 +171,14 @@ namespace FungeyeApp.Controllers
 
             ORM.SaveChanges();
         }
+
+        public void UpdateUserPic(HttpPostedFileBase fileUpload, string userID)
+        {
+            string pictureURL = UploadImage(fileUpload);
+
+            UserORM.Users.Find(userID).PictureURL = pictureURL;
+
+            UserORM.SaveChanges();
+        }
     }
 }

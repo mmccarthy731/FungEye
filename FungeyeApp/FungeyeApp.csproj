@@ -324,6 +324,7 @@
   <ItemGroup>
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\ApplicationInsights.config" />
     <Content Include="bin\Clarifai.dll" />
     <Content Include="bin\Cloudinary.dll" />
     <Content Include="bin\EntityFramework.dll" />
@@ -331,7 +332,9 @@
     <Content Include="bin\EntityFramework.SqlServer.xml" />
     <Content Include="bin\EntityFramework.xml" />
     <Content Include="bin\FungeyeApp.dll" />
+    <Content Include="bin\FungeyeApp.dll.config" />
     <Content Include="bin\FungeyeApp.pdb" />
+    <Content Include="bin\GoogleMaps.LocationServices.dll" />
     <Content Include="bin\Microsoft.AI.Agent.Intercept.dll" />
     <Content Include="bin\Microsoft.AI.DependencyCollector.dll" />
     <Content Include="bin\Microsoft.AI.DependencyCollector.xml" />
@@ -379,15 +382,21 @@
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\Owin.dll" />
     <Content Include="bin\roslyn\csc.exe" />
+    <Content Include="bin\roslyn\csc.exe.config" />
+    <Content Include="bin\roslyn\csc.rsp" />
     <Content Include="bin\roslyn\csi.exe" />
+    <Content Include="bin\roslyn\csi.exe.config" />
+    <Content Include="bin\roslyn\csi.rsp" />
     <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
     <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
     <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
     <Content Include="bin\roslyn\Microsoft.CodeAnalysis.dll" />
     <Content Include="bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll" />
     <Content Include="bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll" />
+    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
     <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll" />
     <Content Include="bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll" />
+    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
     <Content Include="bin\roslyn\Microsoft.Win32.Primitives.dll" />
     <Content Include="bin\roslyn\System.AppContext.dll" />
     <Content Include="bin\roslyn\System.Collections.Immutable.dll" />
@@ -416,7 +425,10 @@
     <Content Include="bin\roslyn\System.Xml.XPath.dll" />
     <Content Include="bin\roslyn\System.Xml.XPath.XDocument.dll" />
     <Content Include="bin\roslyn\vbc.exe" />
+    <Content Include="bin\roslyn\vbc.exe.config" />
+    <Content Include="bin\roslyn\vbc.rsp" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
+    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="bin\System.AppContext.dll" />
     <Content Include="bin\System.Console.dll" />
     <Content Include="bin\System.Diagnostics.DiagnosticSource.dll" />
@@ -427,6 +439,8 @@
     <Content Include="bin\System.IO.FileSystem.dll" />
     <Content Include="bin\System.IO.FileSystem.Primitives.dll" />
     <Content Include="bin\System.Net.Http.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.dll" />
+    <Content Include="bin\System.Net.Http.Formatting.xml" />
     <Content Include="bin\System.Net.Sockets.dll" />
     <Content Include="bin\System.Runtime.InteropServices.RuntimeInformation.dll" />
     <Content Include="bin\System.Security.Cryptography.Algorithms.dll" />
@@ -435,6 +449,10 @@
     <Content Include="bin\System.Security.Cryptography.X509Certificates.dll" />
     <Content Include="bin\System.Web.Helpers.dll" />
     <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Http.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.dll" />
+    <Content Include="bin\System.Web.Http.WebHost.xml" />
+    <Content Include="bin\System.Web.Http.xml" />
     <Content Include="bin\System.Web.Mvc.dll" />
     <Content Include="bin\System.Web.Mvc.xml" />
     <Content Include="bin\System.Web.Optimization.dll" />
@@ -472,17 +490,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="bin\ApplicationInsights.config" />
-    <Content Include="bin\FungeyeApp.dll.config" />
-    <Content Include="bin\roslyn\csc.exe.config" />
-    <Content Include="bin\roslyn\csc.rsp" />
-    <Content Include="bin\roslyn\csi.exe.config" />
-    <Content Include="bin\roslyn\csi.rsp" />
-    <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
-    <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
-    <Content Include="bin\roslyn\vbc.exe.config" />
-    <Content Include="bin\roslyn\vbc.rsp" />
-    <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
     <Content Include="GoogleMaps.LocationServices.readme.txt" />
     <EntityDeploy Include="Models\MushroomDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -491,6 +498,7 @@
     <Content Include="Models\MushroomDB.edmx.diagram">
       <DependentUpon>MushroomDB.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\FungeyeApp20171214021735 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Models\MushroomDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -531,7 +539,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\UploadImage.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -567,6 +574,7 @@
     <Content Include="Views\Mushroom\UpdateMushroomForm.cshtml" />
     <Content Include="Views\Maps\Maps.cshtml" />
     <Content Include="Views\Home\ViewLeaderboard.cshtml" />
+    <Content Include="Views\Home\UploadUserImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

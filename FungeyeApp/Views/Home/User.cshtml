@@ -33,10 +33,26 @@
                             }
                             <div class="col-sm-6">
                                 <div align="center">
-                                    <img class="imgAv" alt="Avatar" src="http://www.destinyjunkie.com/themes/comb/img/avatar/default-avatar-male_3.png" style="height: 300px">
-                                    <input id="profile-image-upload" class="hidden" type="file">
+                                    @if (ViewBag.User.PictureURL == null)
+                                    {
+                                        <img class="imgAv" alt="Avatar" src="http://www.destinyjunkie.com/themes/comb/img/avatar/default-avatar-male_3.png" style="height: 300px; width: 300px;">
+                                        <input id="profile-image-upload" class="hidden" type="file">
+                                        if (ViewBag.User.Id == ViewBag.CurrentUser)
+                                        {
+                                        <h5><a href="/Home/UploadUserImage?id=@ViewBag.CurrentUser">Upload Photo</a></h5>
+                                        }
+                                    }
+                                    @if(ViewBag.User.PictureURL != null)
+                                    {
+                                        <img class="imgAv" alt="Avatar" src="@ViewBag.User.PictureURL" style="height: 300px; width: 300px;">
+                                        <input id="profile-image-upload" class="hidden" type="file">
+                                        if (ViewBag.User.Id == ViewBag.CurrentUser)
+                                        {
+                                            <h5><a href="/Home/UploadUserImage?id=@ViewBag.CurrentUser">Change Profile Picture</a></h5>
+                                        }
+                                    }
                                     <h4 style="color:#00b1b1;">@ViewBag.User.FirstName @ViewBag.User.LastName</h4>
-                                    <span>@ViewBag.User.Email</span>
+                                    <h5>@ViewBag.User.Email</h5>
                                 </div>
                                 <br>
                             </div>

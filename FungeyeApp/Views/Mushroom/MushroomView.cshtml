@@ -143,7 +143,7 @@
 
 				// Attaching a click event to the current marker
                 google.maps.event.addListener(marker, "click", function (e) {
-                    infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "<b>User: </b>" + "<a href=../Home/GetUserInfo?Id=" + data.UserID + ">" + data.email + "</a><br/>" + "Mushroom ID: #</b>" + data.title + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br />" + "</div>");
+                    infoWindow.setContent("<div style='float:left' ><img src='" + data.ImageLink + "' alt='Avatar' style = 'height: 100px; width: 100px;'></div><div style='float:right; padding: 10px; '><b>" + "<b>User: </b>" + "<a href=../Home/GetUserInfo?Id=" + data.id + ">" + data.email + "</a><br/>" + "Mushroom ID: #</b>" + data.title + "<br/>" + "<b>Description: </b>" + data.description + "<br/>" + "<b>Location: </b>" + data.address + "<br />" + "</div>");
 					infoWindow.open(map, marker);
 				});
 
