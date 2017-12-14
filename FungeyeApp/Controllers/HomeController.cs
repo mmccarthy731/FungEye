@@ -112,12 +112,12 @@ namespace FungeyeApp.Controllers
             FungeyeDAL DAL = new FungeyeDAL();
 
             List<UserMushroom> emails = DAL.GetAllUserMushrooms();
-
+            //select Email, count(distinct MushroomID) [UniqueIds], count(mushroomId) [Total] from UserMushroom group by email
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
-            
+            var groupss = emails.GroupBy(x => x.Email).Select(x => new { EmailN = x.Key, EmailC = x.Distinct().Count() }).ToList();
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
+            ViewBag.UserCounts = groupss.Select(x => x.EmailC).ToList();
             return View("LeaderboardsView");
         }
 
