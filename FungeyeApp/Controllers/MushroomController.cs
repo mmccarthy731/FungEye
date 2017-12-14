@@ -23,14 +23,16 @@ namespace FungeyeApp.Controllers
             ViewBag.CapChars = DAL.GetAllMushrooms().Select(x => x.CapChar).Distinct().ToList();
             ViewBag.CapColors = DAL.GetAllMushrooms().Select(x => x.CapColor).Distinct().ToList();
             ViewBag.Stems = DAL.GetAllMushrooms().Select(x => x.Stem).Distinct().ToList();
+            ViewBag.Edibility = DAL.GetAllMushrooms().Select(x => x.Edibility).Distinct().ToList();
 
             ViewBag.User = DAL.GetUser(Id);
             ViewBag.Mushrooms = DAL.GetAllMushrooms();
+
             return View();  
         }
 
         [HttpPost]
-        public ContentResult FilterResults(string capChar, string capColor, string stem)
+        public ContentResult FilterResults(string capChar, string capColor, string stem, string edibility)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
@@ -51,11 +53,16 @@ namespace FungeyeApp.Controllers
                 results = results.Where(x => x.Stem.ToLower() == stem.ToLower()).ToList();
             }
 
+            if (!string.IsNullOrEmpty(edibility) && edibility != "null")
+            {
+                results = results.Where(x => x.Edibility.ToLower() == edibility.ToLower()).ToList();
+            }
+
             var list = JsonConvert.SerializeObject(results,
                 Formatting.None,
                 new JsonSerializerSettings()
                 {
-                    ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                 });
 
             return Content(list, "application/json");
@@ -74,7 +81,7 @@ namespace FungeyeApp.Controllers
                 string result = "";
                 for (int i = 0; i < UserMushrooms.Count; i++)
                 {
-                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\", \"email\": \"{UserMushrooms[i].Email}\", \"UserID\": \"{UserMushrooms[i].UserID}\"}},";
+                    result += $"{{ \"title\": \"{UserMushrooms[i].MushroomID}\", \"lat\": {UserMushrooms[i].Latitude}, \"lng\": {UserMushrooms[i].Longitude}, \"description\": \"{UserMushrooms[i].UserDescription}\", \"address\": \"{UserMushrooms[i].Address}\", \"ImageLink\": \"{UserMushrooms[i].PictureURL}\", \"email\": \"{UserMushrooms[i].Email}\", \"id\": \"{UserMushrooms[i].UserID}\"}},";
                 }
 
                 string resul = result.Substring(0, result.Length - 1);

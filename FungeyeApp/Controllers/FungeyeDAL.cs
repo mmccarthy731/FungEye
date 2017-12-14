@@ -13,6 +13,12 @@ using System.Web.Mvc;
 
 namespace FungeyeApp.Controllers
 {
+   public class UniqueMushroom
+    {
+        public string Email { get; set; }
+        public int Count { get; set; }
+    }
+
     public class FungeyeDAL : Controller
     {
         FungeyeDBEntities ORM = new FungeyeDBEntities();
@@ -58,15 +64,6 @@ namespace FungeyeApp.Controllers
             ORM.UserMushrooms.Add(new UserMushroom(pictureURL, address, userID, mushroomID, userDescription, point.Latitude.ToString(), point.Longitude.ToString(), email, commonName));
 
             ORM.SaveChanges();
-
-            //UserORM.Users.Find(userID).TotalMushrooms += UserORM.Users.Find(userID).TotalMushrooms;
-
-            //if (ORM.UserMushrooms.Where(x => x.UserID == userID).Select(x => x.MushroomID).ToList().Contains(mushroomID))
-            //{
-            //    UserORM.Users.Find(userID).UniqueMushrooms += UserORM.Users.Find(userID).UniqueMushrooms;
-            //}
-
-            UserORM.SaveChanges();
         }
 
         public string AddMushroom(string species, string commonName, string capChar, string capColor, string stem, string stemColor, string hymenium, string hymeniumColor, string sporeColor, string ecology, string substrate, string growthPattern, string pictureURL, string userID)
@@ -82,14 +79,25 @@ namespace FungeyeApp.Controllers
 
             ORM.SaveChanges();
 
-            //UserORM.Users.Find(userID).UniqueMushrooms += UserORM.Users.Find(userID).UniqueMushrooms;
-
-            UserORM.SaveChanges();
-
             return mushID;
         }
 
-        public List<Mushroom> GetAllMushrooms()
+        public List<UniqueMushroom> GetUniqueMushroomCount()
+    {
+            List<UniqueMushroom> qres = (from so in ORM.UserMushrooms
+                   group so by so.Email into TotaledOrders
+                   select new UniqueMushroom
+                   {
+                       Email = TotaledOrders.Key,
+                       Count = TotaledOrders.Select(s => s.MushroomID).Distinct().Count()
+
+                   }).ToList();
+
+            return qres;
+
+    }
+
+    public List<Mushroom> GetAllMushrooms()
         {
             return ORM.Mushrooms.ToList();
         }
@@ -126,18 +134,8 @@ namespace FungeyeApp.Controllers
 
         public void DeleteUserMushroom(string pictureURL, string userID)
         {
-            string mushroomID = ORM.UserMushrooms.Find(pictureURL).MushroomID;
-
-            //if (ORM.UserMushrooms.Where(x => x.MushroomID == mushroomID).ToList().Count < 2)
-            //{
-            //    UserORM.Users.Find(userID).UniqueMushrooms -= UserORM.Users.Find(userID).UniqueMushrooms;
-            //}
-
-            //UserORM.Users.Find(userID).TotalMushrooms -= UserORM.Users.Find(userID).TotalMushrooms;
-
             ORM.UserMushrooms.Remove(ORM.UserMushrooms.Find(pictureURL));
 
-            UserORM.SaveChanges();
             ORM.SaveChanges();
         }
 
@@ -172,6 +170,15 @@ namespace FungeyeApp.Controllers
             ORM.Entry(toBeUpdated).State = EntityState.Modified;
 
             ORM.SaveChanges();
+        }
+
+        public void UpdateUserPic(HttpPostedFileBase fileUpload, string userID)
+        {
+            string pictureURL = UploadImage(fileUpload);
+
+            UserORM.Users.Find(userID).PictureURL = pictureURL;
+
+            UserORM.SaveChanges();
         }
     }
 }

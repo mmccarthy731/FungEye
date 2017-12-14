@@ -1,0 +1,34 @@
+﻿    ViewBag.Title = "About";
+}
+<h2>Upload Your Image</h2>
+<h3 id="ErrorMessage">@ViewBag.ErrorMessage</h3>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        html,
+        body {
+            font-family: Arial, sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            height: 300px;
+            width: 300px;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("AddPictureToUser", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="form-group">
+            <label for="Input">Choose a picture to upload for your profile: </label>
+            <input type="file" id="fileUpload" name="fileUpload" />
+        </div>
+
+        <input type="submit" value="Upload file" />
+    }
+</body>
+</html>

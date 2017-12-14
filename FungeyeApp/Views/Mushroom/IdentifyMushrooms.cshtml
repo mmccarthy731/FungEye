@@ -45,6 +45,15 @@
         }
     </select>
 
+    <label>Edibility: </label>
+    <select name="Edibility" id="Edibility">
+        <option value="null" selected></option>
+        @foreach (var Edibility in ViewBag.Edibility)
+        {
+            <option value="@Edibility">@Edibility</option>
+        }
+    </select>
+
     <input type="button" class="btn btn-primary" id="filterButton" value="Filter" />
 </div>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -54,7 +63,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Mushroom/FilterResults",
-                data: '{capChar: "' + $("#CapChar").val() + '", capColor:"' + $("#CapColor").val()+ '", stem:"' + $("#Stem").val()+'"}',
+                data: '{capChar: "' + $("#CapChar").val() + '", capColor:"' + $("#CapColor").val()+ '", stem:"' + $("#Stem").val()+'", edibility:"' + $("#Edibility").val()+'"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {

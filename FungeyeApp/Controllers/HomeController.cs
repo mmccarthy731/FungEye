@@ -8,6 +8,14 @@ using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
+
+    public class Leaderboard
+    {
+        public string Email { set; get; }
+        public int TotalCount { set; get; }
+        public int UniqueCount { set; get; }
+    }
+
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -22,9 +30,19 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        [Authorize]
+        public ActionResult UploadUserImage(string id)
         {
             return View();
+        }
+
+        public ActionResult AddPictureToUser(HttpPostedFileBase fileUpload)
+        {
+            FungeyeDAL DAL = new FungeyeDAL();
+
+            DAL.UpdateUserPic(fileUpload, User.Identity.GetUserId());
+
+            return RedirectToAction("GetUserInfo", new { id = User.Identity.GetUserId() });
         }
 
         [Authorize]
@@ -63,7 +81,7 @@ namespace FungeyeApp.Controllers
             string result = "";
             for (int i = 0; i < userMushrooms.Count; i++)
             {
-                result += $"{{ \"MushroomID\": \"{userMushrooms[i].MushroomID}\", \"lat\": {userMushrooms[i].Latitude}, \"lng\": {userMushrooms[i].Longitude}, \"description\": \"{userMushrooms[i].UserDescription}\", \"address\": \"{userMushrooms[i].Address}\", \"ImageLink\": \"{userMushrooms[i].PictureURL}\", \"email\": \"{userMushrooms[i].Email}\", \"CommonName\": \"{userMushrooms[i].CommonName}\"}},";
+                result += $"{{ \"MushroomID\": \"{userMushrooms[i].MushroomID}\", \"lat\": {userMushrooms[i].Latitude}, \"lng\": {userMushrooms[i].Longitude}, \"description\": \"{userMushrooms[i].UserDescription}\", \"address\": \"{userMushrooms[i].Address}\", \"ImageLink\": \"{userMushrooms[i].PictureURL}\", \"email\": \"{userMushrooms[i].Email}\", \"id\": \"{userMushrooms[i].UserID}\", \"CommonName\": \"{userMushrooms[i].CommonName}\"}},";
             }
 
             string resul = result.Substring(0, result.Length - 1);
@@ -77,90 +95,74 @@ namespace FungeyeApp.Controllers
             return View("User");
         }
 
-        public ActionResult Leaderboards()
-        {
-            return View("LeaderboardsView");
-        }
-
-        //public ContentResult SortLeaderboard(string sortOption)
-        //{
-        //    FungeyeDAL DAL = new FungeyeDAL();
-
-        //    List<ApplicationUser> users = DAL.GetAllUsers();
-
-        //    if (sortOption == "uniqueMushrooms")
-        //    {
-        //        users = users.OrderByDescending(x => x.UniqueMushrooms);
-        //    }
-        //    else if (sortOption == "totalMushrooms")
-        //    {
-        //        users = users.OrderByDescending(x => x.TotalMushrooms);
-        //    }
-
-        //    var list = JsonConvert.SerializeObject(users,
-        //        Formatting.None,
-        //        new JsonSerializerSettings()
-        //        {
-        //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-        //        });
-
-        //    return Content(list, "application/json");
-        //}
-
-        public ActionResult SortUsersHighestToLowest()
+        public ActionResult ViewLeaderboard()
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
             List<UserMushroom> emails = DAL.GetAllUserMushrooms();
             //select Email, count(distinct MushroomID) [UniqueIds], count(mushroomId) [Total] from UserMushroom group by email
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
-            var groupss = emails.GroupBy(x => x.Email).Select(x => new { EmailN = x.Key, EmailC = x.Distinct().Count() }).ToList();
-            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
-            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-            ViewBag.UserCounts = groupss.Select(x => x.EmailC).ToList();
-            return View("LeaderboardsView");
+
+            var uniqueC = DAL.GetUniqueMushroomCount();
+
+            var lst =
+                 (from res in groups
+                  join res2 in uniqueC
+                  on res.EmailName equals res2.Email
+                  select new Leaderboard
+                  {
+                      Email = res.EmailName,
+                      TotalCount = res.EmailCount,
+                      UniqueCount = res2.Count
+                  }).ToList();
+
+            ViewBag.Leaderboard = lst.OrderByDescending(x => x.TotalCount).ToList();
+
+            return View();
         }
 
-        public ActionResult SortUsersLowestToHighest()
+        public ContentResult SortLeaderboard(string sortOption)
         {
             FungeyeDAL DAL = new FungeyeDAL();
 
-            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
+            List<UserMushroom> userMushrooms = DAL.GetAllUserMushrooms();
 
-            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).ToList();
+            var groups = userMushrooms.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
 
-            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
-            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
+            var uniqueC = DAL.GetUniqueMushroomCount();
 
-            return View("LeaderboardsView");
-        }
+            var lst =
+                 (from res in groups
+                  join res2 in uniqueC
+                  on res.EmailName equals res2.Email
+                  select new Leaderboard
+                  {
+                      Email = res.EmailName,
+                      TotalCount = res.EmailCount,
+                      UniqueCount = res2.Count
+                  }).ToList();
 
-        public ActionResult ListUsersAtoZ()
-        {
-            FungeyeDAL DAL = new FungeyeDAL();
+            if (sortOption == "totalCount")
+            {
+                lst = lst.OrderByDescending(x => x.TotalCount).ToList();
+            }
+            else if (sortOption == "uniqueCount")
+            {
+                lst = lst.OrderByDescending(x => x.UniqueCount).ToList();
+            }
+            else
+            {
+                lst = lst.OrderBy(x => x.Email).ToList();
+            }
 
-            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
+            var list = JsonConvert.SerializeObject(lst,
+                Formatting.None,
+                new JsonSerializerSettings()
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
 
-            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).ToList();
-
-            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
-            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
-            return View("LeaderboardsView");
-        }
-
-        public ActionResult ListUsersZtoA()
-        {
-            FungeyeDAL DAL = new FungeyeDAL();
-
-            List<UserMushroom> emails = DAL.GetAllUserMushrooms();
-
-            var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailName).Reverse().ToList();
-
-            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
-            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
-            return View("LeaderboardsView");
+            return Content(list, "application/json");
         }
     }
 }
