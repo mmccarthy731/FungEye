@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using FungeyeApp.Models;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 
 namespace FungeyeApp.Controllers
 {
@@ -81,6 +82,31 @@ namespace FungeyeApp.Controllers
             return View("LeaderboardsView");
         }
 
+        //public ContentResult SortLeaderboard(string sortOption)
+        //{
+        //    FungeyeDAL DAL = new FungeyeDAL();
+
+        //    List<ApplicationUser> users = DAL.GetAllUsers();
+
+        //    if (sortOption == "uniqueMushrooms")
+        //    {
+        //        users = users.OrderByDescending(x => x.UniqueMushrooms);
+        //    }
+        //    else if (sortOption == "totalMushrooms")
+        //    {
+        //        users = users.OrderByDescending(x => x.TotalMushrooms);
+        //    }
+
+        //    var list = JsonConvert.SerializeObject(users,
+        //        Formatting.None,
+        //        new JsonSerializerSettings()
+        //        {
+        //            ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+        //        });
+
+        //    return Content(list, "application/json");
+        //}
+
         public ActionResult SortUsersHighestToLowest()
         {
             FungeyeDAL DAL = new FungeyeDAL();
@@ -88,21 +114,6 @@ namespace FungeyeApp.Controllers
             List<UserMushroom> emails = DAL.GetAllUserMushrooms();
 
             var groups = emails.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).OrderBy(x => x.EmailCount).Reverse().ToList();
-            
-            ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
-            ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();
-
-            return View("LeaderboardsView");
-        }
-
-        public ActionResult SortUniqueHighestToLowest()
-        {
-            FungeyeDAL DAL = new FungeyeDAL();
-
-            List<UserMushroom> userMushrooms = DAL.GetAllUserMushrooms();
-
-            var groups = userMushrooms.GroupBy(x => x.Email).Select(x => new { EmailName = x.Key, EmailCount = x.Count() }).Distinct().OrderBy(x => x.EmailCount).Reverse().ToList();
-            List<string> emails = userMushrooms.Select(x => x.Email).Distinct().ToList();
             
             ViewBag.UserList = groups.Select(x => x.EmailName).ToList();
             ViewBag.UserCount = groups.Select(x => x.EmailCount).ToList();

@@ -2,7 +2,6 @@
 using CloudinaryDotNet.Actions;
 using FungeyeApp.Models;
 using GoogleMaps.LocationServices;
-using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -62,6 +61,11 @@ namespace FungeyeApp.Controllers
 
             //UserORM.Users.Find(userID).TotalMushrooms += UserORM.Users.Find(userID).TotalMushrooms;
 
+            //if (ORM.UserMushrooms.Where(x => x.UserID == userID).Select(x => x.MushroomID).ToList().Contains(mushroomID))
+            //{
+            //    UserORM.Users.Find(userID).UniqueMushrooms += UserORM.Users.Find(userID).UniqueMushrooms;
+            //}
+
             UserORM.SaveChanges();
         }
 
@@ -113,6 +117,11 @@ namespace FungeyeApp.Controllers
         public ApplicationUser GetUser(string id)
         {
             return UserORM.Users.Find(id);
+        }
+
+        public List<ApplicationUser> GetAllUsers()
+        {
+            return UserORM.Users.ToList();
         }
 
         public void DeleteUserMushroom(string pictureURL, string userID)

@@ -98,3 +98,22 @@ textarea {
     color: red;
 }
 
+.panel-title{
+    text-align: center;
+}
+
+#uploadImage{
+    text-align: center;
+    align-content: center;
+}
+
+#deleteUserMush{
+    text-align: center;
+    align-content: center;
+}
+
+#center{
+    text-align: center;
+    align-content: center;
+}
+

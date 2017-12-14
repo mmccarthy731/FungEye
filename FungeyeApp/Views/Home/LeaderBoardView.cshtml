@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "LeaderBoardView";
+}
+
+<h2>Leaderboard</h2>
+<div id="SortOptions">
+    <label>Sort By: </label>
+    <select name="SortOption" id="SortOption">
+        <option value="userName" selected>Username (A-Z)</option>
+        <option value="totalMushrooms">Total Mushrooms</option>
+        <option value="uniqueMushrooms">Unique Mushrooms</option>
+    </select>
+    <input type="button" class="btn btn-primary" id="sortButton" value="Sort" />
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#sortButton").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "/User/SortLeaderboard",
+                data: '{sortOption: "' + $("#SortOption").val() + '"}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $("#leaderboard").html("")
+                    $("#leaderboard").append();
+                    for (var i = 0; i < response.length; i++) {
+                        var User = response[i];
+                        var td1 = ("<td>" + User.Id + "</td>");
+                        var td2 = ("<td>" + User.UniqueMushrooms + "</td>");
+                        var td3 = ("<td>" + User.TotalMushrooms + "</td>");
+                        $("#leaderboard").append("<tr>" + td1 + td2 + td3 + "</tr>");
+                    }
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
+</script>
+<table class="table" id="leaderboard">
+    <tr>
+        <th>
+            Users
+        </th>
+        <th>
+            Unique Mushrooms Found
+        </th>
+        <th>
+            Total Mushrooms Found
+        </th>
+    </tr>
+
+    @for (int i = 0; i < ViewBag.UserList.Count; i++)
+    {
+        <tr>
+            <td>
+                @ViewBag.UserList[i].Id
+            </td>
+            <td>
+                @ViewBag.UserList[i].UniqueMushrooms
+            </td>
+            <td>
+                @ViewBag.UserList[i].TotalMushrooms
+            </td>
+        </tr>
+    }
+</table>

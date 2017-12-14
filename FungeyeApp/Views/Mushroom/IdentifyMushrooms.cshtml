@@ -16,6 +16,7 @@
         }
     </style>
 </head>
+<h3>Filter Results:</h3>
 <div id="filterOptions">
     <label>Cap Characteristic: </label>
     <select name="CapChar" id="CapChar">
@@ -53,7 +54,7 @@
             $.ajax({
                 type: "POST",
                 url: "/Mushroom/FilterResults",
-                data: '{CapChar: "' + $("#CapChar").val() + '", CapColor:"' + $("#CapColor").val()+ '", Stem:"' + $("#Stem").val()+'"}',
+                data: '{capChar: "' + $("#CapChar").val() + '", capColor:"' + $("#CapColor").val()+ '", stem:"' + $("#Stem").val()+'"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
@@ -61,8 +62,8 @@
                     $("#mushroomTable").append();
                     for (var i = 0; i < response.length; i++) {
                         var Mushroom = response[i];
-                        var tr = "<div class='col-sm-4'> <div class='panel panel-default'>";
-                        var td1 = ("<div class='panel-heading'>" + "<h3 class='panel-title mushroomID'>" + "<b>Mushroom ID: </b>" + " #"+ Mushroom.MushroomID + "</h3></div>");
+                        var tr = "<div class='col-sm-4'> <div class='panel panel-primary'>";
+                        var td1 = ("<div class='panel-heading'>" + "<h3 class='panel-title'>" + "<b>Mushroom ID: </b>" + " #"+ Mushroom.MushroomID + "</h3></div>");
                         var td2 = ("<div class='panel-body bounding-box'> <div class='thumbnail'>" + "<a href=/Mushroom/ListSpecificMushroom?MushroomID=" + Mushroom.MushroomID + " >" + "<img id='imgPic' class='img-responsive' src='" + Mushroom.PictureURL + "' style= ' height: 200px; width: 200px; '/>" + "</a>" + "</div>");
                         var td3 = ("<p class='text-left mushroomSpecies'>" + "<b>Species Name: </b>" + Mushroom.Species + "</p><br />");
                         var td4 = ("<p class='text-left mushroomName'>" + "<b>Common Name: </b>"  + Mushroom.CommonName + "</p><br />");
@@ -70,7 +71,7 @@
                         var td6 = ("<p class='text-left mushroomCapColor'>" + "<b>Cap Color: </b>" + Mushroom.CapColor + "</p><br />");
                         var td7 = ("<p class='text-left mushroomStem'>" + "<b>Mushroom Stem: </b>" + Mushroom.Stem + "</p><br />");
                         var td8 = ("<p class='text-left mushroomEdibilitiy'>" + "<b> Mushroom Edibility: </b>" + Mushroom.Edibility + "</p><br />");
-                        var td9 = ("<a href=../Home/UploadImage?MushroomID=" + Mushroom.MushroomID + " class='btn btn-primary'>Upload Image</a>");
+                        var td9 = ("<div id='uploadImage'>" + "<a href=../Home/UploadImage?MushroomID=" + Mushroom.MushroomID + " class='btn btn-primary'>Upload Image</a>" + "</div>");
                         $("#mushroomTable").append(tr + td1 + td2 + td3 + td4 + td5 + td6 + td7 + td8 + td9 + "</div></div>");
                     }
                 },
@@ -85,13 +86,13 @@
     });
 </script>
 
-<h2>IdentifyMushrooms</h2>
+<h2 id="center">Find Your Mushroom!</h2>
     <div class="container" id="mushroomTable">
         <div class="row align-items-center" id="mushroomTable">
             @foreach (var Mushroom in ViewBag.Mushrooms)
             {
                 <div class="col-sm-4">
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading"><h3 class="panel-title"><b>Mushroom ID#: </b>@Mushroom.MushroomID</h3></div>
                         <div class="panel-body bounding-box">
                         <div class="thumbnail"><a href="/Mushroom/ListSpecificMushroom?MushroomID=@Mushroom.MushroomID"><img id="imgPic" class="img-responsive" src="@Mushroom.PictureURL" style="height: 200px; width: 200px;" /></a></div>
@@ -101,7 +102,7 @@
                         <p class="text-left"><b>Cap Color: </b>@Mushroom.CapColor</p><br />
                         <p class="text-left"><b>Mushroom Stem: </b>@Mushroom.Stem</p><br />
                         <p class="text-left"><b>Mushroom Edibility: </b>@Mushroom.Edibility</p><br />
-                        <a href="../Home/UploadImage?MushroomID=@Mushroom.MushroomID" class="btn btn-primary">Upload Image</a>
+                        <div id="uploadImage"><a href="../Home/UploadImage?MushroomID=@Mushroom.MushroomID" class="btn btn-primary">Upload Image</a></div>
                         </div>
                     </div>
                 </div>
@@ -109,4 +110,4 @@
         </div>
     </div>
 
-Don't see your mushroom? <a href="../Mushroom/AddMushroomToDB" class="btn btn-primary">Add Mushroom</a>
+<h3 id="center">Don't see your mushroom?</h3> <div id="center"><a href="../Mushroom/AddMushroomToDB" class="btn btn-primary">Add Mushroom</a></div>
