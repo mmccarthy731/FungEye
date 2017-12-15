@@ -82,7 +82,7 @@
                     <br />
                     <div id="center"><a href="/Mushroom/UpdateMushroom?MushroomID=@ViewBag.Mushroom.MushroomID" class="btn btn-primary">Update Mushroom Info</a></div>
                 </div>
-                @if (ViewBag.UserMushrooms.Count > 0)
+                @if (ViewBag.UserMushrooms != null)
                 {
                     <br /><br /><h3 id="center">User Findings</h3><br /><br />
                     foreach (var userMush in ViewBag.UserMushrooms)
