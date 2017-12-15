@@ -30,7 +30,7 @@
                     for (var i = 0; i < response.length; i++) {
                         var User = response[i];
                         var tr = "<tr>"
-                        var td1 = ("<td>" + User.Email + "</td>");
+                        var td1 = ("<td>" + "<a href='/Home/GetUserID?email=" + User.Email + "'>" + User.Email + "</a>" + "</td>");
                         var td2 = ("<td>" + User.UniqueCount + "</td>");
                         var td3 = ("<td>" + User.TotalCount + "</td>");
                         $("#leaderboard").append(tr + td1 + td2 + td3 + "</tr>");
@@ -64,7 +64,7 @@
     {
         <tr>
             <td>
-                @user.Email
+                <a href="/Home/GetUserID?email=@user.Email">@user.Email</a>
             </td>
             <td>
                 @user.UniqueCount

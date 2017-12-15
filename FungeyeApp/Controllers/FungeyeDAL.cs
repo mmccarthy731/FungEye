@@ -180,5 +180,10 @@ namespace FungeyeApp.Controllers
 
             UserORM.SaveChanges();
         }
+
+        public string GetUserID(string email)
+        {
+            return UserORM.Users.Where(x => x.Email == email).Select(x => x.Id).ToList().First();
+        }
     }
 }

@@ -36,9 +36,16 @@ namespace FungeyeApp.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult AddPictureToUser(HttpPostedFileBase fileUpload)
         {
             FungeyeDAL DAL = new FungeyeDAL();
+
+            if (fileUpload == null)
+            {
+                ViewBag.ErrorMessage = "We were unable to upload your image. Please try again.";
+                return View("UploadUserImage");
+            }
 
             DAL.UpdateUserPic(fileUpload, User.Identity.GetUserId());
 
@@ -49,6 +56,7 @@ namespace FungeyeApp.Controllers
         public ActionResult ViewUploadedImage(HttpPostedFileBase fileUpload, string userDescription, string address, string mushroomID)
         {
             FungeyeDAL DAL = new FungeyeDAL();
+
             if (fileUpload == null)
             {
                 ViewBag.ErrorMessage = "We were unable to upload your image. Please try again.";
@@ -71,6 +79,15 @@ namespace FungeyeApp.Controllers
         public ActionResult AboutUs()
         {
             return View();
+        }
+
+        public ActionResult GetUserID(string email)
+        {
+            FungeyeDAL DAL = new FungeyeDAL();
+
+            string userID = DAL.GetUserID(email);
+
+            return RedirectToAction("GetUserInfo", new { id = userID });
         }
 
         public ActionResult GetUserInfo(string id)
